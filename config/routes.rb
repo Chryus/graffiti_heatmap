@@ -1,5 +1,7 @@
 GraffitiHeatmap::Application.routes.draw do
   get "graffiti/index"
+
+  #get "graffiti/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

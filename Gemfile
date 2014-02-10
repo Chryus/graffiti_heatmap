@@ -12,6 +12,12 @@ gem 'geocoder'
 #haml for views
 gem 'haml'
 
+#json for reading data
+gem 'json'
+
+#can't do without it
+gem 'debugger'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

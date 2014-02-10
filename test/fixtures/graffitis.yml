@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  y_coordinate: 1.5
+  x_coordinate: 1.5
+  borough: MyString
+  incident_address: MyString
+
+two:
+  status: MyString
+  y_coordinate: 1.5
+  x_coordinate: 1.5
+  borough: MyString
+  incident_address: MyString

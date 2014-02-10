@@ -1,4 +1,16 @@
 %h1 Graffiti Heatmap
 %p Let's find some graffiti art
 %br
-=@display.inspect
+-@graffiti.each do |g|
+  ="#{g.id}."
+  ="Address: #{g.incident_address}"
+  %br
+  ="Borough: #{g.borough}"
+  %br
+  ="x-coordinate: #{g.x_coordinate}"
+  %br
+  ="y-coordinate: #{g.y_coordinate}"
+  %br
+  ="Status: #{g.status}" 
+  %br
+  %br

@@ -11,9 +11,16 @@ class Graffiti < ActiveRecord::Base
   def self.geocoded_graffiti
     geo_data = []
     Graffiti.by_location.each do |incident|
-      geo_data << { lat:incident.x_coordinate, lng:incident.y_coordinate}
+      geo_data << { lat:incident.y_coordinate, lng:incident.x_coordinate, count.incident.count}
+    end
+    geo_data
   end
 
+  
+  def self.by_location
+    g = Graffiti.all(:select => "y_coordinate, x_coordinate, COUNT(*) as count", :group => "y_coordinate, x_coordinate")
+    g
+  end
 
   def get_graffiti
     data = open("http://data.cityofnewyork.us/resource/gpwd-npar.json")

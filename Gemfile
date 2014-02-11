@@ -9,6 +9,10 @@ gem 'sqlite3'
 # geocoder for mapping
 gem 'geocoder'
 
+#to use attr_accessible
+gem 'protected_attributes'
+gem 'devise', '3.0.0.rc'
+
 #haml for views
 gem 'haml'
 

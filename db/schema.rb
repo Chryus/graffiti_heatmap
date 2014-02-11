@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140210020909) do
+ActiveRecord::Schema.define(version: 20140211184403) do
 
   create_table "graffitis", force: true do |t|
     t.float    "y_coordinate"
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20140210020909) do
     t.string   "incident_address"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "latitude"
+    t.float    "longitude"
   end
 
 end

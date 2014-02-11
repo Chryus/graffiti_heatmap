@@ -6,8 +6,13 @@ class GraffitiController < ApplicationController
   end
 
   def geocoded_graffiti
-    @geocoded_graffiti = Graffiti.map_graffiti
+    @geocoded_graffiti = Graffiti.geocode_graffiti
     render :json => @geocoded_graffiti
   end
 
+  private
+
+  def graffiti_params
+    params.require(:graffiti).permit(:latitude, :longitude, :y_coordinate, :x_coordinate, :borough, :status, :incident_address)
+  end
 end

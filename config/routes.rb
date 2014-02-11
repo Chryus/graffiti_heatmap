@@ -1,5 +1,12 @@
 GraffitiHeatmap::Application.routes.draw do
-  get "graffiti/index"
+  root :to => 'graffiti#index'
+
+  get 'graffiti/geocoded_graffiti' => 'graffiti#geocoded_graffiti'
+  
+  resources :graffiti do
+  end
+  
+  
 
   #get "graffiti/index"
   # The priority is based upon order of creation: first created -> highest priority.

@@ -5,8 +5,9 @@ class GraffitiController < ApplicationController
     @graffiti = Graffiti.all
   end
 
-  # def show
-  #   @display
-  # end
+  def geocoded_graffiti
+    @geocoded_graffiti = Graffiti.map_graffiti
+    render :json => @geocoded_graffiti
+  end
 
 end

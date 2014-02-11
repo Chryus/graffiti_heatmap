@@ -1,0 +1,13 @@
+body {
+background-color:black;
+color: rgb(66, 222, 107);
+font-family: Futura;
+}
+
+#map-canvas {
+  float: right;
+  margin-right: 50px;
+  width: 800px;
+  height: 500px;
+  border: 1px solid black;
+}

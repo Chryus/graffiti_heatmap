@@ -1,5 +1,7 @@
 %h1 Graffiti Heatmap
 %p Let's find some graffiti art
+#map-canvas
+%br
 %br
 -@graffiti.each do |g|
   ="#{g.id}."
@@ -14,3 +16,4 @@
   ="Status: #{g.status}" 
   %br
   %br
+

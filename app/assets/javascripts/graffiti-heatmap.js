@@ -5,7 +5,7 @@ var GraffitiData;
 var myLatlng;
 var mapData;
 
-window.onload = function() {
+window.onload = function () {
   myLatlng = new google.maps.LatLng(40.715845, -73.884675);
   mapOptions = {
     center: myLatlng,
@@ -14,14 +14,18 @@ window.onload = function() {
   map = new google.maps.Map(document.getElementById("map-canvas"),
     mapOptions);
 
-  heatmap = new HeatmapOverlay(map, {"radius":30, "visible":true, "opacity":70});
+  heatmap = new HeatmapOverlay(map, {
+    "radius": 30,
+    "visible": true,
+    "opacity": 70
+  });
 
   $.ajax({
     type: "GET",
     dataType: "json",
     url: "/graffiti/geocoded_graffiti",
-    success: function(data){
-      mapData={
+    success: function (data) {
+      mapData = {
         //max is the abruptness of the gradient
         max: 10,
         data: data
@@ -29,19 +33,19 @@ window.onload = function() {
     }
   });
 
-  alert
+
   var marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      title: 'Hello World!'
+    position: myLatlng,
+    map: map,
+    title: 'Hello World!'
   });
 
-  google.maps.event.addListener(map, "idle", function() {
-    heatmap.setDataSet(mapData);
-  });
-  
-  
-  
-};
-
-
+  google.maps.event.addListener(map, "idle", function () {
+      heatmap.setDataSet(mapData);
+      $.each(mapData, function (i, g) {
+        new google.maps.Marker({
+          position: new google.maps.LatLng(g.lat, g.lng),
+          map: map,
+        });
+      });
+    };

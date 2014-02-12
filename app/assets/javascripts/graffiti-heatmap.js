@@ -2,10 +2,13 @@ var map;
 var mapOptions;
 var heatmap;
 var GraffitiData;
+var myLatlng;
+var mapData;
 
 window.onload = function() {
+  myLatlng = new google.maps.LatLng(40.715845, -73.884675);
   mapOptions = {
-    center: new google.maps.LatLng(40.715845, -73.884675),
+    center: myLatlng,
     zoom: 11,
   }
   map = new google.maps.Map(document.getElementById("map-canvas"),
@@ -24,13 +27,21 @@ window.onload = function() {
         data: data
       }
     }
-    
+  });
+
+  alert
+  var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: 'Hello World!'
   });
 
   google.maps.event.addListener(map, "idle", function() {
     heatmap.setDataSet(mapData);
   });
-
+  
+  
+  
 };
 
 

@@ -24,6 +24,7 @@ class Graffiti < ActiveRecord::Base
     data = open("http://data.cityofnewyork.us/resource/gpwd-npar.json")
     graffiti_parsed = JSON.parse(data.read)
     graffiti_parsed.each do |incident|
+      debugger
       incident.delete("created_date")
       incident.delete("bbl")
       incident.delete("city_council_district")
@@ -31,10 +32,17 @@ class Graffiti < ActiveRecord::Base
       incident.delete("resolution_action")
       incident.delete("community_board")
       incident.delete("police_precinct")
+      incident.update(:incident_address => add_city_state(incident["incident_address"], incident["borough"]))
       g = Graffiti.new(incident)
+      debugger
       g.save
     end
     graffiti_parsed
   end
 
 end
+
+def add_city_state(address, borough)
+  address << ", " << borough << ", NY"
+end
+

@@ -11,3 +11,12 @@ font-family: Futura;
   height: 500px;
   border: 1px solid black;
 }
+
+#panel {
+  position: absolute;
+  top: 126px;
+  left: 65%;
+  margin-left: -180px;
+  z-index: 6;
+  padding: 5px;
+}

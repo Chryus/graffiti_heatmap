@@ -11,6 +11,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div id="panel">
+      <input onclick="clearMarkers();" type=button value="Hide Markers">
+      <input onclick="showMarkers();" type=button value="Show All Markers">
+  </div>
 
 <%= yield %>
 

@@ -3,6 +3,7 @@ class GraffitiController < ApplicationController
 
   def index
     @graffiti = Graffiti.all
+    File.read(File.join('public/app', 'index.html'))
   end
 
   def geocoded_graffiti

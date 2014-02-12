@@ -3,7 +3,7 @@ require 'open-uri'
 
 class Graffiti < ActiveRecord::Base
 
-  attr_accessible :status, :y_coordinate, :x_coordinate, :borough, :incident_address, :latitude, :longitude
+  attr_accessible :status, :borough, :incident_address, :latitude, :longitude
 
   geocoded_by :incident_address, :if => :incident_address_changed?
   after_validation :geocode
@@ -25,7 +25,8 @@ class Graffiti < ActiveRecord::Base
     data = open("http://data.cityofnewyork.us/resource/gpwd-npar.json")
     graffiti_parsed = JSON.parse(data.read)
     graffiti_parsed.each do |incident|
-      debugger
+      incident.delete("x_coordinate")
+      incident.delete("y_coordinate")
       incident.delete("created_date")
       incident.delete("bbl")
       incident.delete("city_council_district")
@@ -35,13 +36,13 @@ class Graffiti < ActiveRecord::Base
       incident.delete("police_precinct")
       incident.update(:incident_address => add_city_state(incident["incident_address"], incident["borough"]))
       g = Graffiti.new(incident)
-      debugger
       g.save
+      puts "hi"
     end
     graffiti_parsed
   end
 
-  def add_city_state(address, borough)
+  def self.add_city_state(address, borough)
     address << ", " << borough << ", NY"
   end
 

@@ -20,7 +20,8 @@ class Graffiti < ActiveRecord::Base
     Graffiti.all(:select => "latitude, longitude, COUNT(*) as count", :group => "latitude, longitude")
   end
 
-  def self.get_graffiti
+  def self.make_graffiti
+    empty_database
     data = open("http://data.cityofnewyork.us/resource/gpwd-npar.json")
     graffiti_parsed = JSON.parse(data.read)
     graffiti_parsed.each do |incident|
@@ -40,9 +41,16 @@ class Graffiti < ActiveRecord::Base
     graffiti_parsed
   end
 
+  def add_city_state(address, borough)
+    address << ", " << borough << ", NY"
+  end
+
+  def self.empty_database
+    self.all.each {|x| x.destroy}
+  end
+
+
 end
 
-def add_city_state(address, borough)
-  address << ", " << borough << ", NY"
-end
+
 

@@ -1,19 +1,22 @@
-%h1 Graffiti Heatmap
-%p Let's find some graffiti art
+%h1
+  #title Graffiti Heatmap
+%p 
+  #subtitle Let's find some graffiti.
 #panel
+%br
+%br
 #map-canvas
+  / #panel
+  /   %input onclick="showMarkers();" type=button value="Show All Markers"
+  /   %input onclick="clearMarkers();" type=button value="Hide Markers"
+  /   %input type="button" value="Toggle Street View" onclick="toggleStreetView();"
 %br
 %br
+%ul
 -@graffiti.each do |g|
-  ="Address: #{g.incident_address}"
-  %br
-  ="Borough: #{g.borough}"
-  %br
-  ="Latitude: #{g.latitude}"
-  %br
-  ="Longitude: #{g.longitude}"
-  %br
-  ="Status: #{g.status}" 
-  %br
+  %li="Address: #{g.incident_address}"
+  %li="Borough: #{g.borough}"
+  %li="Latitude: #{g.latitude}"
+  %li="Longitude: #{g.longitude}"
   %br
 

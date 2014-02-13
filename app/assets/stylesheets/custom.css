@@ -12,11 +12,35 @@ font-family: Futura;
   border: 1px solid black;
 }
 
+#title {
+  text-align: center;
+  font-size: 3em;
+}
+
+ul {
+  margin-top: -60px;
+}
+
+li {
+  list-style-type:none;
+  margin-left: 10px;
+}
+
+#subtitle {
+  text-align: center;
+  margin-top: -30px;
+  font-size: 2em;
+}
+
 #panel {
   position: absolute;
-  top: 126px;
-  left: 65%;
-  margin-left: -180px;
+  top: 244.2px;
+  left: 100.65%;
+  margin-left: -210px;
   z-index: 6;
   padding: 5px;
+  background-color: rgba(255, 182, 193, 0);
+  border-top-left-radius:10px;
+  border-bottom-right-radius:10px;
+  border-bottom-left-radius:10px;
 }

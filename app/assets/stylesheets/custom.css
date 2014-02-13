@@ -17,6 +17,12 @@ font-family: Futura;
   font-size: 3em;
 }
 
+.button {
+  background-color: rgb(255, 15, 135);
+  border-radius: 5px;
+  font-family: futura;
+}
+
 ul {
   margin-top: -60px;
 }

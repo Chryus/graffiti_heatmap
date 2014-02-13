@@ -29,7 +29,7 @@ window.onload = function () {
     mapOptions);
 
   heatmap = new HeatmapOverlay(map, {
-    "radius": 15,
+    "radius": 20,
     "dissipating": false,
     "visible": true,
     "opacity": 80
@@ -42,7 +42,7 @@ window.onload = function () {
     success: function (data) {
       mapData = {
         //max is the abruptness of the gradient
-        max: 7,
+        max: 8,
         data: data
       };
 

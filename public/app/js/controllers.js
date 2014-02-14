@@ -3,12 +3,12 @@
 var graffitiControllers = angular.module('graffitiControllers', []);
 
 graffitiApp.controller('GraffitiListCtrl', ['$scope', 'Graffiti',
-  // function($scope, Graffiti){
-  //   $http.get('http://localhost:3000/graffiti/geocoded_graffiti').success(function(data) {
-  //    $scope.graffitis = data;
-  //   });
+  function($scope, Graffiti){
+    $http.get('http://localhost:3000/graffiti/geocoded_graffiti').success(function(data) {
+     $scope.graffitis = data;
+    });
  
-    $scope.graffitis = Graffiti.query();
+    // $scope.graffitis = Graffiti.query();
 
     $scope.orderProp = 'name';
   }]);

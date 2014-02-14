@@ -19,7 +19,7 @@ var graffitiApp = angular.module('graffitiApp', [
 graffitiApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/graffiti', {
+      when('/geocoded_graffiti', {
         templateUrl: 'partials/graffiti-list.html',
         controller: 'GraffitiListCtrl'
       }).
@@ -36,6 +36,6 @@ graffitiApp.config(['$routeProvider',
         controller: 'GraffitiDetailCtrl'
       }).
       otherwise({
-        redirectTo: '/graffiti'
+        redirectTo: '/geocoded_graffiti'
       });
   }]);

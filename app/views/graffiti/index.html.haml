@@ -1,15 +1,12 @@
 %h1
   #title Graffiti Heatmap
-%p 
-  #subtitle Let's find some graffiti.
+#subtitle Let's find some graffiti.
+%h3
+  #sign_up=link_to "Sign up", new_user_path 
 #panel
 %br
 %br
 #map-canvas
-  / #panel
-  /   %input onclick="showMarkers();" type=button value="Show All Markers"
-  /   %input onclick="clearMarkers();" type=button value="Hide Markers"
-  /   %input type="button" value="Toggle Street View" onclick="toggleStreetView();"
 %br
 %br
 %ul

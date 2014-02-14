@@ -12,6 +12,12 @@ font-family: Futura;
   border: 1px solid black;
 }
 
+#sign_up {
+  float:right;
+  margin-top: -195px;
+  margin-right: 12px;
+}
+
 #title {
   text-align: center;
   font-size: 3em;

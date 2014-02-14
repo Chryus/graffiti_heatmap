@@ -6,10 +6,14 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def new
+    @user = User.new
+  end
+
   def create
     #get user data from form
     @user = User.new(params[:user])
-    @user.save
+    if @user.save
       flash[:success] = "Let's find some graffiti."
       redirect_to user_path(@user)
     else

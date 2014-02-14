@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  
+  Dir['./model/*.rb'].each {|file| require file}
+
   def index
     @users = User.all
   end
@@ -13,4 +16,9 @@ class UsersController < ApplicationController
       render "new"
     end
   end
+
+  def show
+    @user = User.find(params[:id])
+  end
+
 end

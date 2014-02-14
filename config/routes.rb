@@ -1,12 +1,15 @@
 GraffitiHeatmap::Application.routes.draw do
-  get "pictures/index"
-  get "users/index"
   root :to => 'graffiti#index'
 
   get 'graffiti/geocoded_graffiti' => 'graffiti#geocoded_graffiti'
   
   resources :graffiti do
   end
+
+  resources :users do
+    resources :pictures
+  end
+
   
   
 

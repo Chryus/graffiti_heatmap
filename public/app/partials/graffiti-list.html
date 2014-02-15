@@ -1,17 +1,19 @@
-{{graffitis}}
-
 <div class="container-fluid">
-      <div class="billions"></div>
-      <img id="sagan" src="img/sagan.png"/>
-      <a class="new" href="#/new">Register a New Space Cat</a>
-      <div class="jumbo">  
-        <h1>List of graffiti spottings in NYC</h1>
+        <h1 id="title">Graffiti Heatmap</h1><br>
+        <h4 id="subtitle">Let's find some graffiti.</h2>
         <!-- add ng-model: var to your input to store user input -->
         <input id="search" type="text" ng-model="query" />
         <select ng-model="orderProp">
-          <option value="latitude">Latitude</option>
-          <option value="longitude">Longitude</option>
+          <option value="Latitude">Latitude</option>
+          <option value="Longitude">Longitude</option>
         </select>
+        <div id="map-canvas">
+        </div>
+      </div>
+      <div id="panel">
+        <input class="button" id="markers" type=button value="Toggle markers"><br>
+        <input class="button" id="heat" type=button value="Toggle heatmap">
+        <!-- <input type="button" value="Toggle Street View" onclick="toggleStreetView();"></input> -->
       </div>
       <div class="container">
         <ul class="graffitis">
@@ -21,11 +23,12 @@
           <!-- use pipe filter: query to auto sort your graffitis -->
           <li ng-repeat="graffiti in graffitis | filter:query | orderBy:orderProp" class="graffiti">
             <div class="info">
-              <a href="#/graffitis/{{graffiti.lat}}">
-                <h3>{{graffiti.count}}</h3>
-              </a>
-              <p>{{graffiti.count}}</p>
+              <a href="#/graffiti/{{graffiti.lat}}">
+                <h3>{{graffiti.id}}</h3>
+              </a><br><br><br>
               <ul>
+                <li>Address: {{graffiti.incident_adddress}}</li>
+                <li>Borough: {{graffiti.borough}}</li>
                 <li>Latitude: {{graffiti.lat}}</li>
                 <li>Longitude: {{graffiti.lng}}</li>
               </ul>
@@ -34,3 +37,23 @@
         </ul>
       </div>
     </div>
+
+
+    %h1
+  #title Graffiti Heatmap
+#subtitle Let's find some graffiti.
+%h3
+  #sign_up=link_to "Sign up", new_user_path 
+#panel
+%br
+%br
+#map-canvas
+%br
+%br
+%ul
+-@graffiti.each do |g|
+  %li="Address: #{g.incident_address}"
+  %li="Borough: #{g.borough}"
+  %li="Latitude: #{g.latitude}"
+  %li="Longitude: #{g.longitude}"
+  %br

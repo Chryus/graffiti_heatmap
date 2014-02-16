@@ -8,7 +8,7 @@ font-family: Futura;
   float: right;
   margin-top: 20px;
   margin-right: 50px;
-  width: 700px;
+  width: 750px;
   height: 500px;
   border: 1px solid black;
 }
@@ -35,23 +35,39 @@ font-family: Futura;
 
 #search {
   margin-top: 30px;
+  width: 25%;
   margin-left: 20px;
-  padding: 50px;
+  padding: 20px;
 }
 
 ul {
   margin-top: -60px;
 }
 
-.graffiti-container {
+/*.graffiti-container {
   margin: auto;
   width: 50%;
+}*/
+
+.address {
+  margin-left: -50px;
+  -webkit-transition: color 1s, -webkit-transform 1s;
+  transition: color 1s, transform 1s;
+}
+
+.address:hover {
+  color: rgb(255, 15, 135);
+  transition-duration: 0.5s;
 }
 
 .graffitis {
   margin-top: 40px;
   margin-left: -85px;
   display: block;
+}
+
+h3 {
+  color: #3a79ad;
 }
 
 li {

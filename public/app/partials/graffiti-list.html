@@ -22,10 +22,9 @@
               this says make an li for every graffiti in the set graffitis --> 
           <!-- use pipe filter: query to auto sort your graffitis -->
           <li ng-repeat="graffiti in graffitis | filter:query | orderBy:orderProp" class="graffiti">
-            <div class="info">
-              <a href="#/graffitis/{{graffiti.id}}">
-                <h3>Graffito!</h3>
-              </a><br><br><br>
+            <div class="info">   
+            <h3>graffito</h3> 
+            <br><br><br><br>
               <ul class="address">
                 <li>Address: {{graffiti.incident_address}}</li>
                 <li>Borough: {{graffiti.borough}}</li>

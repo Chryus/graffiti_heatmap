@@ -136,7 +136,8 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
       // click on address, retrieve latitude
       //search for marker with that latitude
       //open streetview in google map
-      $('.address').on('click', function(event) {
+      $('ul .address').on('click', function(event) {
+        alert("wewu");
         var lat = $(this).find('li').eq(2).text().match(/\d{2}.\d+/).pop();
         alert(lat);
         matchLat(map, lat);

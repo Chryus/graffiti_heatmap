@@ -66,18 +66,18 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
       markers.push(marker);
       clearMarkers();
       (function (marker, i) {
-          // add click event
-          google.maps.event.addListener(marker, 'click', function () {
-          panorama = map.getStreetView();
-          panorama.setPosition(marker.getPosition());
-          panorama.setPov({
-          heading: 265,
-          pitch: 0
-          });
-          panorama.setVisible(true);
-          });
-        })(marker, i);
+        // add click event
+        google.maps.event.addListener(marker, 'click', function () {
+        panorama = map.getStreetView();
+        panorama.setPosition(marker.getPosition());
+        panorama.setPov({
+        heading: 265,
+        pitch: 0
         });
+        panorama.setVisible(true);
+        });
+      })(marker, i);
+    });
 
     // Sets the map on all markers in the array.
     function setAllMap(map) {
@@ -88,7 +88,6 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
 
     //get latitude of each datum
     function matchLat(map, lat) {
-      alert(lat);
       for (var i = 0; i < markers.length; i++) {
         if (markers[i].position.d == lat) {
           console.log(markers[i]);
@@ -136,10 +135,16 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
       // click on address, retrieve latitude
       //search for marker with that latitude
       //open streetview in google map
-      $('ul .address').on('click', function(event) {
-        alert("wewu");
+
+    //   $('ul .address').click(function(){
+    //     alert(setTimeout("$(this).find('li').eq(2).text().match(/\d{2}.\d+/).pop()", 1500));
+    //     // alert(lat);
+    //     matchLat(map, lat);
+    // });
+
+      $('ul .address').on('click', function(event) {   
+        setTimeout(1200);  
         var lat = $(this).find('li').eq(2).text().match(/\d{2}.\d+/).pop();
-        alert(lat);
         matchLat(map, lat);
       });
 

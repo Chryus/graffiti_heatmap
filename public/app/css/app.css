@@ -6,15 +6,16 @@ font-family: Futura;
 
 #map-canvas {
   float: right;
+  margin-top: 20px;
   margin-right: 50px;
-  width: 750px;
+  width: 700px;
   height: 500px;
   border: 1px solid black;
 }
 
 #sign_up {
   float:right;
-  margin-top: -195px;
+  margin-top: -20px;
   margin-right: 12px;
 }
 
@@ -27,6 +28,15 @@ font-family: Futura;
   background-color: rgb(255, 15, 135);
   border-radius: 5px;
   font-family: futura;
+  padding: 3px;
+  margin: 2px;
+}
+
+
+#search {
+  margin-top: 30px;
+  margin-left: 20px;
+  padding: 50px;
 }
 
 ul {
@@ -38,8 +48,9 @@ ul {
   width: 50%;
 }
 
-.graffiti {
-  list-style: none;
+.graffitis {
+  margin-top: 40px;
+  margin-left: -85px;
   display: block;
 }
 
@@ -56,7 +67,7 @@ li {
 
 #panel {
   position: absolute;
-  top: 164.2px;
+  top: 176.2px;
   left: 100.65%;
   margin-left: -210px;
   z-index: 6;

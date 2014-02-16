@@ -10,9 +10,15 @@ var marker;
 
 
 graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
+    
   function($scope, $http, Graffiti) {
-    $http.get('http://localhost:3000/graffiti').success(function(data) {
-    $scope.graffiti = data;
+    
+    $http.get('graffiti/get_graffiti.json').success(function(data) {
+      $scope.graffitis = data;
+    });
+
+    $http.get('graffiti/geo_graffiti.json').success(function(data) {
+    $scope.geo_graffiti = data;
     var mapData = {
         //max is the abruptness of the gradient
         max: 10,
@@ -80,6 +86,23 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
       }
     }
 
+    //get latitude of each datum
+    function matchLat(map, lat) {
+      alert(lat);
+      for (var i = 0; i < markers.length; i++) {
+        if (markers[i].position.d == lat) {
+          console.log(markers[i]);
+          panorama = map.getStreetView();
+          panorama.setPosition(markers[i].getPosition());
+          panorama.setPov({
+          heading: 265,
+          pitch: 0
+          });
+          panorama.setVisible(true);
+        }          
+      }
+    }
+
     // Removes the markers from the map, but keeps them in the array.
     function clearMarkers() {
       setAllMap(null);
@@ -98,7 +121,7 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
     }
 
     $(document).ready(function () {
-
+      
       var i = 0;
 
       $('#map-canvas').on("dblclick", function () {
@@ -108,6 +131,15 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
           showMarkers();
         }
         i++;
+      });
+      
+      // click on address, retrieve latitude
+      //search for marker with that latitude
+      //open streetview in google map
+      $('.address').on('click', function(event) {
+        var lat = $(this).find('li').eq(2).text().match(/\d{2}.\d+/).pop();
+        alert(lat);
+        matchLat(map, lat);
       });
 
       $('#markers').on("click", function() {
@@ -121,7 +153,7 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
     });
       
   });
-$scope.orderProp = 'latitude';
+$scope.orderProp = 'incident_address';
 }]);
 
 

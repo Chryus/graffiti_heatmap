@@ -1,11 +1,11 @@
-<div class="container-fluid">
-        <h1 id="title">Graffiti Heatmap</h1><br>
+      <h1 id="title">Graffiti Heatmap</h1><br>
         <h4 id="subtitle">Let's find some graffiti.</h2>
         <!-- add ng-model: var to your input to store user input -->
         <input id="search" type="text" ng-model="query" />
-        <select ng-model="orderProp">
-          <option value="Latitude">Latitude</option>
+        <select id="pullme" ng-model="orderProp">
+          <option value="Borough">Borough</option>
           <option value="Longitude">Longitude</option>
+          <option value="Address">Address</option>
         </select>
         <div id="map-canvas">
         </div>
@@ -23,37 +23,17 @@
           <!-- use pipe filter: query to auto sort your graffitis -->
           <li ng-repeat="graffiti in graffitis | filter:query | orderBy:orderProp" class="graffiti">
             <div class="info">
-              <a href="#/graffiti/{{graffiti.lat}}">
-                <h3>{{graffiti.id}}</h3>
+              <a href="#/graffitis/{{graffiti.id}}">
+                <h3>Graffito!</h3>
               </a><br><br><br>
-              <ul>
-                <li>Address: {{graffiti.incident_adddress}}</li>
+              <ul class="address">
+                <li>Address: {{graffiti.incident_address}}</li>
                 <li>Borough: {{graffiti.borough}}</li>
-                <li>Latitude: {{graffiti.lat}}</li>
-                <li>Longitude: {{graffiti.lng}}</li>
+                <li>Latitude: {{graffiti.latitude}}</li> 
+                <li>Longitude: {{graffiti.longitude}}</li> 
               </ul>
             </div>
           </li>
         </ul>
       </div>
-    </div>
-
-
-    %h1
-  #title Graffiti Heatmap
-#subtitle Let's find some graffiti.
-%h3
-  #sign_up=link_to "Sign up", new_user_path 
-#panel
-%br
-%br
-#map-canvas
-%br
-%br
-%ul
--@graffiti.each do |g|
-  %li="Address: #{g.incident_address}"
-  %li="Borough: #{g.borough}"
-  %li="Latitude: #{g.latitude}"
-  %li="Longitude: #{g.longitude}"
-  %br
+  

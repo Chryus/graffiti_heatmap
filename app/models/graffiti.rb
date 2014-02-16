@@ -11,9 +11,15 @@ class Graffiti < ActiveRecord::Base
   def self.geocode_graffiti
     geo_data = []
     self.by_location.each do |incident|
-      geo_data << {:lat => incident.latitude, :lng => incident.longitude, :count => incident.count}
+      if incident.latitude != nil
+        geo_data << {:lat => incident.latitude, :lng => incident.longitude, :count => incident.count}
+      end
     end
     geo_data
+  end
+
+  def self.correct_empty_latitudes
+    self.all.reject{|g| g.latitude == nil}
   end
 
   def self.by_location
@@ -37,12 +43,11 @@ class Graffiti < ActiveRecord::Base
       incident.update(:incident_address => add_city_state(incident["incident_address"], incident["borough"]))
       g = Graffiti.new(incident)
       g.save
-      puts "hi"
     end
     graffiti_parsed
   end
 
-  def self.add_city_state(address, borough)
+  def self.add_city_state address, borough
     address << ", " << borough << ", NY"
   end
 

@@ -8,7 +8,7 @@ class GraffitiController < ApplicationController
   end
 
   def get_graffiti
-    @get_graffiti = Graffiti.all.to_json
+    @get_graffiti = Graffiti.purge_empty_latitudes
     render :json => @get_graffiti
   end
 

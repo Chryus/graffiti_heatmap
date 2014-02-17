@@ -21,15 +21,15 @@
               the value is "resource in set"
               this says make an li for every graffiti in the set graffitis --> 
           <!-- use pipe filter: query to auto sort your graffitis -->
-          <li ng-repeat="graffiti in graffitis | filter:query | orderBy:orderProp" class="graffiti">
+          <li ng-repeat="graffito in graffiti | filter:query | orderBy:orderProp" class="graffiti">
             <div class="info">   
             <h3>graffito</h3> 
             <br><br><br><br>
               <ul class="address">
-                <li>Address: {{graffiti.incident_address}}</li>
-                <li>Borough: {{graffiti.borough}}</li>
-                <li>Latitude: {{graffiti.latitude}}</li> 
-                <li>Longitude: {{graffiti.longitude}}</li> 
+                <li>Address: {{graffito.incident_address}}</li>
+                <li>Borough: {{graffito.borough}}</li>
+                <li>Latitude: {{graffito.latitude}}</li> 
+                <li>Longitude: {{graffito.longitude}}</li> 
               </ul>
             </div>
           </li>

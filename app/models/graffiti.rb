@@ -18,7 +18,7 @@ class Graffiti < ActiveRecord::Base
     geo_data
   end
 
-  def self.correct_empty_latitudes
+  def self.purge_empty_latitudes
     self.all.reject{|g| g.latitude == nil}
   end
 

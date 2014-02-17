@@ -13,11 +13,11 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
 
   function ($scope, $http, Graffiti) {
 
-    $http.get('graffiti/get_graffiti.json').success(function (data) {
-      $scope.graffitis = data;
+    $http.get('http://localhost:3000/get_graffiti').success(function (data) {
+      $scope.graffiti = data;
     });
 
-    $http.get('graffiti/geo_graffiti.json').success(function (data) {
+    $http.get('http://localhost:3000/geo_graffiti').success(function (data) {
       $scope.geo_graffiti = data;
       var mapData = {
         //max is the abruptness of the gradient
@@ -119,7 +119,8 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
           setAllMap(null); // marker is visible on map, so make it invisible
       }
 
-      $(document).ready(function () {
+
+       $(document).ready(function () {
 
         var i = 0;
 
@@ -133,8 +134,8 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
         });
 
         // click on address, open streetview in google map
-        $('ul .address').on('click', function (event) {
-          setTimeout(1200);
+        $('.address').on('click', function (event) {
+          setTimeout(1600);
           var lat = $(this).find('li').eq(2).text().match(/\d{2}.\d+/).pop();
           matchLat(map, lat);
         });

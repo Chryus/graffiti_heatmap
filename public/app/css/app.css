@@ -32,22 +32,45 @@ font-family: Futura;
   margin: 2px;
 }
 
-
+/*
 #search {
   margin-top: 30px;
   width: 25%;
   margin-left: 20px;
   padding: 20px;
+}*/
+
+#search, select, input {
+  margin-top: 40px;
+  width: 170px;
+  color: black;
+  border: lightblue solid 2px;
+  padding: 2px;
+  margin: 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#panel {
+  position: absolute;
+  top: 176.2px;
+  left: 100.65%;
+  margin-left: -260px;
+  z-index: 6;
+  padding: 5px;
+  background-color: rgba(255, 182, 193, 0);
+  border-top-left-radius:10px;
+  border-bottom-right-radius:10px;
+  border-bottom-left-radius:10px;
 }
 
 ul {
   margin-top: -60px;
 }
 
-/*.graffiti-container {
-  margin: auto;
-  width: 50%;
-}*/
+.container {
+  margin-top: -10px;
+}
 
 .address {
   margin-left: -50px;
@@ -81,15 +104,3 @@ li {
   font-size: 2em;
 }
 
-#panel {
-  position: absolute;
-  top: 176.2px;
-  left: 100.65%;
-  margin-left: -210px;
-  z-index: 6;
-  padding: 5px;
-  background-color: rgba(255, 182, 193, 0);
-  border-top-left-radius:10px;
-  border-bottom-right-radius:10px;
-  border-bottom-left-radius:10px;
-}

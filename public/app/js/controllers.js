@@ -87,7 +87,8 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
       }
 
       //get latitude of each datum
-      function matchLat(map, lat) {
+      $scope.matchLat = function(lat) {
+        alert('hi');
         for (var i = 0; i < markers.length; i++) {
           if (markers[i].position.d == lat) {
             console.log(markers[i]);
@@ -133,12 +134,12 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
           i++;
         });
 
-        // click on address, open streetview in google map
-        $('.address').on('click', function (event) {
-          setTimeout(1600);
-          var lat = $(this).find('li').eq(2).text().match(/\d{2}.\d+/).pop();
-          matchLat(map, lat);
-        });
+        // // click on address, open streetview in google map
+        // $('.address').on('click', function (event) {
+        //   setTimeout(1600);
+        //   var lat = $(this).find('li').eq(2).text().match(/\d{2}.\d+/).pop();
+        //   matchLat(map, lat);
+        // });
 
         $('#markers').on("click", function () {
           toggleMarkers(marker, map);

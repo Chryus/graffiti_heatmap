@@ -3,9 +3,8 @@
         <!-- add ng-model: var to your input to store user input -->
         <input id="search" type="text" ng-model="query" />
         <select id="pullme" ng-model="orderProp">
-          <option value="Borough">Borough</option>
-          <option value="Longitude">Longitude</option>
           <option value="Address">Address</option>
+          <option value="Borough">Borough</option>      
         </select>
         <div id="map-canvas">
         </div>
@@ -25,7 +24,7 @@
             <div class="info">   
             <h3>graffito</h3> 
             <br><br><br><br>
-              <ul class="address">
+              <ul class="address" ng-click="matchLat(graffito.latitude)">
                 <li>Address: {{graffito.incident_address}}</li>
                 <li>Borough: {{graffito.borough}}</li>
                 <li>Latitude: {{graffito.latitude}}</li> 

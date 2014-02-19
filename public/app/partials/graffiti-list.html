@@ -1,37 +1,37 @@
-      <h1 id="title">Graffiti Heatmap</h1><br>
-        <h4 id="subtitle">Let's find some graffiti.</h2>
-        <!-- add ng-model: var to your input to store user input -->
-        <input id="search" type="text" ng-model="query" />
-        <select id="pullme" ng-model="orderProp">
-          <option value="Address">Address</option>
-          <option value="Borough">Borough</option>      
-        </select>
-        <div id="map-canvas">
+<h1 id="title">GRAFFITO</h1>
+<br>
+<h4 id="subtitle">Let's find some graffiti.</h2>
+  <!-- add ng-model: var to your input to store user input -->
+  <input id="search" type="text" ng-model="query" /> 
+  <select id="pullme" ng-model="orderProp">
+    <option value="Address">Address</option>
+    <option value="Borough">Borough</option>      
+  </select>
+<div id="map-canvas">
+</div>
+  <div id="panel">
+    <input class="button" id="markers" type=button value="Toggle markers"><br>
+    <input class="button" id="heat" type=button value="Toggle heatmap">
+    <!-- <input type="button" value="Toggle Street View" onclick="toggleStreetView();"></input> -->
+  </div>
+  <div class="container">
+    <ul class="graffitis">
+      <!-- add the attribute ng-repeat
+          the value is "resource in set"
+          this says make an li for every graffiti in the set graffitis --> 
+      <!-- use pipe filter: query to auto sort your graffitis -->
+      <li ng-repeat="graffito in graffiti | filter:query | orderBy:orderProp" class="graffiti">
+        <div class="info">   
+        <h3>graffito</h3> 
+        <br><br><br><br>
+          <ul class="address" ng-click="matchLat(graffito.latitude)">
+            <li>Address: {{graffito.incident_address}}</li>
+            <li>Borough: {{graffito.borough}}</li>
+            <li>Latitude: {{graffito.latitude}}</li> 
+            <li>Longitude: {{graffito.longitude}}</li> 
+          </ul>
         </div>
-      </div>
-      <div id="panel">
-        <input class="button" id="markers" type=button value="Toggle markers"><br>
-        <input class="button" id="heat" type=button value="Toggle heatmap">
-        <!-- <input type="button" value="Toggle Street View" onclick="toggleStreetView();"></input> -->
-      </div>
-      <div class="container">
-        <ul class="graffitis">
-          <!-- add the attribute ng-repeat
-              the value is "resource in set"
-              this says make an li for every graffiti in the set graffitis --> 
-          <!-- use pipe filter: query to auto sort your graffitis -->
-          <li ng-repeat="graffito in graffiti | filter:query | orderBy:orderProp" class="graffiti">
-            <div class="info">   
-            <h3>graffito</h3> 
-            <br><br><br><br>
-              <ul class="address" ng-click="matchLat(graffito.latitude)">
-                <li>Address: {{graffito.incident_address}}</li>
-                <li>Borough: {{graffito.borough}}</li>
-                <li>Latitude: {{graffito.latitude}}</li> 
-                <li>Longitude: {{graffito.longitude}}</li> 
-              </ul>
-            </div>
-          </li>
-        </ul>
-      </div>
+      </li>
+    </ul>
+  </div>
   

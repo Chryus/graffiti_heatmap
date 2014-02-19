@@ -87,8 +87,8 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
       }
 
       //get latitude of each datum
-      $scope.matchLat = function(lat) {
-        alert('hi');
+      $scope.matchLat = function (lat) {
+        // alert('hi');
         for (var i = 0; i < markers.length; i++) {
           if (markers[i].position.d == lat) {
             console.log(markers[i]);
@@ -99,7 +99,27 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
               pitch: 0
             });
             panorama.setVisible(true);
+            hide_visibility('button');
+            google.maps.event.addListener(panorama, "closeclick", function (event) {
+              render_visibility('button')
+            });
           }
+        }
+      }
+
+      function render_visibility(cl) {
+        var els = document.getElementsByClassName(cl);
+        for (var i = 0; i < els.length; ++i) {
+          var s = els[i].style;
+          s.display = 'inline';
+        }
+      }
+
+      function hide_visibility(cl) {
+        var els = document.getElementsByClassName(cl);
+        for (var i = 0; i < els.length; ++i) {
+          var s = els[i].style;
+          s.display = 'none';
         }
       }
 
@@ -120,8 +140,7 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
           setAllMap(null); // marker is visible on map, so make it invisible
       }
 
-
-       $(document).ready(function () {
+      $(document).ready(function () {
 
         var i = 0;
 
@@ -155,14 +174,3 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
     $scope.orderProp = 'incident_address';
   }
 ]);
-
-
-
-
-
-
-
-
-
-
-

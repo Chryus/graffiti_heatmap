@@ -140,3 +140,7 @@ HeatmapOverlay.prototype.addDataPoint = function(lat, lng, count){
 HeatmapOverlay.prototype.toggle = function(){
     this.heatmap.toggleDisplay();
 }
+
+HeatmapOverlay.prototype.destroy = function(){
+    this.heatmap.clear();
+}

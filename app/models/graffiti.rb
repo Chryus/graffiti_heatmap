@@ -41,8 +41,7 @@ class Graffiti < ActiveRecord::Base
       incident.delete("community_board")
       incident.delete("police_precinct")
       incident.update(:incident_address => add_city_state(incident["incident_address"], incident["borough"]))
-      g = Graffiti.new(incident)
-      g.save
+      Graffiti.create(incident)
     end
     graffiti_parsed
   end

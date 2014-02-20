@@ -56,6 +56,11 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
         heatmap.setDataSet(mapData);
       });
 
+      google.maps.event.addListener(map, "dragend", function () {
+        heatmap.destroy(); 
+        heatmap.setDataSet(mapData);
+      });
+
       $.each(mapData.data, function (i, g) {
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(g.lat, g.lng),
@@ -75,6 +80,10 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
               pitch: 0
             });
             panorama.setVisible(true);
+            hide_visibility('button')
+            google.maps.event.addListener(panorama, "closeclick", function (event) {
+              render_visibility('button')
+            });
           });
         })(marker, i);
       });

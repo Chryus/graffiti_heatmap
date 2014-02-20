@@ -20,7 +20,7 @@ gem 'haml'
 gem 'json'
 
 #can't do without it
-gem 'debugger'
+# gem 'debugger'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

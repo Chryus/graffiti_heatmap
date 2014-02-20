@@ -1,4 +1,4 @@
-require 'debugger'
+# require 'debugger'
 require 'open-uri'
 
 class Graffiti < ActiveRecord::Base

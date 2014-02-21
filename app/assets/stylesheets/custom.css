@@ -6,8 +6,9 @@ font-family: Futura;
 
 #map-canvas {
   float: right;
+  margin-top: 10px;
   margin-right: 50px;
-  width: 750px;
+  width: 850px;
   height: 500px;
   border: 1px solid black;
 }
@@ -46,13 +47,11 @@ li {
 
 #panel {
   position: absolute;
-  top: 264.2px;
+  display: inline;
+  top: 206.2px;
   left: 100.65%;
-  margin-left: -210px;
+  margin-left: -260px;
   z-index: 6;
   padding: 5px;
   background-color: rgba(255, 182, 193, 0);
-  border-top-left-radius:10px;
-  border-bottom-right-radius:10px;
-  border-bottom-left-radius:10px;
 }

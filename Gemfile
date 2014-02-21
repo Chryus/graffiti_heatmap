@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
+
 
 # Use postgressql for production
 gem 'pg'
@@ -11,6 +13,9 @@ gem 'pg'
 
 # geocoder for mapping
 gem 'geocoder'
+
+#for production to heroku
+gem 'rails_12factor'
 
 #to use attr_accessible
 gem 'protected_attributes'

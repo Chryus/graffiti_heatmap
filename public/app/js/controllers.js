@@ -8,7 +8,6 @@ var sv = new google.maps.StreetViewService();
 var panorama;
 var marker;
 
-
 graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
 
   function ($scope, $http, Graffiti) {

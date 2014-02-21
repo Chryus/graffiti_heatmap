@@ -1,5 +1,3 @@
-Access-Control-Allow-Origin: 'http://glacial-dawn-6260.herokuapp.com/'
-
 'use strict';
 
 var graffitiControllers = angular.module('graffitiControllers', []);

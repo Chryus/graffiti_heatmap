@@ -12,11 +12,11 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
 
   function ($scope, $http, Graffiti) {
 
-    $http.get('http://localhost:3000/get_graffiti').success(function (data) {
+    $http.get('/get_graffiti').success(function (data) {
       $scope.graffiti = data;
     });
 
-    $http.get('http://localhost:3000/geo_graffiti').success(function (data) {
+    $http.get('/geo_graffiti').success(function (data) {
       $scope.geo_graffiti = data;
       var mapData = {
         //max is the abruptness of the gradient

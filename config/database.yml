@@ -12,6 +12,7 @@ test:
 
 production:
   adapter: postgresql
+  encoding: unicode
   database: graffito_production
   pool: 5
   timeout: 5000

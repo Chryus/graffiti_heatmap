@@ -15,7 +15,12 @@ gem 'pg'
 gem 'geocoder'
 
 #for production to heroku
-gem 'rails_12factor'
+
+
+#heroku asset gems to troubleshoot rails 4 
+group :production do
+  gem 'rails_12factor'
+end
 
 #to use attr_accessible
 gem 'protected_attributes'

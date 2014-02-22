@@ -26,7 +26,7 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
 
       var mapOptions = {
         center: queens,
-        zoom: 10,
+        zoom: 11,
         streetViewControl: true,
         zoomControlOptions: {
           style: google.maps.ZoomControlStyle.SMALL

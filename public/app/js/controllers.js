@@ -12,11 +12,11 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
 
   function ($scope, $http, Graffiti) {
 
-    $http.get('http://graffito.herokuapp.com/app/index.html#/graffiti/get_graffiti').success(function (data) {
+    $http.get('http://graffito.herokuapp.com/get_graffiti').success(function (data) {
       $scope.graffiti = data;
     });
 
-    $http.get('http://graffito.herokuapp.com/app/index.html#/graffiti/geo_graffiti').success(function (data) {
+    $http.get('http://graffito.herokuapp.com/geo_graffiti').success(function (data) {
       $scope.geo_graffiti = data;
       var mapData = {
         //max is the abruptness of the gradient

@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
   
-  Dir['./model/*.rb'].each {|file| require file}
-
   def index
     @users = User.all
   end

@@ -24,7 +24,6 @@ window.onload = function () {
     scaleControl: true,
     disableDoubleClickZoom: false
   };
-
   map = new google.maps.Map(document.getElementById("map-canvas"),
     mapOptions);
 

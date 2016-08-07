@@ -1,5 +1,3 @@
-Dir['./model/*.rb'].each {|file| require file}
-
 class GraffitiController < ApplicationController
 
   def index
@@ -8,8 +6,14 @@ class GraffitiController < ApplicationController
   end
 
   def get_graffiti
-    @get_graffiti = Graffiti.purge_empty_latitudes
+    @get_graffiti = Graffiti.all
     render :json => @get_graffiti
+  end
+
+  private
+
+  def graffito_params
+    params.require(:graffito).permit(:borough, :status, :incident_address, :latitude, :longitude)
   end
 
 end

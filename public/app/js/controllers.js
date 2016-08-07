@@ -12,17 +12,19 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
 
   function ($scope, $http, Graffiti) {
 
-    $http.get('http://graffito.herokuapp.com/get_graffiti').success(function (data) {
+    $http.get('/get_graffiti').success(function (data) {
       $scope.graffiti = data;
     });
 
-    $http.get('http://graffito.herokuapp.com/geo_graffiti').success(function (data) {
+    $http.get('/geo_graffiti').success(function (data) {
       $scope.geo_graffiti = data;
       var mapData = {
         //max is the abruptness of the gradient
         max: 10,
         data: data
       };
+
+//################## google maps ############################################
 
       var mapOptions = {
         center: queens,
@@ -44,6 +46,9 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
       map = new google.maps.Map(document.getElementById("map-canvas"),
         mapOptions);
 
+
+//################## heatmap ############################################
+
       var heatmap = new HeatmapOverlay(map, {
         "radius": 16,
         "dissipating": false,
@@ -57,8 +62,11 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
 
       google.maps.event.addListener(map, "dragend", function () {
         heatmap.destroy(); 
+        mapOptions["center"] = mapCanvas.getCenter();
         heatmap.setDataSet(mapData);
       });
+
+//################## map markers ############################################
 
       $.each(mapData.data, function (i, g) {
         marker = new google.maps.Marker({
@@ -148,6 +156,8 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
           setAllMap(null); // marker is visible on map, so make it invisible
       }
 
+//################## jQuery ############################################
+
       $(document).ready(function () {
 
         var i = 0;
@@ -161,13 +171,6 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
           i++;
         });
 
-        // // click on address, open streetview in google map
-        // $('.address').on('click', function (event) {
-        //   setTimeout(1600);
-        //   var lat = $(this).find('li').eq(2).text().match(/\d{2}.\d+/).pop();
-        //   matchLat(map, lat);
-        // });
-
         $('#markers').on("click", function () {
           toggleMarkers(marker, map);
         });
@@ -177,8 +180,7 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
         });
 
       });
-
+    $scope.orderProp = 'borough';
     });
-    $scope.orderProp = 'incident_address';
   }
 ]);

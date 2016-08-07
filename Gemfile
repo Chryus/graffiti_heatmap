@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.3.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.2'
+gem 'rails', '~> 5.0.0'
 
 
 # Use postgressql for production
@@ -16,15 +16,8 @@ gem 'geocoder'
 
 #for production to heroku
 
-
-#heroku asset gems to troubleshoot rails 4 
-group :production do
-  gem 'rails_12factor'
-end
-
-#to use attr_accessible
-gem 'protected_attributes'
-gem 'devise', '3.0.0.rc'
+# auth
+gem 'devise'
 
 #haml for views
 gem 'haml'
@@ -36,13 +29,13 @@ gem 'json'
 # gem 'debugger'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -55,6 +48,16 @@ gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+
+group :development do
+  gem 'pry-byebug'
+  gem 'better_errors'
+end
+
+#heroku asset gems to troubleshoot rails 4 
+group :production do
+  gem 'rails_12factor'
+end
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

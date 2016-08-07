@@ -3,9 +3,9 @@
 <head>
   <title>GraffitiHeatmap</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=#{ENV['S3_KEY']}" type=text/javascript></script>
+  <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=#{ENV['S3_KEY']}" type=text/javascript></script>
   <script
-  src="http://maps.googleapis.com/maps/api/js?libraries=geometry,visualization&sensor=false&key=#{ENV['S3_KEY']}">
+  src="http://maps.googleapis.com/maps/api/js?libraries=geometry,visualization&key=#{ENV['S3_KEY']}">
   </script>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= javascript_include_tag 'heatmap' %>

@@ -5,9 +5,6 @@ require "geocoder/railtie"
 Geocoder::Railtie.insert
 
 class Graffiti < ActiveRecord::Base
-
-  #attr_accessible :status, :borough, :incident_address, :latitude, :longitude
-
   geocoded_by :incident_address, :if => :incident_address_changed?
   after_validation :geocode          # auto-fetch coordinates
 

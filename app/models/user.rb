@@ -1,6 +1,3 @@
-class User < ActiveRecord::Base
-
-  attr_accessible :name, :password
-  
+class User < ActiveRecord::Base  
   has_many :pictures
 end

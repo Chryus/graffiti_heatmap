@@ -62,7 +62,7 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
 
       google.maps.event.addListener(map, "dragend", function () {
         heatmap.destroy(); 
-        mapOptions["center"] = mapCanvas.getCenter();
+        mapOptions["center"] = map.getCenter();
         heatmap.setDataSet(mapData);
       });
 
@@ -106,7 +106,7 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
       $scope.matchLat = function (lat) {
         // alert('hi');
         for (var i = 0; i < markers.length; i++) {
-          if (markers[i].position.d == lat) {
+          if (markers[i].position.lat() == lat) {
             console.log(markers[i]);
             panorama = map.getStreetView();
             panorama.setPosition(markers[i].getPosition());

@@ -2,12 +2,12 @@
 <html>
 <head>
   <title>GraffitiHeatmap</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= stylesheet_link_tag    "application", media: "all" %>
   <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=#{ENV['S3_KEY']}" type=text/javascript></script>
   <script
   src="http://maps.googleapis.com/maps/api/js?libraries=geometry,visualization&key=#{ENV['S3_KEY']}">
   </script>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application" %>
   <%= javascript_include_tag 'heatmap' %>
   <%= javascript_include_tag 'heatmap-gmaps' %>
   <%= javascript_include_tag 'graffiti-heatmap' %>

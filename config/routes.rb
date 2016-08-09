@@ -1,4 +1,5 @@
 GraffitiHeatmap::Application.routes.draw do
+
   get '/', :to => redirect('/app/index.html')
 
   get "/geo_graffiti", :to => "graffiti#index"

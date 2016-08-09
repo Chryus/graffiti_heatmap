@@ -1,0 +1,23 @@
+{
+  "name": "graffiti_heatmap",
+  "homepage": "https://github.com/Chryus/graffiti_heatmap",
+  "authors": [
+    "Chris <chris.haack@me.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-ui-router": "^0.3.1",
+    "bootstrap": "^3.3.7"
+  }
+}

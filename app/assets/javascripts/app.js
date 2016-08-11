@@ -7,7 +7,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
         .state('home', {
           url: '/home',
           templateUrl: 'home/_home.html',
-          controller: 'MainCtrl',
+          controller: 'mainCtrl',
           resolve: {
             postPromise: ['graffiti', function(graffiti){
               return graffiti.getAll();

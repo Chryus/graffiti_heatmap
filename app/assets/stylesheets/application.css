@@ -10,4 +10,102 @@
  *
  *= require bootstrap/dist/css/bootstrap
  *= require_tree .
+ *= require_self
  */
+
+body {
+background-color:black;
+color: rgb(66, 222, 107);
+font-family: Futura;
+}
+
+#map-canvas {
+  float: right;
+  margin-top: 10px;
+  margin-right: 50px;
+  width:  900px;
+  height: 600px;
+  border: 1px solid black;
+}
+
+#sign_up {
+  float:right;
+  margin-top: -20px;
+  margin-right: 12px;
+}
+
+#title {
+  text-align: center;
+  font-size: 6em;
+}
+
+.button {
+  background-color: rgb(255, 15, 135);
+  border-radius: 5px;
+  font-family: futura;
+  padding: 3px;
+  margin: 2px;
+}
+
+#search, select, input {
+  margin-top: 60px;
+  width: 170px;
+  color: black;
+  border: lightblue solid 2px;
+  padding: 1px;
+  margin: 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#panel {
+  position: absolute;
+  display: inline;
+  top: 206.2px;
+  left: 100.65%;
+  margin-left: -260px;
+  z-index: 6;
+  padding: 5px;
+  background-color: rgba(255, 182, 193, 0);
+}
+
+ul {
+  margin-top: -60px;
+}
+
+.container {
+  margin-top: -10px;
+}
+
+.address {
+  margin-left: -50px;
+  -webkit-transition: color 1s, -webkit-transform 1s;
+  transition: color 1s, transform 1s;
+}
+
+.address:hover {
+  color: rgb(255, 15, 135);
+  transition-duration: 0.5s;
+}
+
+.graffitis {
+  margin-top: 35px;
+  margin-left: -145px;
+  display: block;
+}
+
+h3 {
+  color: #3a79ad;
+}
+
+li {
+  list-style-type:none;
+  margin-left: 10px;
+}
+
+#subtitle {
+  text-align: center;
+  margin-top: -20px;
+  font-size: 2em;
+  margin-bottom: 30px;
+}

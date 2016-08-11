@@ -7,7 +7,6 @@ var marker;
 
 
 window.onload = function () {
-
   mapOptions = {
     center: queens,
     zoom: 10,
@@ -24,9 +23,9 @@ window.onload = function () {
     scaleControl: true,
     disableDoubleClickZoom: false
   };
-  map = new google.maps.Map(document.getElementById("map-canvas"),
+  map = new google.maps.Map($("#map-canvas"),
     mapOptions);
-
+  
   heatmap = new HeatmapOverlay(map, {
     "radius": 20,
     "dissipating": false,
@@ -37,7 +36,7 @@ window.onload = function () {
   $.ajax({
     type: "GET",
     dataType: "json",
-    url: "/graffiti/geocoded_graffiti",
+    url: "/geocode_graffiti",
     success: function (data) {
       mapData = {
         //max is the abruptness of the gradient

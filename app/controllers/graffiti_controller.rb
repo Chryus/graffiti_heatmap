@@ -1,8 +1,8 @@
 class GraffitiController < ApplicationController
 
   def index
-    @geo_graffiti = Graffiti.geocode_graffiti
-    render :json => @geo_graffiti
+    @geocode_graffiti = Graffiti.geocode_graffiti
+    render :json => @geocode_graffiti
   end
 
   def get_graffiti

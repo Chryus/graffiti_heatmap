@@ -3,24 +3,24 @@
 <head>
   <title>GraffitiHeatmap</title>
   <%= stylesheet_link_tag    "application", media: "all" %>
-  <script src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=#{ENV['S3_KEY']}" type=text/javascript></script>
-  <script
-  src="http://maps.googleapis.com/maps/api/js?libraries=geometry,visualization&key=#{ENV['S3_KEY']}">
-  </script>
+  <script src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,visualization&key=AIzaSyCPiFQDQXqTsLtrJoYkRgOCqxVnfYNl0zo"></script>
   <%= javascript_include_tag "application" %>
-  <%= javascript_include_tag 'heatmap' %>
-  <%= javascript_include_tag 'heatmap-gmaps' %>
-  <%= javascript_include_tag 'graffiti-heatmap' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
-  <div id="panel">
-    <input class="button" onclick="showMarkers();" type=button value="Show markers"><br>
-    <input class="button" onclick="clearMarkers();" type=button value="Hide markers">
-    <!-- <input type="button" value="Toggle Street View" onclick="toggleStreetView();"></input> -->
+<body ng-app="graffitiApp">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  <div class="row">
+    <div class="col-md-7 col-md-offset-2">
+      <div ng-include="'nav/_nav.html'"></div>
+      <div id="panel">
+        <input class="button" onclick="showMarkers();" type=button value="Show markers"><br>
+        <input class="button" onclick="clearMarkers();" type=button value="Hide markers">
+        <!-- <input type="button" value="Toggle Street View" onclick="toggleStreetView();"></input> -->
+      </div>
+      <ui-view></ui-view>
+    </div>
   </div>
-
-<%= yield %>
-
 </body>
 </html>
+

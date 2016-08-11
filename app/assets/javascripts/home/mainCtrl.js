@@ -18,10 +18,6 @@ angular.module('graffitiApp')
       $scope.incrementUpvotes = function(graffito){
         graffiti.upvote(graffito);
       };
-    $(document).ready(function () {
-  $http.get('/get_graffiti').success(function (data) {
-      $scope.graffiti = data;
-    });
 
     $http.get('/geocode_graffiti').success(function (data) {
       $scope.geocode_graffiti = data;
@@ -189,7 +185,5 @@ angular.module('graffitiApp')
       });
     $scope.orderProp = 'borough';
     });
-
-});
   }])
 

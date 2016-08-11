@@ -5,8 +5,9 @@ angular.module('graffitiApp')
     var o = {
        graffiti: []
      };
+    //add getList and getGeocded
     o.getAll = function() {
-      return $http.get('/graffiti.json').success(function(data){
+      return $http.get('/get_graffiti.json').success(function(data){
         angular.copy(data, o.graffiti);
       });
     };

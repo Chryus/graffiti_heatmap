@@ -3,12 +3,18 @@ angular.module('graffitiApp')
   '$http',
   function($http){
     var o = {
-       graffiti: []
+       graffiti: [],
+       geocoded_graffiti: []
      };
     //add getList and getGeocded
     o.getAll = function() {
       return $http.get('/get_graffiti.json').success(function(data){
         angular.copy(data, o.graffiti);
+      });
+    };
+    o.getGeocoded = function() {
+      return $http.get('/geocode_graffiti.json').success(function(data){
+        angular.copy(data, o.geocoded_graffiti);
       });
     };
     o.get = function(id) {

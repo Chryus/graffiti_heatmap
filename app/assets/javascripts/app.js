@@ -9,8 +9,11 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           templateUrl: 'home/_home.html',
           controller: 'mainCtrl',
           resolve: {
-            graffitoPromise: ['graffiti', function(graffiti){
+            graffitiPromise: ['graffiti', function(graffiti){
               return graffiti.getAll();
+            }],
+            geocodedPromise: ['graffiti', function(graffiti){
+              return graffiti.getGeocoded();
             }]
           }
         })

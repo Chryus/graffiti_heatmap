@@ -15,16 +15,14 @@ angular.module('graffitiApp')
     '$http',
     function($scope, graffiti, $http){
       $scope.graffiti = graffiti.graffiti;
+      $scope.geocoded_graffiti = graffiti.geocoded_graffiti;
       $scope.incrementUpvotes = function(graffito){
         graffiti.upvote(graffito);
       };
-
-    $http.get('/geocode_graffiti').success(function (data) {
-      $scope.geocode_graffiti = data;
       var mapData = {
         //max is the abruptness of the gradient
         max: 10,
-        data: data
+        data: $scope.geocoded_graffiti
       };
 
 //################## google maps ############################################
@@ -184,6 +182,5 @@ angular.module('graffitiApp')
 
       });
     $scope.orderProp = 'borough';
-    });
   }])
 

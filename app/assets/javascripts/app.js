@@ -9,7 +9,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           templateUrl: 'home/_home.html',
           controller: 'mainCtrl',
           resolve: {
-            postPromise: ['graffiti', function(graffiti){
+            graffitoPromise: ['graffiti', function(graffiti){
               return graffiti.getAll();
             }]
           }
@@ -19,7 +19,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           templateUrl: 'graffiti/_graffiti.html',
           controller: 'graffitiCtrl',
           resolve: {
-            post: ['$stateParams', 'graffiti', function($stateParams, graffiti) {
+            graffito: ['$stateParams', 'graffiti', function($stateParams, graffiti) {
               return graffiti.get($stateParams.id);
             }]
           }

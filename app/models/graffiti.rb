@@ -13,18 +13,8 @@ class Graffiti < ActiveRecord::Base
     super(options.merge(include: [:user]))#, comments: {include: :user}]))
   end
 
-  def self.geocode_graffiti
-    geo_data = []
-    self.by_location.each do |incident|
-      if incident.latitude != nil
-        geo_data << {:lat => incident.latitude, :lng => incident.longitude, :count => incident.count}
-      end
-    end
-    geo_data
-  end
-
-  def self.by_location
-    Graffiti.select("latitude, longitude, COUNT(*) as count").group("latitude, longitude")
+  def self.heatmap_format
+    Graffiti.select("latitude, longitude").map { |incident| { :lat => incident.latitude, :lng => incident.longitude } }
   end
 
   def self.get_graffiti
@@ -53,6 +43,3 @@ class Graffiti < ActiveRecord::Base
     address << ", " << borough << ", NY"
   end
 end
-
-
-

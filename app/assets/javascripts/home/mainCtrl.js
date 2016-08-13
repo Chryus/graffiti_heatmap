@@ -1,6 +1,5 @@
 'use strict';
 
-var graffitiControllers = angular.module('graffitiControllers', []);
 var map;
 var markers = [];
 var queens = new google.maps.LatLng(40.736871, -73.882369);
@@ -14,15 +13,14 @@ angular.module('graffitiApp')
     'graffiti',
     '$http',
     function($scope, graffiti, $http){
-      $scope.graffiti = graffiti.graffiti;
-      $scope.geocoded_graffiti = graffiti.geocoded_graffiti;
+      $scope.graffiti = graffiti.graffiti
       $scope.incrementUpvotes = function(graffito){
         graffiti.upvote(graffito);
       };
       var mapData = {
         //max is the abruptness of the gradient
         max: 10,
-        data: $scope.geocoded_graffiti
+        data: graffiti.heatmap
       };
 
 //################## google maps ############################################
@@ -183,4 +181,3 @@ angular.module('graffitiApp')
       });
     $scope.orderProp = 'borough';
   }])
-

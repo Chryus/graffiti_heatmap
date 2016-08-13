@@ -11,9 +11,6 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           resolve: {
             graffitiPromise: ['graffiti', function(graffiti){
               return graffiti.getAll();
-            }],
-            geocodedPromise: ['graffiti', function(graffiti){
-              return graffiti.getGeocoded();
             }]
           }
         })

@@ -14,8 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get "/geocode_graffiti", :to => "graffiti#index"
-  get "/get_graffiti", :to => "graffiti#get_graffiti"
+  get "/get_graffiti", :to => "graffiti#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

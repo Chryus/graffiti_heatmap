@@ -1,13 +1,9 @@
 class GraffitiController < ApplicationController
 
   def index
-    @geo_graffiti = Graffiti.geocode_graffiti
-    render :json => @geo_graffiti
-  end
-
-  def get_graffiti
-    @get_graffiti = Graffiti.all
-    render :json => @get_graffiti
+    @graffiti = Graffiti.all
+    @heatmap_format = Graffiti.heatmap_format
+    render :json => {graffiti: @graffiti, heatmap: @heatmap_format}
   end
 
   private

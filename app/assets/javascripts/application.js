@@ -10,6 +10,9 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//= require heatmap-gmaps
+//= require heatmap
 //= require angular
 //= require AngularDevise
 //= require angular-ui-router

@@ -7,19 +7,14 @@ Geocoder::Railtie.insert
 class Graffiti < ActiveRecord::Base
   geocoded_by :incident_address, :if => :incident_address_changed?
   after_validation :geocode          # auto-fetch coordinates
+  belongs_to :user
 
-  def self.geocode_graffiti
-    geo_data = []
-    self.by_location.each do |incident|
-      if incident.latitude != nil
-        geo_data << {:lat => incident.latitude, :lng => incident.longitude, :count => incident.count}
-      end
-    end
-    geo_data
+  def as_json(options={})
+    super(options.merge(include: [:user]))#, comments: {include: :user}]))
   end
 
-  def self.by_location
-    Graffiti.select("latitude, longitude, COUNT(*) as count").group("latitude, longitude")
+  def self.heatmap_format
+    Graffiti.select("latitude, longitude").map { |incident| { :lat => incident.latitude, :lng => incident.longitude } }
   end
 
   def self.get_graffiti
@@ -48,6 +43,3 @@ class Graffiti < ActiveRecord::Base
     address << ", " << borough << ", NY"
   end
 end
-
-
-

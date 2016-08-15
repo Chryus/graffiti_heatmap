@@ -1,33 +1,20 @@
 angular.module('graffitiApp')
-  .factory('graffiti', [
-  '$http',
-  function($http){
-    var o = {
-       graffiti: []
-     };
-    o.getAll = function() {
-      return $http.get('/graffiti.json').success(function(data){
-        angular.copy(data, o.graffiti);
-      });
-    };
-    o.get = function(id) {
-      return $http.get('/graffiti/' + id + '.json').then(function(res) {
-        return res.data;
-      });
-    };
-    o.upvote = function(graffito) {
-      return $http.put('/graffiti/' + graffito.id + '/upvote.json' ).success(function(data) {
-        graffito.upvotes += 1;
-      });
-    };
-    o.addComment = function(id, comment) {
-      return $http.graffito('/graffiti/' + id + '/comments.json', comment);
-    };
-    o.upvoteComment = function(graffito, comment) {
-      return $http.put('/graffiti/' + graffito.id + '/comments/' + comment.id + '/upvote.json')
-        .success(function(data) {
-          comment.upvotes += 1;
-        });
-    };
-  return o;
-  }]);
+  .controller('GraffitiCtrl', [
+    '$scope',
+    'graffiti',
+    'graffito',
+    function($scope, graffiti, graffito){
+      $scope.graffito = graffito;
+      $scope.incrementUpvotes = function(comment){
+        graffiti.upvoteComment(graffito, comment);
+      };
+      $scope.addComment = function(){
+        if($scope.body === '') { return; }
+        graffiti.addComment(graffito.id, {
+          body: $scope.body,
+          author: 'user'}).success(function(comment) {
+            $scope.graffito.comments.push(comment);
+          })
+        $scope.body = '';
+      };
+  }])

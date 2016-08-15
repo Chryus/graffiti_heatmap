@@ -1,20 +1,21 @@
-GraffitiHeatmap::Application.routes.draw do
+Rails.application.routes.draw do
+  devise_for :users, :controllers => {sessions: 'sessions'}
+  root to: 'application#angular'
 
-  get '/', :to => redirect('/app/index.html')
+  resources :graffiti, only: [:create, :index, :show] do
+    resources :comments, only: [:show, :create] do
+      member do
+        put '/upvote' => 'comments#upvote'
+      end
+    end
 
-  get "/geo_graffiti", :to => "graffiti#index"
-
-  get "/get_graffiti", :to => "graffiti#get_graffiti"
-  
-  resources :graffiti do
+    member do
+      put '/upvote' => 'graffiti#upvote'
+    end
   end
 
-  resources :users do
-    resources :pictures
-  end
+  get "/get_graffiti", :to => "graffiti#index"
 
-  
-  #get "graffiti/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -60,7 +61,7 @@ GraffitiHeatmap::Application.routes.draw do
   #   concern :toggleable do
   #     post 'toggle'
   #   end
-  #   resources :posts, concerns: :toggleable
+  #   resources :graffiti, concerns: :toggleable
   #   resources :photos, concerns: :toggleable
 
   # Example resource route within a namespace:

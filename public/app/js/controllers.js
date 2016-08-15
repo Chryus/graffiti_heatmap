@@ -16,8 +16,8 @@ graffitiApp.controller('GraffitiListCtrl', ['$scope', '$http', 'Graffiti',
       $scope.graffiti = data;
     });
 
-    $http.get('/geo_graffiti').success(function (data) {
-      $scope.geo_graffiti = data;
+    $http.get('/geocode_graffiti').success(function (data) {
+      $scope.geocode_graffiti = data;
       var mapData = {
         //max is the abruptness of the gradient
         max: 10,

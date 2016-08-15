@@ -10,7 +10,11 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           controller: 'mainCtrl',
           resolve: {
             graffitiPromise: ['graffiti', function(graffiti){
-              return graffiti.getAll();
+              if (graffiti.graffiti.length == 0) {
+                return graffiti.getAll();
+              } else {
+                return graffiti;
+              };
             }]
           }
         })

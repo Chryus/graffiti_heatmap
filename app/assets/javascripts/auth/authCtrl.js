@@ -6,6 +6,7 @@ angular.module('graffitiApp')
   function($scope, $state, Auth){
     $scope.login = function() {
       Auth.login($scope.user).then(function(){
+        console.log("GOING HOME!");
         $state.go('home');
       });
     };

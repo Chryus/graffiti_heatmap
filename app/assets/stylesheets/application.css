@@ -36,9 +36,13 @@ font-family: Futura;
   margin-right: 12px;
 }
 
+.title-container {
+  margin-left: -120px;
+}
+
 #title {
   text-align: center;
-  font-size: 6em;
+  font-size: 8em;
 }
 
 .button {
@@ -63,7 +67,7 @@ font-family: Futura;
 #panel {
   position: absolute;
   display: inline;
-  top: 250px;
+  top: 280px;
   left: 100%;
   margin-left: -260px;
   z-index: 6;
@@ -73,10 +77,6 @@ font-family: Futura;
 
 ul {
   margin-top: -60px;
-}
-
-.container {
-  margin-top: -10px;
 }
 
 .address {
@@ -90,10 +90,14 @@ ul {
   transition-duration: 0.5s;
 }
 
-.graffitis {
-  margin-top: 35px;
+.container {
+  margin-top: 55px;
   margin-left: -145px;
   display: block;
+}
+
+.search-container {
+  margin: -5px 80px 0px -100px;
 }
 
 h3 {

@@ -1,11 +1,13 @@
-<input id="search" type="text" placeholder="Search..." ng-model="query" /> 
-<select id="pullme" ng-model="orderProp">
-  <option value="address">Address</option>
-  <option value="borough">Borough</option>
-</select>
 <div id="panel">
   <input class="button" id="markers" type=button value="Toggle markers">
   <input class="button" id="heat" type=button value="Toggle heatmap">
+</div>
+<div class="search-container">
+  <input id="search" type="text" placeholder="Search..." ng-model="query" /> 
+  <select id="pullme" ng-model="orderProp">
+    <option value="address">Address</option>
+    <option value="borough">Borough</option>
+  </select>
 </div>
 <div class="container">
   <ul class="graffitis">

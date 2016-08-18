@@ -5,6 +5,10 @@ angular.module('graffitiApp')
     var o = {
       maps: {}
     };
+    var map = null;
+    var heatmap = {};
+    var mapOptions = {};
+    var mapData = {};
     var markers = [];
     var queens = new google.maps.LatLng(40.736871, -73.882369);
     var sv = new google.maps.StreetViewService();
@@ -12,15 +16,7 @@ angular.module('graffitiApp')
     var marker;
     //add getList and getGeocded
     o.addMap = function (mapId) {
-      var mapData = {
-          //max is the abruptness of the gradient
-          max: 10,
-          data: graffiti.heatmap
-        };
-
-  //################## google maps ############################################
-
-      var mapOptions = {
+      mapOptions = {
         center: queens,
         zoom: 10,
         streetViewControl: true,
@@ -36,33 +32,149 @@ angular.module('graffitiApp')
         scaleControl: true,
         disableDoubleClickZoom: false
       };
-      
-      map = new google.maps.Map(document.getElementById("map-canvas"),
-        mapOptions);
 
-      console.log("MAP INITIALIZED")
+      map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+      o.heatMap(mapId);
+    };
+    o.heatMap = function (mapId) {
+      mapData = {
+        //max is the abruptness of the gradient
+        max: 10,
+        data: graffiti.heatmap
+      };
 
-  //################## heatmap ############################################
-
-      var heatmap = new HeatmapOverlay(map, {
+      heatmap = new HeatmapOverlay(map, {
         "radius": 16,
         "dissipating": false,
         "visible": true,
         "opacity": 80
       });
 
-      var heatLayer = google.maps.event.addListener(map, "idle", function () {
+      google.maps.event.addListener(map, "idle", function () {
         heatmap.setDataSet(mapData);
       });
+      o.setMapDragEvent(mapId);
       console.log("HEAT DATA SET");
+    };
+    o.setMapDragEvent = function (mapId) {
+      google.maps.event.addListener(map, "dragend", function () {
+        heatmap.destroy(); 
+        mapOptions["center"] = map.getCenter();
+        heatmap.setDataSet(mapData);
+      });
+      o.fetchMarkers(mapId);
+    };
+    o.fetchMarkers = function (mapId) {
+      $.each(mapData.data, function (i, g) {
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(g.lat, g.lng),
+          map: map,
+          zIndex: 100,
+          icon: "http://maps.google.com/mapfiles/dir_39.png"
+        });
+        markers.push(marker);
+        o.clearMarkers();
+        (function (marker, i) {
+          // add click event
+          google.maps.event.addListener(marker, 'click', function () {
+            panorama = map.getStreetView();
+            panorama.setPosition(marker.getPosition());
+            panorama.setPov({
+              heading: 265,
+              pitch: 0
+            });
+            panorama.setVisible(true);
+            o.hide_visibility('button')
+            google.maps.event.addListener(panorama, "closeclick", function (event) {
+              o.render_visibility('button')
+            });
+          });
+        })(marker, i);
+      });
       o.maps[mapId] = {};
       angular.copy(map, o.maps['google']);
+      o.clearMarkers(null);
     };
+    o.plotMarkers = function(__map) {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(__map);
+      }
+    };
+    o.clearMarkers = function() {
+      o.plotMarkers(null);
+    }
+    o.showMarkers = function() {
+      o.plotMarkers(map);
+    };
+    o.toggleMarkers = function (marker) {
+      if (marker.getMap() == null)
+        o.plotMarkers(map); // marker isn't visible on map, so make it visible
+      else
+        o.plotMarkers(null); // marker is visible on map, so make it invisible
+    }
+    o.matchLat = function (lat) {
+      for (var i = 0; i < markers.length; i++) {
+        if (markers[i].position.lat() == lat) {
+          console.log(markers[i]);
+          panorama = map.getStreetView();
+          panorama.setPosition(markers[i].getPosition());
+          panorama.setPov({
+            heading: 265,
+            pitch: 0
+          });
+          panorama.setVisible(true);
+          o.hide_visibility('button');
+          google.maps.event.addListener(panorama, "closeclick", function (event) {
+            o.render_visibility('button')
+          });
+        }
+      }
+    };
+    o.render_visibility = function (cl) {
+      els = document.getElementsByClassName(cl);
+      for (var i = 0; i < els.length; ++i) {
+        var s = els[i].style;
+        s.display = 'inline';
+      }
+    }
+    o.hide_visibility = function (cl) {
+      els = document.getElementsByClassName(cl);
+      for (var i = 0; i < els.length; ++i) {
+        var s = els[i].style;
+        s.display = 'none';
+      }
+    }
     o.getMap = function(mapId) {
       if (!o.maps[mapId]) {
         o.addMap(mapId);
       };
       return o.maps[mapId];
     };
+
+    //################## jQuery ############################################
+
+    $(document).ready(function () {
+
+      var i = 0;
+
+      $('#map-canvas').on("dblclick", function () {
+        if (i < 1) {
+          o.clearMarkers();
+        } else {
+          o.showMarkers();
+        }
+        i++;
+      });
+
+      $('#markers').on("click", function () {
+        o.toggleMarkers(marker);
+      });
+
+      $('#heat').on("click", function () {
+        heatmap.toggle();
+      });
+
+    });
   return o;
   }]);
+

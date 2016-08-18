@@ -19,6 +19,8 @@ color: rgb(66, 222, 107);
 font-family: Futura;
 }
 
+.collapse.navbar-collapse { margin-right: 50px; } 
+
 #map-canvas {
   float: right;
   margin-top: 10px;
@@ -61,8 +63,8 @@ font-family: Futura;
 #panel {
   position: absolute;
   display: inline;
-  top: 206.2px;
-  left: 100.65%;
+  top: 250px;
+  left: 100%;
   margin-left: -260px;
   z-index: 6;
   padding: 5px;

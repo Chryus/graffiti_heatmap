@@ -10,8 +10,13 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <div class="row">
-      <div class="col-md-7 col-md-offset-2">
+      <div class="col-md-11 col-md-offset-1">
         <div ng-include="'nav/_nav.html'"></div>
+        </br></br>
+        <h1 id="title">GRAFFITO</h1>
+        <br>
+        <h4 id="subtitle">Let's find some graffiti.</h4>
+        <div id="map-canvas"></div>
         <ui-view></ui-view>
       </div>
     </div>

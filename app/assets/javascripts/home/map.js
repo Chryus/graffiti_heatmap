@@ -14,7 +14,7 @@ angular.module('graffitiApp')
     var queens = new google.maps.LatLng(40.736871, -73.882369);
     var sv = new google.maps.StreetViewService();
     var panorama;
-    var marker;
+    var markersVisible = false;
     //add getList and getGeocded
     o.addMap = function (mapId) {
       mapOptions = {
@@ -98,12 +98,10 @@ angular.module('graffitiApp')
       for (var i = 0; i < o.markers.length; i++) {
         o.markers[i].setMap(__map);
       }
+      markersVisible = __map == null ? false : true;
     };
-    o.toggleMarkers = function (marker) {
-      if (marker.getMap() == null)
-        o.plotMarkers(map); // marker isn't visible on map, so make it visible
-      else
-        o.plotMarkers(null); // marker is visible on map, so make it invisible
+    o.toggleMarkers = function () {
+      markersVisible == true ? o.plotMarkers(null) : o.plotMarkers(map);
     }
     o.matchLat = function (lat) {
       for (var i = 0; i < o.markers.length; i++) {
@@ -144,7 +142,7 @@ angular.module('graffitiApp')
       return o.maps[mapId];
     };
 
-    //################## jQuery ############################################
+    //### jQuery
 
     $(document).ready(function () {
 
@@ -159,14 +157,13 @@ angular.module('graffitiApp')
         i++;
       });
 
-      $('#markers').on("click", function () {
-        o.toggleMarkers(marker);
+      $(document).on('click', '#markers', function() {
+        o.toggleMarkers();
       });
 
-      $('#heat').on("click", function () {
+      $(document).on('click', '#heat', function() {
         heatmap.toggle();
       });
-
     });
   return o;
   }]);

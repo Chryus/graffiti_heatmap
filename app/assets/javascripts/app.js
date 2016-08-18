@@ -47,10 +47,10 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           templateUrl: 'auth/_register.html',
           controller: 'AuthCtrl',
           onEnter: ['$state', 'Auth', function($state, Auth) {
+            $("#map-canvas").hide();
             Auth.currentUser().then(function (){
               $state.go('home');
             })
-            $("#map-canvas").hide();
           }]
         })
       $urlRouterProvider.otherwise('home');

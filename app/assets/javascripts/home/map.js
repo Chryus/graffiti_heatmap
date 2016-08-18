@@ -3,13 +3,14 @@ angular.module('graffitiApp')
   'graffiti',
   function(graffiti){
     var o = {
-      maps: {}
+      maps: {},
+      markers: []
     };
     var map = null;
     var heatmap = {};
     var mapOptions = {};
     var mapData = {};
-    var markers = [];
+    //var markers = [];
     var queens = new google.maps.LatLng(40.736871, -73.882369);
     var sv = new google.maps.StreetViewService();
     var panorama;
@@ -54,6 +55,7 @@ angular.module('graffitiApp')
         heatmap.setDataSet(mapData);
       });
       o.setMapDragEvent(mapId);
+      o.fetchMarkers(mapId);
       console.log("HEAT DATA SET");
     };
     o.setMapDragEvent = function (mapId) {
@@ -62,7 +64,6 @@ angular.module('graffitiApp')
         mapOptions["center"] = map.getCenter();
         heatmap.setDataSet(mapData);
       });
-      o.fetchMarkers(mapId);
     };
     o.fetchMarkers = function (mapId) {
       $.each(mapData.data, function (i, g) {
@@ -72,8 +73,6 @@ angular.module('graffitiApp')
           zIndex: 100,
           icon: "http://maps.google.com/mapfiles/dir_39.png"
         });
-        markers.push(marker);
-        o.clearMarkers();
         (function (marker, i) {
           // add click event
           google.maps.event.addListener(marker, 'click', function () {
@@ -89,22 +88,16 @@ angular.module('graffitiApp')
               o.render_visibility('button')
             });
           });
+          o.markers.push(marker);
         })(marker, i);
       });
-      o.maps[mapId] = {};
-      angular.copy(map, o.maps['google']);
-      o.clearMarkers(null);
+      o.maps[mapId] = map;
+      o.plotMarkers(null);
     };
     o.plotMarkers = function(__map) {
-      for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(__map);
+      for (var i = 0; i < o.markers.length; i++) {
+        o.markers[i].setMap(__map);
       }
-    };
-    o.clearMarkers = function() {
-      o.plotMarkers(null);
-    }
-    o.showMarkers = function() {
-      o.plotMarkers(map);
     };
     o.toggleMarkers = function (marker) {
       if (marker.getMap() == null)
@@ -113,11 +106,11 @@ angular.module('graffitiApp')
         o.plotMarkers(null); // marker is visible on map, so make it invisible
     }
     o.matchLat = function (lat) {
-      for (var i = 0; i < markers.length; i++) {
-        if (markers[i].position.lat() == lat) {
-          console.log(markers[i]);
+      for (var i = 0; i < o.markers.length; i++) {
+        if (o.markers[i].position.lat() == lat) {
+          console.log(o.markers[i]);
           panorama = map.getStreetView();
-          panorama.setPosition(markers[i].getPosition());
+          panorama.setPosition(o.markers[i].getPosition());
           panorama.setPov({
             heading: 265,
             pitch: 0
@@ -147,7 +140,7 @@ angular.module('graffitiApp')
     o.getMap = function(mapId) {
       if (!o.maps[mapId]) {
         o.addMap(mapId);
-      };
+      }
       return o.maps[mapId];
     };
 
@@ -159,9 +152,9 @@ angular.module('graffitiApp')
 
       $('#map-canvas').on("dblclick", function () {
         if (i < 1) {
-          o.clearMarkers();
+          o.plotMarkers(null);
         } else {
-          o.showMarkers();
+          o.plotMarkers(map);
         }
         i++;
       });

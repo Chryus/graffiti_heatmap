@@ -8,6 +8,9 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           url: '/home',
           templateUrl: 'home/_home.html',
           controller: 'mainCtrl',
+          onEnter: function() {
+            $("#map-canvas").show();
+          },
           resolve: {
             graffitiPromise: ['graffiti', function(graffiti){
               if (graffiti.graffiti.length == 0) {
@@ -36,6 +39,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
             Auth.currentUser().then(function (){
               $state.go('home');
             })
+            $("#map-canvas").hide();
           }]
         })
         .state('register', {
@@ -46,6 +50,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
             Auth.currentUser().then(function (){
               $state.go('home');
             })
+            $("#map-canvas").hide();
           }]
         })
       $urlRouterProvider.otherwise('home');

@@ -9,7 +9,8 @@ angular.module('graffitiApp')
     //add getList and getGeocded
     o.getAll = function() {
       return $http.get('/get_graffiti.json').success(function(data){
-        angular.copy(data, o);
+        angular.copy(data.graffiti, o.graffiti);
+        angular.copy(data.heatmap, o.heatmap);
       });
     };
     o.get = function(id) {

@@ -7,9 +7,8 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
         .state('home', {
           url: '/home',
           templateUrl: 'home/_home.html',
-          controller: 'mainCtrl',
+          controller: 'MainCtrl',
           onEnter: function() {
-          console.log("ENTER HOME");
             $("#map-canvas").show();
           },
           resolve: {
@@ -25,7 +24,10 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
         .state('graffiti', {
           url: '/graffiti/:id',
           templateUrl: 'graffiti/_graffiti.html',
-          controller: 'graffitiCtrl',
+          controller: 'GraffitiCtrl',
+          onEnter: function() {
+            $("#map-canvas").show();
+          },
           resolve: {
             graffito: ['$stateParams', 'graffiti', function($stateParams, graffiti) {
               return graffiti.get($stateParams.id);

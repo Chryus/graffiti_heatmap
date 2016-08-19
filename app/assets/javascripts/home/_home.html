@@ -15,12 +15,14 @@
       <div class="info">
         <h3>graffito</h3>
         <br><br><br><br>
-        <ul class="address" ng-click="matchLat(graffito.latitude)">
-          <li>Address: {{graffito.incident_address}}</li>
-          <li>Borough: {{graffito.borough}}</li>
-          <li>Latitude: {{graffito.latitude}}</li>
-          <li>Longitude: {{graffito.longitude}}</li>
-        </ul>
+        <a href="#/graffiti/{{graffito.id}}">
+          <ul class="address" ng-click="matchLat(graffito.latitude)">
+            <li>Address: {{graffito.incident_address}}</li>
+            <li>Borough: {{graffito.borough}}</li>
+            <li>Latitude: {{graffito.latitude}}</li>
+            <li>Longitude: {{graffito.longitude}}</li>
+          </ul>
+        </a>
       </div>
     </li>
   </ul>

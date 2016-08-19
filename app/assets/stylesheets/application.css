@@ -19,6 +19,10 @@ color: rgb(66, 222, 107);
 font-family: Futura;
 }
 
+a:link {
+    text-decoration: none;
+}
+
 .collapse.navbar-collapse { margin-right: 50px; } 
 
 #map-canvas {

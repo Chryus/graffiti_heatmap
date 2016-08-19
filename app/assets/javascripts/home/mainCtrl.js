@@ -8,7 +8,7 @@ var panorama;
 var marker;
 
 angular.module('graffitiApp')
-  .controller('mainCtrl', [
+  .controller('MainCtrl', [
     '$scope',
     'graffiti',
     'map',

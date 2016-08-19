@@ -9,6 +9,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           templateUrl: 'home/_home.html',
           controller: 'mainCtrl',
           onEnter: function() {
+            console.log("ENTER HOME");
             $("#map-canvas").show();
           },
           resolve: {
@@ -36,6 +37,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           templateUrl: 'auth/_login.html',
           controller: 'AuthCtrl',
           onEnter: ['$state', 'Auth', function($state, Auth) {
+            console.log("logging in");
             Auth.currentUser().then(function (){
               $state.go('home');
             })

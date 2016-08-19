@@ -9,7 +9,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           templateUrl: 'home/_home.html',
           controller: 'mainCtrl',
           onEnter: function() {
-            console.log("ENTER HOME");
+          console.log("ENTER HOME");
             $("#map-canvas").show();
           },
           resolve: {

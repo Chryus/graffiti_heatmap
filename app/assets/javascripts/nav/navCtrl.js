@@ -8,7 +8,10 @@ angular.module('graffitiApp')
       
       Auth.currentUser().then(function(user) {
         $scope.user = user;
-      });
+      }, function(error) {
+        debugger
+        $scope.user = {};
+      });;
 
       $scope.$on('devise:new-registration', function  (e, user){
         $scope.user = user;

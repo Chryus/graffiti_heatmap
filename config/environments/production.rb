@@ -1,6 +1,8 @@
 GraffitiHeatmap::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # make sure glyphicons get to heroku
+  config.assets.compile = true
   # Code is not reloaded between requests.
   config.cache_classes = true
   # config.assets.initialize_on_precompile = false
@@ -60,7 +62,7 @@ GraffitiHeatmap::Application.configure do
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-  # config.assets.precompile += %w( search.js )
+  config.assets.precompile += %w( *.js *.css *.eot *.woff *.ttf *.svg )
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

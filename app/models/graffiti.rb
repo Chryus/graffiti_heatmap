@@ -9,10 +9,6 @@ class Graffiti < ActiveRecord::Base
   belongs_to :user
   has_many :comments
 
-  def as_json(options={})
-    super(options.merge(include: :comments))
-  end
-
   def self.heatmap_format
     Graffiti.select("latitude, longitude").map { |incident| { :lat => incident.latitude, :lng => incident.longitude } }
   end

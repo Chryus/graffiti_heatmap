@@ -4,6 +4,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -6755,3 +6756,136 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+
+
+
+ */
+
+
+body {
+background-color:black;
+color: rgb(66, 222, 107);
+font-family: Futura;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+header > a { color: #42de6b }
+
+header > h3 { display: inline-block;}
+
+header > .glyphicon { padding-left: 1px;}
+
+.collapse.navbar-collapse { margin-right: 50px; } 
+
+#map-canvas {
+  float: right;
+  margin-top: 10px;
+  margin-right: 50px;
+  width:  900px;
+  height: 600px;
+  border: 1px solid black;
+}
+
+#sign_up {
+  float:right;
+  margin-top: -20px;
+  margin-right: 12px;
+}
+
+.title-container {
+  margin-left: -120px;
+}
+
+#title {
+  text-align: center;
+  font-size: 8em;
+}
+
+.button {
+  background-color: rgb(255, 15, 135);
+  border-radius: 5px;
+  font-family: futura;
+  padding: 3px;
+  margin: 2px;
+}
+
+#search, select, input {
+  margin-top: 60px;
+  width: 170px;
+  color: black;
+  border: lightblue solid 2px;
+  padding: 1px;
+  margin: 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#panel {
+  position: absolute;
+  display: inline;
+  top: 280px;
+  left: 100%;
+  margin-left: -260px;
+  z-index: 6;
+  padding: 5px;
+  background-color: rgba(255, 182, 193, 0);
+}
+
+ul {
+  margin-top: -60px;
+}
+
+.address {
+  margin-left: -50px;
+  -webkit-transition: color 1s, -webkit-transform 1s;
+  transition: color 1s, transform 1s;
+}
+
+.address:hover {
+  color: rgb(255, 15, 135);
+  transition-duration: 0.5s;
+}
+
+.container {
+  margin-top: 55px;
+  margin-left: -145px;
+  display: block;
+}
+
+.search-container {
+  margin: -5px 80px 0px -100px;
+}
+
+h3 {
+  color: #3a79ad;
+}
+
+li {
+  list-style-type:none;
+  margin-left: 10px;
+}
+
+#subtitle {
+  text-align: center;
+  margin-top: -20px;
+  font-size: 2em;
+  margin-bottom: 30px;
+}

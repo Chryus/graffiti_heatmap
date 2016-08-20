@@ -22,5 +22,5 @@ angular.module('graffitiApp')
       $scope.matchLat = function (lat) {
         map.matchLat(lat);
       }
-    $scope.orderProp = 'borough';
+    $scope.orderProp = '-upvotes';
   }])

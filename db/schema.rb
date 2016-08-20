@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810225940) do
+ActiveRecord::Schema.define(version: 20160820005405) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "body"
+    t.integer  "user_id"
+    t.integer  "graffiti_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["graffiti_id"], name: "index_comments_on_graffiti_id", using: :btree
+    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
+  end
 
   create_table "graffitis", force: :cascade do |t|
     t.string   "borough",          limit: 255
@@ -23,6 +33,7 @@ ActiveRecord::Schema.define(version: 20160810225940) do
     t.datetime "updated_at"
     t.float    "latitude"
     t.float    "longitude"
+    t.integer  "upvotes",                      default: 0
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -55,4 +66,6 @@ ActiveRecord::Schema.define(version: 20160810225940) do
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
+  add_foreign_key "comments", "graffitis"
+  add_foreign_key "comments", "users"
 end

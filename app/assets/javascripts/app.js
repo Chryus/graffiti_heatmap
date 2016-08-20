@@ -25,10 +25,14 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           url: '/graffiti/:id',
           templateUrl: 'graffiti/_graffiti.html',
           controller: 'GraffitiCtrl',
-          onEnter: function() {
-            $("#map-canvas").show();
-          },
           resolve: {
+            graffitiPromise: ['graffiti', function(graffiti){
+              if (graffiti.graffiti.length == 0) {
+                return graffiti.getAll();
+              } else {
+                return graffiti;
+              };
+            }],
             graffito: ['$stateParams', 'graffiti', function($stateParams, graffiti) {
               return graffiti.get($stateParams.id);
             }]

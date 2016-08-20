@@ -1,4 +1,3 @@
-#require 'pry'
 require 'open-uri'
 require 'geocoder'
 require "geocoder/railtie"
@@ -6,11 +5,12 @@ Geocoder::Railtie.insert
 
 class Graffiti < ActiveRecord::Base
   geocoded_by :incident_address, :if => :incident_address_changed?
-  after_validation :geocode          # auto-fetch coordinates
+  after_validation :geocode  # auto-fetch coordinates
   belongs_to :user
+  has_many :comments
 
   def as_json(options={})
-    super(options.merge(include: [:user]))#, comments: {include: :user}]))
+    super(options.merge(include: :comments))
   end
 
   def self.heatmap_format

@@ -11,9 +11,13 @@
 </div>
 <div class="container">
   <ul class="graffitis">
-    <li ng-repeat="graffito in graffiti | filter:query | orderBy:orderProp" class="graffiti">
+    <li ng-repeat="graffito in graffiti | filter:query | orderBy: '-upvotes'" class="graffiti">
       <div class="info">
-        <h3>graffito</h3>
+        <header>
+          <h3>graffito</h3>
+            <span class="glyphicon glyphicon-thumbs-up" ng-click="alert()"></span>
+            {{graffito.upvotes}}
+        </header> 
         <br><br><br><br>
         <a href="#/graffiti/{{graffito.id}}">
           <ul class="address" ng-click="matchLat(graffito.latitude)">

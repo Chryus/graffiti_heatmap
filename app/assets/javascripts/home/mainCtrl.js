@@ -15,10 +15,10 @@ angular.module('graffitiApp')
     '$http',
     function($scope, graffiti, map, $http){
       $scope.map = map.getMap('google');
+      $scope.alert = function () {
+        window.alert("Check out the graffito before voting on it.")
+      }
       $scope.graffiti = graffiti.graffiti
-      $scope.incrementUpvotes = function(graffito){
-        graffiti.upvote(graffito);
-      };
       $scope.matchLat = function (lat) {
         map.matchLat(lat);
       }

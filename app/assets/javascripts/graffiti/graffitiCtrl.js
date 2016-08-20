@@ -3,10 +3,16 @@ angular.module('graffitiApp')
     '$scope',
     'graffiti',
     'graffito',
-    function($scope, graffiti, graffito){
+    'map',
+    function($scope, graffiti, graffito, map){
+      $scope.map = map.getMap('google');
+      $scope.graffiti = graffiti.graffiti;
       $scope.graffito = graffito;
-      $scope.incrementUpvotes = function(comment){
-        graffiti.upvoteComment(graffito, comment);
+      $scope.matchLat = function (lat) {
+        map.matchLat(lat);
+      }
+      $scope.incrementUpvotes = function(graffito){
+        graffiti.upvote(graffito);
       };
       $scope.addComment = function(){
         if($scope.body === '') { return; }

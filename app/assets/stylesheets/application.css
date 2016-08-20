@@ -23,6 +23,12 @@ a:link {
     text-decoration: none;
 }
 
+header > a { color: #42de6b }
+
+header > h3 { display: inline-block;}
+
+header > .glyphicon { padding-left: 1px;}
+
 .collapse.navbar-collapse { margin-right: 50px; } 
 
 #map-canvas {

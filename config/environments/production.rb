@@ -1,6 +1,8 @@
 GraffitiHeatmap::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # make sure glyphicons get to heroku
+  config.assets.compile = true
   # Code is not reloaded between requests.
   config.cache_classes = true
   # config.assets.initialize_on_precompile = false

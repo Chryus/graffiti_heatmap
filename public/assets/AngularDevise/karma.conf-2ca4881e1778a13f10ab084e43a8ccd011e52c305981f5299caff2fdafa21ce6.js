@@ -1,0 +1,1 @@
+module.exports=function(s){s.set({basePath:"",frameworks:["jasmine"],plugins:["karma-jasmine","karma-phantomjs-launcher"],files:["test/support/angular/angular.js","test/support/angular-mocks/angular-mocks.js","test/devise.js","src/*.js","test/mock/**/*.js","test/spec/**/*.js"],exclude:[],port:8080,logLevel:s.LOG_INFO,autoWatch:!0,browsers:["Chrome"],singleRun:!0})};

@@ -1,0 +1,1 @@
+angular.module("graffitiApp").controller("AuthCtrl",["$scope","$state","Auth",function(o,n,e){o.login=function(){console.log("GOING HOME!"),e.login(o.user).then(function(){console.log("GOING HOME!"),n.go("home")})},o.register=function(){e.register(o.user).then(function(){n.go("home")})}}]);

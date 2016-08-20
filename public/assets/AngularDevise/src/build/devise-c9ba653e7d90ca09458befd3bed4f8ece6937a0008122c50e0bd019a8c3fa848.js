@@ -1,0 +1,1 @@
+!function(e){"use strict";e.module("Devise",[])}(angular);

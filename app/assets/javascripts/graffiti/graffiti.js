@@ -19,13 +19,11 @@ angular.module('graffitiApp')
       });
     };
     o.upvote = function(graffito) {
-      console.log("ENTERING" graffito.upvoted)
       if (graffito.upvoted == null) {
         return $http.put('/graffiti/' + graffito.id + '/upvote.json' ).success(function(data) {
           graffito.upvotes += 1;
           graffito['upvoted'] = true;
         });
-      console.log("EXITING UPVOTE" graffito.upvoted)
       }
     };
     o.addComment = function(id, comment) {

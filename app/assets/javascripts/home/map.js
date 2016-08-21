@@ -102,9 +102,10 @@ angular.module('graffitiApp')
     };
     o.toggleMarkers = function () {
       if (markersVisible == true) {
-        o.plotMarkers(null)
+        o.plotMarkers(null);
         markersVisible = false;
       } else {
+        o.plotMarkers(map);
         markersVisible = true;
       }
     }
@@ -156,8 +157,10 @@ angular.module('graffitiApp')
       $('#map-canvas').on("dblclick", function () {
         if (i < 1) {
           o.plotMarkers(null);
+          markersVisible = false;
         } else {
           o.plotMarkers(map);
+          markersVisible = true;
         }
         i++;
       });

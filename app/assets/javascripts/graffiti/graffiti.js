@@ -19,9 +19,12 @@ angular.module('graffitiApp')
       });
     };
     o.upvote = function(graffito) {
-      return $http.put('/graffiti/' + graffito.id + '/upvote.json' ).success(function(data) {
-        graffito.upvotes += 1;
-      });
+      if (graffito.upvoted == null) {
+        return $http.put('/graffiti/' + graffito.id + '/upvote.json' ).success(function(data) {
+          graffito.upvotes += 1;
+          graffito['upvoted'] = true;
+        });
+      }
     };
     o.addComment = function(id, comment) {
       return $http.graffito('/graffiti/' + id + '/comments.json', comment);

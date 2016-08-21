@@ -101,7 +101,12 @@ angular.module('graffitiApp')
       markersVisible = __map == null ? false : true;
     };
     o.toggleMarkers = function () {
-      markersVisible == true ? o.plotMarkers(null) : o.plotMarkers(map);
+      if (markersVisible == true) {
+        o.plotMarkers(null)
+        markersVisible = false;
+      } else {
+        markersVisible = true;
+      }
     }
     o.matchLat = function (lat) {
       for (var i = 0; i < o.markers.length; i++) {

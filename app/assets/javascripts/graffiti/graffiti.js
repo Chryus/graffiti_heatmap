@@ -1,7 +1,8 @@
 angular.module('graffitiApp')
   .factory('graffiti', [
   '$http',
-  function($http){
+  'Auth',
+  function($http, Auth){
     var o = {
        graffiti: [],
        heatmap: []
@@ -18,9 +19,11 @@ angular.module('graffitiApp')
         return res.data;
       });
     };
-    o.upvote = function(graffito) {
+    o.upvote = function(graffito, user) {
       if (graffito.upvoted == null) {
-        return $http.put('/graffiti/' + graffito.id + '/upvote.json' ).success(function(data) {
+        user = Auth.currentUser().$$state.value
+        debugger
+        return $http.put('/graffiti/' + graffito.id + '/upvote.json', { user_id: user.id } ).success(function(data) {
           graffito.upvotes += 1;
           graffito['upvoted'] = true;
         });

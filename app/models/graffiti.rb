@@ -8,6 +8,8 @@ class Graffiti < ActiveRecord::Base
   after_validation :geocode  # auto-fetch coordinates
   belongs_to :user
   has_many :comments
+  has_many :likes
+  has_many :users, through: :likes
 
   def self.heatmap_format
     Graffiti.select("latitude, longitude").map { |incident| { :lat => incident.latitude, :lng => incident.longitude } }

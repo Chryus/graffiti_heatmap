@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822050649) do
+ActiveRecord::Schema.define(version: 20160822151300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,16 +33,6 @@ ActiveRecord::Schema.define(version: 20160822050649) do
     t.datetime "updated_at"
     t.float    "latitude"
     t.float    "longitude"
-    t.integer  "upvotes"
-  end
-
-  create_table "likes", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "graffiti_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["graffiti_id"], name: "index_likes_on_graffiti_id", using: :btree
-    t.index ["user_id"], name: "index_likes_on_user_id", using: :btree
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -52,6 +42,16 @@ ActiveRecord::Schema.define(version: 20160822050649) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+  end
+
+  create_table "upvotes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "graffiti_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["graffiti_id"], name: "index_upvotes_on_graffiti_id", using: :btree
+    t.index ["user_id"], name: "index_upvotes_on_user_id", using: :btree
+    t.index ["user_id", "graffiti_id"], name: "index_upvotes_on_user_id_and_graffiti_id", unique: true, using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -77,6 +77,6 @@ ActiveRecord::Schema.define(version: 20160822050649) do
 
   add_foreign_key "comments", "graffitis"
   add_foreign_key "comments", "users"
-  add_foreign_key "likes", "graffitis"
-  add_foreign_key "likes", "users"
+  add_foreign_key "upvotes", "graffitis"
+  add_foreign_key "upvotes", "users"
 end

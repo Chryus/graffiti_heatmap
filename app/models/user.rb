@@ -4,6 +4,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :comments
-  has_many :likes
-  has_many :graffiti, through: :likes
+  has_many :upvotes
+  has_many :graffiti, through: :upvotes
 end

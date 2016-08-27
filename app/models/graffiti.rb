@@ -8,8 +8,15 @@ class Graffiti < ActiveRecord::Base
   after_validation :geocode  # auto-fetch coordinates
   belongs_to :user
   has_many :comments
-  has_many :likes
-  has_many :users, through: :likes
+  has_many :upvotes
+  has_many :users, through: :upvotes
+
+  def as_json(options={})
+    graffito = super(:only => [:incident_address, :borough, :latitude, :longitude])
+    graffito[:upvotes] = upvotes.count
+    graffito[:voted_by] = upvotes.pluck(:user_id)
+    graffito
+  end
 
   def self.heatmap_format
     Graffiti.select("latitude, longitude").map { |incident| { :lat => incident.latitude, :lng => incident.longitude } }

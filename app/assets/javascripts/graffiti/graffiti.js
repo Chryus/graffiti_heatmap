@@ -22,7 +22,6 @@ angular.module('graffitiApp')
     o.upvote = function(graffito, user) {
       if (graffito.upvoted == null) {
         user = Auth.currentUser().$$state.value
-        debugger
         return $http.put('/graffiti/' + graffito.id + '/upvote.json', { user_id: user.id } ).success(function(data) {
           graffito.upvotes += 1;
           graffito['upvoted'] = true;

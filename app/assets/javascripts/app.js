@@ -38,6 +38,16 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
             }]
           }
         })
+        .state('favorites', {
+          url: '/favorites',
+          templateUrl: 'users/_user.html',
+          controller: 'UsersCtrl',
+          resolve: {
+            user: ['users', function(users){
+              return users.getUser();
+            }]
+          }
+        })
         .state('login', {
           url: '/login',
           templateUrl: 'auth/_login.html',

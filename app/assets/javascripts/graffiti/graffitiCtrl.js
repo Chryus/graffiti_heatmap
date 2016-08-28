@@ -1,11 +1,10 @@
 angular.module('graffitiApp')
   .controller('GraffitiCtrl', [
     '$scope',
-    'Auth',
     'graffiti',
     'graffito',
     'map',
-    function($scope, Auth, graffiti, graffito, map){
+    function($scope, graffiti, graffito, map){
       $scope.map = map.getMap('google');
       $scope.graffiti = graffiti.graffiti;
       $scope.graffito = graffito;

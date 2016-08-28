@@ -1,11 +1,14 @@
 angular.module('graffitiApp')
   .controller('UsersCtrl', [
     '$scope',
-    'users',
     'map',
-    function($scope, users){
-      $scope.user = user
-      $scope.graffiti = users.user.graffiti
+    'Auth',
+    function($scope, map, Auth){
+      Auth.currentUser().then(function(user) {
+        $scope.user = user;
+        $scope.graffiti = user.graffiti
+      })
+      debugger
       $scope.matchLat = function (lat) {
         map.matchLat(lat);
       }

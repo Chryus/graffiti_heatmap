@@ -23,13 +23,14 @@
 }
 
 body {
-background-color:black;
-color: rgb(66, 222, 107);
-font-family: Futura;
-}
+  background-color:black;
+  color: rgb(66, 222, 107);
+  font-family: Futura;
+  }
 
 a:link {
-    text-decoration: none;
+  text-decoration: none;
+  cursor: grabbing;
 }
 
 header > span { color: #42de6b }
@@ -59,9 +60,25 @@ header > .glyphicon { padding-left: 1px;}
   margin-left: -120px;
 }
 
+div.title-container a {color: #42de6b;}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+   background-color: #FAFF7F; 
+}
+
+
 #title {
   text-align: center;
   font-size: 8em;
+}
+
+#subtitle {
+  text-align: center;
+  margin-top: -20px;
+  font-size: 2em;
+  margin-bottom: 30px;
 }
 
 .button {
@@ -126,11 +143,4 @@ h3 {
 li {
   list-style-type:none;
   margin-left: 10px;
-}
-
-#subtitle {
-  text-align: center;
-  margin-top: -20px;
-  font-size: 2em;
-  margin-bottom: 30px;
 }

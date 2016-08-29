@@ -12,7 +12,7 @@ class Graffiti < ActiveRecord::Base
   has_many :users, through: :upvotes
 
   def as_json(options={})
-    graffito = super(:only => [:incident_address, :borough, :latitude, :longitude])
+    graffito = super(:only => [:id, :incident_address, :borough, :latitude, :longitude])
     graffito[:upvotes] = upvotes.count
     graffito[:upvoted_by] = upvotes.pluck(:user_id)
     graffito

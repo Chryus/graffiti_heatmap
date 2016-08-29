@@ -8,7 +8,6 @@ angular.module('graffitiApp')
         $scope.user = user;
         $scope.graffiti = user.graffiti
       })
-      debugger
       $scope.matchLat = function (lat) {
         map.matchLat(lat);
       }

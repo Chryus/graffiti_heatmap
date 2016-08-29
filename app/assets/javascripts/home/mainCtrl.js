@@ -1,10 +1,12 @@
 angular.module('graffitiApp')
   .controller('MainCtrl', [
     '$scope',
+    '$http',
+    '$location',
     'graffiti',
     'map',
-    '$http',
-    function($scope, graffiti, map, $http){
+    function($scope, $http, $location, graffiti, map){
+      $scope.currentPath = $location.path();
       $scope.map = map.getMap('google');
       $scope.alert = function () {
         window.alert("Check out the graffito before voting on it.")

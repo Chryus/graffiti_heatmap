@@ -41,7 +41,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
         })
         .state('favorites', {
           url: '/favorites',
-          templateUrl: 'home/_home.html',
+          templateUrl: 'users/_user.html',
           controller: 'UsersCtrl',
           onEnter: function() {
             $(".gm-iv-back-icon").click()  // close streetview

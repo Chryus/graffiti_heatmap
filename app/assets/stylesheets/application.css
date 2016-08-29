@@ -39,6 +39,12 @@ header > h3 { display: inline-block;}
 
 header > .glyphicon { padding-left: 1px;}
 
+.favorites {
+  color: #42de6b;
+  margin-left: -82px;
+  margin-top: 100px;
+}
+
 .collapse.navbar-collapse { margin-right: 50px; } 
 
 #map-canvas {

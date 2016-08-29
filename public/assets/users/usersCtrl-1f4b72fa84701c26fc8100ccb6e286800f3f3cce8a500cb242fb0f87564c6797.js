@@ -1,0 +1,1 @@
+angular.module("graffitiApp").controller("UsersCtrl",["$scope","$location","users","map",function(r,t,a,e){r.currentPath=t.path(),r.user=a.user,r.graffiti=a.user.graffiti,r.matchLat=function(r){e.matchLat(r)},r.orderProp="-upvotes"}]);

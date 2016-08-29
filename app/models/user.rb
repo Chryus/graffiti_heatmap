@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :graffiti, through: :upvotes
 
   def as_json(options={})
-    user = super(:only => [:username])
+    user = super(:only => [:id, :username])
     user[:graffiti] = self.graffiti
     user
   end

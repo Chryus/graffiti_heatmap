@@ -12,7 +12,7 @@ class GraffitiController < ApplicationController
 
   def upvote
     graffito = Graffiti.find(params[:id])
-    graffito.upvotes.create(user_id: params[:user_id]) if params[:user_id].present?
+    graffito.upvotes.create(user: current_user)
     respond_with graffito
   end
   

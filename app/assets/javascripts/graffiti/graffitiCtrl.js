@@ -8,12 +8,15 @@ angular.module('graffitiApp')
       $scope.map = map.getMap('google');
       $scope.graffiti = graffiti.graffiti;
       $scope.graffito = graffito;
+
       $scope.matchLat = function (lat) {
         map.matchLat(lat);
-      }
+      };
+
       $scope.incrementUpvotes = function(graffito){
         graffiti.upvote(graffito);
       };
+
       $scope.addComment = function(){
         if($scope.body === '') { return; }
         graffiti.addComment(graffito.id, {

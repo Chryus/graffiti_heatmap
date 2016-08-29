@@ -9,6 +9,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           templateUrl: 'home/_home.html',
           controller: 'MainCtrl',
           onEnter: function() {
+            $(".gm-iv-back-icon").click() // close streetview
             $("#map-canvas").show();
           },
           resolve: {
@@ -43,6 +44,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           templateUrl: 'home/_home.html',
           controller: 'UsersCtrl',
           onEnter: function() {
+            $(".gm-iv-back-icon").click()  // close streetview
             $("#map-canvas").show();
           },
           resolve: {

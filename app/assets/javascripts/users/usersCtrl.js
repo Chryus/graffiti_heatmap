@@ -2,7 +2,8 @@ angular.module('graffitiApp')
   .controller('UsersCtrl', [
     '$scope',
     'users',
-    function($scope, users){
+    'map',
+    function($scope, users, map){
       $scope.user = users.user;
       $scope.graffiti = users.user.graffiti
 

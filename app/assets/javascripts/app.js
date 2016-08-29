@@ -42,11 +42,14 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           url: '/favorites',
           templateUrl: 'home/_home.html',
           controller: 'UsersCtrl',
+          onEnter: function() {
+            $("#map-canvas").show();
+          },
           resolve: {
             user: ['users', function(users){
               return users.getUser();
             }]
-          } 
+          }
         })
         .state('login', {
           url: '/login',

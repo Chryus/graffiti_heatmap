@@ -1,0 +1,1 @@
+angular.module("graffitiApp").controller("MainCtrl",["$scope","graffiti","map","$http",function(t,o,a){t.map=a.getMap("google"),t.alert=function(){window.alert("Check out the graffito before voting on it.")},t.graffiti=o.graffiti,t.matchLat=function(t){a.matchLat(t)},t.orderProp="-upvotes"}]);

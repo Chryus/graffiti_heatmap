@@ -1,0 +1,1 @@
+angular.module("graffitiApp").factory("users",["$http","Auth",function(r,u){var n={user:{}};return n.getUser=function(){return u.currentUser().then(function(u){return r.get("/users/"+u.id+".json").success(function(r){angular.copy(r,n.user)})})},n}]);

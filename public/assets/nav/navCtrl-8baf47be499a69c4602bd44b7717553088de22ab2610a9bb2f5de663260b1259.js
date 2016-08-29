@@ -1,0 +1,1 @@
+angular.module("graffitiApp").controller("NavCtrl",["$scope","Auth",function(n,e){n.signedIn=e.isAuthenticated,n.logout=e.logout,e.currentUser().then(function(e){n.user=e}),n.$on("devise:new-registration",function(e,o){n.user=o}),n.$on("devise:login",function(e,o){n.user=o}),n.$on("devise:logout",function(){n.user={}})}]);

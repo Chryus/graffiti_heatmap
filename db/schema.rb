@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20160822151300) do
   end
 
   create_table "graffitis", force: :cascade do |t|
-    t.string   "borough",          limit: 255
-    t.string   "status",           limit: 255
-    t.string   "incident_address", limit: 255
+    t.string   "borough"
+    t.string   "status"
+    t.string   "incident_address"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "latitude"
@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 20160822151300) do
   end
 
   create_table "pictures", force: :cascade do |t|
-    t.string   "address",     limit: 255
-    t.string   "borough",     limit: 255
-    t.string   "description", limit: 255
+    t.string   "address"
+    t.string   "borough"
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
@@ -50,21 +50,21 @@ ActiveRecord::Schema.define(version: 20160822151300) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["graffiti_id"], name: "index_upvotes_on_graffiti_id", using: :btree
-    t.index ["user_id"], name: "index_upvotes_on_user_id", using: :btree
     t.index ["user_id", "graffiti_id"], name: "index_upvotes_on_user_id_and_graffiti_id", unique: true, using: :btree
+    t.index ["user_id"], name: "index_upvotes_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                   limit: 255
-    t.string   "password",               limit: 255
+    t.string   "name"
+    t.string   "password"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                              default: "", null: false
-    t.string   "encrypted_password",                 default: "", null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"

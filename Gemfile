@@ -12,6 +12,7 @@ gem 'pg'
 
 # angular
 # compiles html templates into javascript and inserts them into Angular's $templateCache
+gem "angularjs-rails"
 gem 'angular-rails-templates'
 
 # geocoder for mapping

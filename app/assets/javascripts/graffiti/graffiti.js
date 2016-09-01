@@ -27,14 +27,14 @@ angular.module('graffitiApp')
         });
       }
     };
-    o.addComment = function(id, comment) {
-      return $http.graffito('/graffiti/' + id + '/comments.json', comment);
-    };
-    o.upvoteComment = function(graffito, comment) {
-      return $http.put('/graffiti/' + graffito.id + '/comments/' + comment.id + '/upvote.json')
-        .success(function(data) {
-          comment.upvotes += 1;
-        });
-    };
+    // o.addComment = function(id, comment) {
+    //   return $http.graffito('/graffiti/' + id + '/comments.json', comment);
+    // };
+    // o.upvoteComment = function(graffito, comment) {
+    //   return $http.put('/graffiti/' + graffito.id + '/comments/' + comment.id + '/upvote.json')
+    //     .success(function(data) {
+    //       comment.upvotes += 1;
+    //     });
+    // };
   return o;
   }]);

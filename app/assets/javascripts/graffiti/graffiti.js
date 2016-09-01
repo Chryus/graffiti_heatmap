@@ -19,7 +19,7 @@ angular.module('graffitiApp')
         return res.data;
       });
     };
-    o.upvote = function(graffito, user) {
+    o.upvote = function(graffito) {
       if (graffito.upvoted == null) {
         return $http.put('/graffiti/' + graffito.id + '/upvote.json').success(function(data) {
           graffito.upvotes += 1;

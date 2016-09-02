@@ -12,6 +12,8 @@ exports.config = {
   // Framework to use. Jasmine is recommended.
   framework: 'jasmine',
 
+  allScriptsTimeout: 30000,
+
   // Spec patterns are relative to the current working directory when
   // protractor is called.
   specs: ['spec/javascripts/home/home_spec.js'],

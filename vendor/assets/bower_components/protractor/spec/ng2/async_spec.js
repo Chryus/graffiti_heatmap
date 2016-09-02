@@ -59,7 +59,7 @@ describe('async angular2 application', function() {
     var originalTimeout;
     beforeEach(function() {
       originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-      jasmine.DEFAULT_TIMEOUT_INTERVAL = 30000;
+      jasmine.DEFAULT_TIMEOUT_INTERVAL = 70000;
     });
 
     it('should wait for a series of periodic increments', function() {

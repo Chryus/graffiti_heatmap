@@ -1,7 +1,7 @@
 $width: 100px;
 $height: $width/2;
-$amber: #FFC107;
-$grey: #ccc;
+$amber: #FAFF7F;
+$grey: #FF0F87;
 $time: 0.4s;
 
 @mixin animation($name) {
@@ -43,11 +43,9 @@ $time: 0.4s;
 }
 
 .spinner {
-  position: absolute;
-  z-index: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
+  position: relative;
+  margin-right: 150px;
+  margin-top: 145px;
 }
 
 body{

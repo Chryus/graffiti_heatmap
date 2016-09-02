@@ -11,15 +11,6 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           onEnter: function() {
             $(".gm-iv-back-icon").click() // close streetview
             $("#map-canvas").show();
-          },
-          resolve: {
-            graffitiPromise: ['graffiti', function(graffiti){
-              if (graffiti.graffiti.length == 0) {
-                return graffiti.getAll();
-              } else {
-                return graffiti;
-              };
-            }]
           }
         })
         .state('graffiti', {

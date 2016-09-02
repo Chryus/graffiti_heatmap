@@ -1,9 +1,13 @@
+<div class="spinner" ng-show="loading">
+      <div class="pacman"></div>
+      <div class="dot"></div>
+    </div>
 <div id="panel">
   <input class="button" id="markers" type=button value="Toggle markers">
   <input class="button" id="heat" type=button value="Toggle heatmap">
 </div>
 <header class="favorites">
-  <h2>Reports of graffiti 'incidents' in New York City</h2>
+  <h2>Graffiti Locations</h2>
 </header>
 <div class="search-container">
   <input id="search" type="text" placeholder="Search..." ng-model="query" /> 
@@ -35,3 +39,4 @@
     </li>
   </ul>
 </div>
+

@@ -3,7 +3,7 @@ require "rails_helper"
 RSpec.describe GraffitiController, :type => :controller do
   describe "GET #upvote" do
     # spec/requests/api/v1/messages_spec.rb
-    it 'updates the upvotes of a particular graffito' do
+    it 'increments the upvotes of a particular graffito' do
       @graffito = create(:graffiti)
       upvote_count = @graffito.upvotes.count    
       put :upvote, id: @graffito.id, format: 'json'

@@ -1,0 +1,1 @@
+var env=require("../spec/environment.js");exports.config={seleniumAddress:env.seleniumAddress,specs:["timeout_spec.js"],capabilities:env.capabilities,baseUrl:env.baseUrl,jasmineNodeOpts:{showColors:!0}};

@@ -1,0 +1,2 @@
+#!/usr/bin/env node
+console.log('Please use "protractor [configFile] [options] --elementExplorer" for full functionality\n'),process.argv.length>3?(console.log("usage: elementexplorer.js [url]"),process.exit(1)):3===process.argv.length&&(process.argv[2]="--baseUrl="+process.argv[2]),process.argv.push("--elementExplorer"),require("../built/cli.js");

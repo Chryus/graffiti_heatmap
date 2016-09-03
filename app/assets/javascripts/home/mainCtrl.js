@@ -24,7 +24,7 @@ angular.module('graffitiApp')
           $scope.loading = false;
         });
       } else {
-        $scope.graffiti == graffiti.graffiti
+        $scope.graffiti = graffiti.graffiti
         $scope.loading = false;
       }
 

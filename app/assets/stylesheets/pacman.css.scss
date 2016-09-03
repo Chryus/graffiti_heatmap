@@ -42,60 +42,54 @@ $time: 0.4s;
   animation: $name $time infinite;
 }
 
-body{
-  background: #000;
-  overflow: hidden;
-  margin: 0;
+.spinner-container {
+  position: absolute;
+  margin-top: 5%;
+}
 
-  .spinner-container {
-    position: absolute;
-    margin-top: 5%;
-  }
 
-  
-  .pacman:before, .pacman:after{
-    content: '';
-    position: absolute;
-    background: $amber;
-    width: $width;
-    height: $height;
-    left: 50%;
-    top: 50%;
-    margin-left: - $width/2;
-    margin-top: - $height;
-    border-radius: $height $height 0 0;
-    @include use-animation(up, $time);
-  }
-  
-  .pacman:after {
-    margin-top: -1px;
-    border-radius: 0 0 $height $height;
-    @include use-animation(down, $time);
-  }
+.pacman:before, .pacman:after{
+  content: '';
+  position: absolute;
+  background: $amber;
+  width: $width;
+  height: $height;
+  left: 50%;
+  top: 50%;
+  margin-left: - $width/2;
+  margin-top: - $height;
+  border-radius: $height $height 0 0;
+  @include use-animation(up, $time);
+}
 
-  
-  .loading-text {
-    position: relative;
-    margin-left: 56%;
-    margin-top: -3%;
-  }
-  
-  .dot{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: $height/5;
-    height: $height/5;
-    margin-top: - $height/10;
-    margin-left: 30px;
-    border-radius: 50%;
-    background: $grey;
-    z-index: -1;
-    box-shadow: 30px 0 0 $grey,
-                60px 0 0 $grey,
-                90px 0 0 $grey,
-                120px 0 0 $grey,
-                150px 0 0 $grey;
-    @include use-animation(r-to-l, $time);
-  }
+.pacman:after {
+  margin-top: -1px;
+  border-radius: 0 0 $height $height;
+  @include use-animation(down, $time);
+}
+
+
+.loading-text {
+  position: relative;
+  margin-left: 56%;
+  margin-top: -3%;
+}
+
+.dot{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: $height/5;
+  height: $height/5;
+  margin-top: - $height/10;
+  margin-left: 30px;
+  border-radius: 50%;
+  background: $grey;
+  z-index: -1;
+  box-shadow: 30px 0 0 $grey,
+              60px 0 0 $grey,
+              90px 0 0 $grey,
+              120px 0 0 $grey,
+              150px 0 0 $grey;
+  @include use-animation(r-to-l, $time);
 }

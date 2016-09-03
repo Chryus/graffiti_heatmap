@@ -12,6 +12,10 @@
  *= require_tree .
  *= require_self
  */
+$graffitigreen: #42de6b;
+$graffitiyellow: #fAff7f;
+$graffitihotpink: #ff0f87;
+$graffitilistblue: #3a79ad;
 
 @font-face {
   font-family: 'Glyphicons Halflings';
@@ -23,24 +27,25 @@
 }
 
 body {
+  margin: 0;
   background-color:black;
-  color: rgb(66, 222, 107);
+  color: $graffitigreen;
   font-family: Futura;
-  }
+}
 
 a:link {
   text-decoration: none;
   cursor: grabbing;
 }
 
-header > span { color: #42de6b }
+header > span { color: $graffitigreen }
 
 header > h3 { display: inline-block;}
 
 header > .glyphicon { padding-left: 1px;}
 
 .favorites {
-  color: #42de6b;
+  color: $graffitigreen;
   margin-left: -82px;
   margin-top: 38px;
 }
@@ -66,12 +71,12 @@ header > .glyphicon { padding-left: 1px;}
   margin-left: 10px;
 }
 
-div.title-container a {color: #42de6b;}
+div.title-container a {color: $graffitigreen;}
 
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #FAFF7F; 
+  background-color: $graffitiyellow; 
 }
 
 
@@ -88,7 +93,7 @@ div.title-container a {color: #42de6b;}
 }
 
 .button {
-  background-color: rgb(255, 15, 135);
+  background-color: $graffitihotpink;
   border-radius: 5px;
   font-family: futura;
   padding: 3px;
@@ -114,7 +119,6 @@ div.title-container a {color: #42de6b;}
   margin-left: -260px;
   z-index: 6;
   padding: 5px;
-  background-color: rgba(255, 182, 193, 0);
 }
 
 ul {
@@ -128,7 +132,7 @@ ul {
 }
 
 .address:hover {
-  color: rgb(255, 15, 135);
+  color: $graffitihotpink;
   transition-duration: 0.5s;
 }
 
@@ -143,7 +147,7 @@ ul {
 }
 
 h3 {
-  color: #3a79ad;
+  color: $graffitilistblue;
 }
 
 li {

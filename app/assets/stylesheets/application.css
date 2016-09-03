@@ -132,7 +132,7 @@ ul {
   transition-duration: 0.5s;
 }
 
-.container {
+.my-container {
   margin-top: 55px;
   margin-left: -145px;
   display: block;

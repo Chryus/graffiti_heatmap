@@ -1,8 +1,9 @@
-<div class="spinner" ng-show="loading">
-  <p>Loading</p>
+<div class="container spinner-container" ng-show="loading">
+  <p class="loading-text">Loading</p>
   <div class="pacman"></div>
   <div class="dot"></div>
 </div>
+
 <div ng-hide="loading">
   <div id="panel">
     <input class="button" id="markers" type=button value="Toggle markers">
@@ -19,7 +20,7 @@
       <option value="address">Address</option>
     </select>
   </div>
-  <div class="container">
+  <div class="my-container">
     <ul class="graffitis">
       <li ng-repeat="graffito in graffiti | filter:query | orderBy: orderProp">
         <div class="info">

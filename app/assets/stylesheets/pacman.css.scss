@@ -1,4 +1,4 @@
-$width: 100px;
+$width: 90px;
 $height: $width/2;
 $amber: #FAFF7F;
 $grey: #FF0F87;
@@ -42,21 +42,16 @@ $time: 0.4s;
   animation: $name $time infinite;
 }
 
-.spinner {
-  position: relative;
-  margin-right: 150px;
-  margin-top: 145px;
-  p {
-    margin-top: -30px;
-    margin-left: 663px;
-    position: absolute;
-  }
-}
-
 body{
   background: #000;
   overflow: hidden;
   margin: 0;
+
+  .spinner-container {
+    position: absolute;
+    margin-top: 5%;
+  }
+
   
   .pacman:before, .pacman:after{
     content: '';
@@ -76,7 +71,14 @@ body{
     margin-top: -1px;
     border-radius: 0 0 $height $height;
     @include use-animation(down, $time);
-  } 
+  }
+
+  
+  .loading-text {
+    position: relative;
+    margin-left: 56%;
+    margin-top: -3%;
+  }
   
   .dot{
     position: absolute;

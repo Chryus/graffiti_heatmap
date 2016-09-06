@@ -27,6 +27,9 @@ gem 'rack-mini-profiler'
 #json for reading data
 gem 'json'
 
+# query web services
+gem 'httparty'
+
 #can't do without it
 # gem 'debugger'
 

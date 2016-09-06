@@ -1,8 +1,12 @@
-angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
+angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer'])
   .config([
     '$stateProvider',
     '$urlRouterProvider',
-    function($stateProvider, $urlRouterProvider){
+    '$authProvider',
+    function($stateProvider, $urlRouterProvider, $authProvider) {
+      $authProvider.facebook({
+        clientId: '947788818699822'
+      });
       $stateProvider
         .state('home', {
           url: '/home',
@@ -18,7 +22,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           templateUrl: 'graffiti/_graffiti.html',
           controller: 'GraffitiCtrl',
           resolve: {
-            graffitiPromise: ['graffiti', function(graffiti){
+            graffitiPromise: ['graffiti', function(graffiti) {
               if (graffiti.graffiti.length == 0) {
                 return graffiti.getAll();
               } else {
@@ -35,11 +39,11 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           templateUrl: 'users/_user.html',
           controller: 'UsersCtrl',
           onEnter: function() {
-            $(".gm-iv-back-icon").click()  // close streetview
+            $(".gm-iv-back-icon").click() // close streetview
             $("#map-canvas").show();
           },
           resolve: {
-            user: ['users', function(users){
+            user: ['users', function(users) {
               return users.getUser();
             }]
           }
@@ -50,7 +54,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           controller: 'AuthCtrl',
           onEnter: ['$state', 'Auth', function($state, Auth) {
             console.log("logging in");
-            Auth.currentUser().then(function (){
+            Auth.currentUser().then(function() {
               $state.go('home');
             })
             $("#map-canvas").hide();
@@ -62,10 +66,11 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise'])
           controller: 'AuthCtrl',
           onEnter: ['$state', 'Auth', function($state, Auth) {
             $("#map-canvas").hide();
-            Auth.currentUser().then(function (){
+            Auth.currentUser().then(function() {
               $state.go('home');
             })
           }]
         })
       $urlRouterProvider.otherwise('home');
-  }])
+    }
+  ])

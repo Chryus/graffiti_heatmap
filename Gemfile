@@ -30,6 +30,9 @@ gem 'json'
 # query web services
 gem 'httparty'
 
+# env variables
+gem 'figaro'
+
 #can't do without it
 # gem 'debugger'
 

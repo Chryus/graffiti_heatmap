@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  post "/auth/facebook", to: "users#facebook_login"
+  post "/auth/facebook", to: "users#create_from_facebook"
   get "/get_graffiti", to: "graffiti#index"
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -16,7 +16,6 @@ module Omniauth
     #   Retrieve access_token from authorization_code
     #   Retrieve User_Info hash from access_token
     def self.authenticate(code)
-      debugger
       provider = self.new
       access_token = provider.get_access_token(code)
       user_info    = provider.get_user_profile(access_token)
@@ -73,9 +72,9 @@ module Omniauth
       {
         query: {
           code: code,
-          redirect_uri: "http://localhost:9000/",
-          client_id: ENV['FB_APP_ID'],
-          client_secret: ENV['FB_APP_SECRET']
+          redirect_uri: "http://localhost:3000/",
+          client_id: ENV['FACEBOOK_ID'],
+          client_secret: ENV['FACEBOOK_SECRET']
         }
       }
     end

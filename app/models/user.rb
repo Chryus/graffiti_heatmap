@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   def self.from_facebook(provider, user_info, access_token)
     User.where(uid: user_info['id']).first_or_initialize.tap do |user|
-      user.provider = auth.provider
+      user.provider = provider
       user.uid = user_info['id']
       user.name = user_info['name']
       user.oauth_token = access_token

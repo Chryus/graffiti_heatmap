@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   end
 
   def as_json(options={})
-    user = super(:only => [:id, :username])
+    user = super(:only => [:id, :name, :username])
     user[:graffiti] = self.graffiti
     user
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160822151300) do
+ActiveRecord::Schema.define(version: 20160907205633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,9 +26,9 @@ ActiveRecord::Schema.define(version: 20160822151300) do
   end
 
   create_table "graffitis", force: :cascade do |t|
-    t.string   "borough"
-    t.string   "status"
-    t.string   "incident_address"
+    t.string   "borough",          limit: 255
+    t.string   "status",           limit: 255
+    t.string   "incident_address", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "latitude"
@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 20160822151300) do
   end
 
   create_table "pictures", force: :cascade do |t|
-    t.string   "address"
-    t.string   "borough"
-    t.string   "description"
+    t.string   "address",     limit: 255
+    t.string   "borough",     limit: 255
+    t.string   "description", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
@@ -55,21 +55,24 @@ ActiveRecord::Schema.define(version: 20160822151300) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "password"
+    t.string   "name",                   limit: 255
+    t.string   "password",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                              default: "", null: false
+    t.string   "encrypted_password",                 default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
     t.string   "username"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_token"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree

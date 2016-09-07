@@ -7,8 +7,8 @@ class UsersController < ApplicationController
 
   def create_from_facebook
     user_info, access_token = Omniauth::Facebook.authenticate(params['code'])
-    if user_info['email'].blank?
-      Omniauth::Facebook.deauthorize(access_token)
-    end
+    user = User.from_facebook('facebook', user_info, access_token)
+    respond_with user
   end
+
 end

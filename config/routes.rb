@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
-  resources :users, only: [:show] do
-    collection do
-      get '/from_token' => 'users#from_token'
-    end
-  end
+  resources :users, only: :show
   devise_for :users, :controllers => {sessions: 'sessions'}
   
   root to: 'application#angular'
@@ -21,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   post "/auth/facebook", to: "users#create_from_facebook"
+  get "/from_token", to: "users#from_token"
   get "/get_graffiti", to: "graffiti#index"
 
   # The priority is based upon order of creation: first created -> highest priority.

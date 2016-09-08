@@ -9,7 +9,6 @@ angular.module('graffitiApp')
       // facebook auth
       // use satellizer $auth service instead of Auth
       $scope.authenticate = function(provider) {
-        debugger
         $auth.authenticate(provider).then(function(user) {
           $scope.user = user.data
           $auth.setToken($scope.user.oauth_token);

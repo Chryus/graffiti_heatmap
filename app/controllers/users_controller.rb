@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   end
 
   def from_token
-    respond_with = User.find_by(oauth_token: params[:token])
+    respond_with User.find_by(oauth_token: params[:token])
   end
 
 end

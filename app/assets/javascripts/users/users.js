@@ -8,10 +8,10 @@ angular.module('graffitiApp')
        user: {}
     };
     o.getUser = function(id) {
-      token = $auth.getToken()
-        if (token) {
-          return $http.get('/users/' + from_token + '.json', { token: token }).then(function(user) {
-            angular.copy(user.data, o.user);
+        token = $auth.getToken()
+        if (token != null) {
+          return $http.get('/from_token.json', { token: token }).success(function(data) {
+            angular.copy(data, o.user);
           });
         } else {
         return Auth.currentUser().then(function (user){

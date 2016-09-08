@@ -3,10 +3,25 @@ angular.module('graffitiApp')
     '$scope',
     'Auth',
     '$auth',
-    function($scope, Auth, $auth) {
-      $scope.signedIn = Auth.isAuthenticated || $auth.isAuthenticated;
-      $scope.logout = Auth.logout;
-      
+    '$state',
+    function($scope, Auth, $auth, $state) {
+
+      $scope.loggedIn = function() {
+        if (Auth.isAuthenticated() == true || $scope.signedInWithFacebook == true) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      $scope.logout = function() {
+        if (Auth.isAuthenticated() == true) {
+          Auth.logout();
+        } else {
+          $scope.signedInWithFacebook = false;
+        }
+      };
+
       Auth.currentUser().then(function(user) {
         $scope.user = user;
       });
@@ -15,9 +30,9 @@ angular.module('graffitiApp')
       // use satellizer $auth service instead of Auth
       $scope.authenticate = function(provider) {
         $auth.authenticate(provider).then(function(user) {
-          $scope.user = user.data;
+          $scope.user = user.data
+          $scope.signedInWithFacebook = true;
         });
-        $auth.isAuthenticated = true;
       };
 
       $scope.$on('devise:new-registration', function  (e, user){

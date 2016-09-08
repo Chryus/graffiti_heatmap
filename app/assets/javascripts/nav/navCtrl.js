@@ -7,7 +7,7 @@ angular.module('graffitiApp')
     function($scope, Auth, $auth, $state) {
 
       $scope.loggedIn = function() {
-        if (Auth.isAuthenticated() == true || $scope.signedInWithFacebook == true) {
+        if (Auth.isAuthenticated() == true || $auth.isAuthenticated() == true) {
           return true;
         } else {
           return false;
@@ -18,7 +18,7 @@ angular.module('graffitiApp')
         if (Auth.isAuthenticated() == true) {
           Auth.logout();
         } else {
-          $scope.signedInWithFacebook = false;
+          $auth.logout();
         }
       };
 
@@ -31,7 +31,7 @@ angular.module('graffitiApp')
       $scope.authenticate = function(provider) {
         $auth.authenticate(provider).then(function(user) {
           $scope.user = user.data
-          $scope.signedInWithFacebook = true;
+          $auth.setToken($scope.user.oauth_token);
         });
       };
 

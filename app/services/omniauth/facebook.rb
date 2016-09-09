@@ -66,7 +66,7 @@ module Omniauth
 
     # fetches info about a person
     def get_user_profile(access_token)
-      options = { query: { access_token: access_token, fields: 'email' } }
+      options = { query: { access_token: access_token, fields: 'name,email' } }
       response = self.class.get('/me', options)
       # Something went wrong most propably beacuse of the connection.
       unless response.success?

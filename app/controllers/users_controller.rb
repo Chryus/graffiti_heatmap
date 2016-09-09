@@ -18,7 +18,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       respond_with user
     else
-      raise "error"
+      render json: {message: "Your token has expired. Please login with Facebook again"}, status: 401
     end
   end
 end

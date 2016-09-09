@@ -15,7 +15,7 @@ angular.module('graffitiApp')
             angular.copy(user.data, o.user);
           }, function errorCallback(response) {
             $auth.logout();
-            alert("Your token has expired. Please login with Facebook again");
+            alert(response.data.message);
           });
         } else {
         return Auth.currentUser().then(function (user){

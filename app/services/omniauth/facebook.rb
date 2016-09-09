@@ -7,7 +7,7 @@ module Omniauth
     include HTTParty
 
     # The base uri for facebook graph API
-    base_uri 'https://graph.facebook.com/v2.3'
+    base_uri 'https://graph.facebook.com/v2.5'
 
     # Used to authenticate app with facebook user
     # Usage
@@ -19,7 +19,7 @@ module Omniauth
       provider = self.new
       access_token = provider.get_access_token(code)
       expires_at = provider.verify_access_token(code, access_token)
-      user_info    = provider.get_user_profile(access_token)
+      user_info = provider.get_user_profile(access_token)
       return user_info, access_token, expires_at
     end
 
@@ -42,6 +42,7 @@ module Omniauth
       response.parsed_response
     end
 
+    # this returns the token + the expires_in param
     def get_access_token(code)
       response = self.class.get('/oauth/access_token', query(code))
       # Something went wrong either wrong configuration or connection
@@ -52,10 +53,8 @@ module Omniauth
       response.parsed_response['access_token']
     end
 
+    # verifying the token with facebook fetches the expires_at param
     def verify_access_token(code, access_token)
-     #  GET graph.facebook.com/debug_token?
-     # input_token={token-to-inspect}
-     # &access_token={app-token-or-admin-token}
       response = self.class.get('/debug_token', verify_query(code, access_token))
       # Something went wrong either wrong configuration or connection
       unless response.success?
@@ -65,10 +64,10 @@ module Omniauth
       response.parsed_response['data']['expires_at']
     end
 
+    # fetches info about a person
     def get_user_profile(access_token)
-      options = { query: { access_token: access_token } }
+      options = { query: { access_token: access_token, fields: 'email' } }
       response = self.class.get('/me', options)
-
       # Something went wrong most propably beacuse of the connection.
       unless response.success?
         Rails.logger.error 'Omniauth::Facebook.get_user_profile Failed'

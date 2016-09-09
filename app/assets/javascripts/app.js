@@ -5,7 +5,8 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
     '$authProvider',
     function($stateProvider, $urlRouterProvider, $authProvider) {
       $authProvider.facebook({
-        clientId: '947788818699822'
+        clientId: '947788818699822',
+        redirectUri: window.location.origin + '/'
       });
       $stateProvider
         .state('home', {

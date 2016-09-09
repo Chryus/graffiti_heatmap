@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
       user.uid = user_info['id']
       user.name = user_info['name']
       user.username = user_info['name'].split(" ").first
+      user.email = user_info['email']
       user.oauth_token = access_token
       user.oauth_expires_at = Time.at(expires_at)
       user.save!(validate: false)

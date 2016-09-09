@@ -26,8 +26,11 @@ angular.module('graffitiApp')
       $scope.logout = function() {
         if (Auth.isAuthenticated() == true) {
           Auth.logout();
+          $state.go('home');
         } else {
           $auth.logout();
+          $scope.user = {};
+          $state.go('home');
         }
       };
 

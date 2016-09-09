@@ -6,8 +6,8 @@ class UsersController < ApplicationController
   end
 
   def create_from_facebook
-    user_info, access_token = Omniauth::Facebook.authenticate(params['code'])
-    user = User.from_facebook('facebook', user_info, access_token)
+    user_info, access_token, expires_at = Omniauth::Facebook.authenticate(params['code'])
+    user = User.from_facebook('facebook', user_info, access_token, expires_at)
     session[:user_id] = user.id
     render json: user 
   end

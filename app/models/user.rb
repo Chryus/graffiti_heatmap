@@ -7,12 +7,14 @@ class User < ActiveRecord::Base
   has_many :upvotes
   has_many :graffiti, through: :upvotes
 
-  def self.from_facebook(provider, user_info, access_token)
+  def self.from_facebook(provider, user_info, access_token, expires_at)
     User.where(uid: user_info['id']).first_or_initialize.tap do |user|
       user.provider = provider
       user.uid = user_info['id']
       user.name = user_info['name']
+      user.username = user_info['name'].split(" ").first
       user.oauth_token = access_token
+      user.oauth_expires_at = Time.at(expires_at)
       user.save!(validate: false)
     end
   end

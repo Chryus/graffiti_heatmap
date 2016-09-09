@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20160907205633) do
     t.string   "provider"
     t.string   "uid"
     t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree

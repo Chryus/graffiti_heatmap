@@ -18,8 +18,9 @@ module Omniauth
     def self.authenticate(code)
       provider = self.new
       access_token = provider.get_access_token(code)
+      expires_at = provider.verify_access_token(code, access_token)
       user_info    = provider.get_user_profile(access_token)
-      return user_info, access_token
+      return user_info, access_token, expires_at
     end
 
     # Used to revoke the application permissions and login if a user
@@ -43,13 +44,25 @@ module Omniauth
 
     def get_access_token(code)
       response = self.class.get('/oauth/access_token', query(code))
-
       # Something went wrong either wrong configuration or connection
       unless response.success?
         Rails.logger.error 'Omniauth::Facebook.get_access_token Failed'
         fail Omniauth::ResponseError, 'errors.auth.facebook.access_token'
       end
       response.parsed_response['access_token']
+    end
+
+    def verify_access_token(code, access_token)
+     #  GET graph.facebook.com/debug_token?
+     # input_token={token-to-inspect}
+     # &access_token={app-token-or-admin-token}
+      response = self.class.get('/debug_token', verify_query(code, access_token))
+      # Something went wrong either wrong configuration or connection
+      unless response.success?
+        Rails.logger.error 'Omniauth::Facebook.get_access_token Failed'
+        fail Omniauth::ResponseError, 'errors.auth.facebook.access_token'
+      end
+      response.parsed_response['data']['expires_at']
     end
 
     def get_user_profile(access_token)
@@ -75,6 +88,15 @@ module Omniauth
           redirect_uri: "http://localhost:3000/",
           client_id: ENV['FACEBOOK_ID'],
           client_secret: ENV['FACEBOOK_SECRET']
+        }
+      }
+    end
+
+    def verify_query(code, access_token)
+      {
+        query: {
+          input_token: access_token,
+          access_token: ENV['FACEBOOK_ID'] + "|" + ENV['FACEBOOK_SECRET']
         }
       }
     end

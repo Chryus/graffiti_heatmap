@@ -8,6 +8,7 @@ angular.module('graffitiApp')
        user: {}
     };
     o.getUser = function(id) {
+        // if token exists, we should fetch user from token
         token = $auth.getToken()
         if (token != null) {
           return $http.get('/from_token.json', { token: token }).success(function(data) {
@@ -15,6 +16,7 @@ angular.module('graffitiApp')
           });
         } else {
         return Auth.currentUser().then(function (user){
+          // must fetch user again because Auth.currentUser is old user state
           return $http.get('/users/' + user.id + '.json').success(function(data){
             angular.copy(data, o.user);
           });

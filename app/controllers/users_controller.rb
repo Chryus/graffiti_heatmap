@@ -13,7 +13,12 @@ class UsersController < ApplicationController
   end
 
   def from_token
-    respond_with User.find_by(oauth_token: params[:token])
+    user = User.find_by(oauth_token: params[:token])
+    if DateTime.now < user.oauth_expires_at
+      session[:user_id] = user.id
+      respond_with user
+    else
+      respond_with errors: "Token is expired", status: 401
+    end
   end
-
 end

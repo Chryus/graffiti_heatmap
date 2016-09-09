@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   def from_token
     user = User.find_by(oauth_token: params[:token])
-    if DateTime.now < user.oauth_expires_at
+    if DateTime.now > user.oauth_expires_at
       session[:user_id] = user.id
       respond_with user
     else

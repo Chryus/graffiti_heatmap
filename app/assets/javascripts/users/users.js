@@ -11,7 +11,7 @@ angular.module('graffitiApp')
         // if token exists, we should fetch user from token
         token = $auth.getToken()
         if (token != null) {
-          return $http.get('/from_token.json', { token: token }).success(function(data) {
+          return $http.get('/from_token.json', {params: { token: token } }).success(function(data) {
             angular.copy(data, o.user);
           });
         } else {

@@ -11,8 +11,11 @@ angular.module('graffitiApp')
         // if token exists, we should fetch user from token
         token = $auth.getToken()
         if (token != null) {
-          return $http.get('/from_token.json', {params: { token: token } }).success(function(data) {
-            angular.copy(data, o.user);
+          return $http.get('/from_token.json', {params: { token: token } }).then(function(user) {
+            angular.copy(user.data, o.user);
+          }, function errorCallback(response) {
+            $auth.logout();
+            alert("Your token has expired. Please login with Facebook again");
           });
         } else {
         return Auth.currentUser().then(function (user){

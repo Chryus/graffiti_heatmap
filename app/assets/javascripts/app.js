@@ -39,11 +39,13 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
           url: '/favorites',
           templateUrl: 'users/_user.html',
           controller: 'UsersCtrl',
-          onEnter: function($state, users) {
-            $(".gm-iv-back-icon").click() // close streetview
-            $("#map-canvas").show();
-            if (users.user == null) { return $state.go('home'); }
-          },
+          onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
+            $("#map-canvas").hide();
+            if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) { 
+              console.log("NOT AUTHENTICATED")
+              $state.go('login'); 
+            }
+          }],
           resolve: {
             user: ['users', function(users) {
               return users.getUser();
@@ -54,11 +56,9 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
           url: '/login',
           templateUrl: 'auth/_login.html',
           controller: 'AuthCtrl',
-          onEnter: ['$state', 'Auth', function($state, Auth) {
-            console.log("logging in");
-            Auth.currentUser().then(function() {
-              $state.go('home');
-            })
+          onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
+            if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) { 
+              return $state.go('home'); }
             $("#map-canvas").hide();
           }]
         })
@@ -66,11 +66,11 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
           url: '/register',
           templateUrl: 'auth/_register.html',
           controller: 'AuthCtrl',
-          onEnter: ['$state', 'Auth', function($state, Auth) {
+          onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
             $("#map-canvas").hide();
-            Auth.currentUser().then(function() {
-              $state.go('home');
-            })
+            if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) { 
+              $state.go('home'); 
+            }
           }]
         })
       $urlRouterProvider.otherwise('home');

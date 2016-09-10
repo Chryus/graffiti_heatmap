@@ -17,6 +17,7 @@ angular.module('graffitiApp')
 
       $scope.loggedIn = function() {
         if (Auth.isAuthenticated() == true || $auth.isAuthenticated() == true) {
+          console.log("AUTHENTICATED!");
           return true;
         } else {
           return false;

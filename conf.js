@@ -16,7 +16,7 @@ exports.config = {
 
   // Spec patterns are relative to the current working directory when
   // protractor is called.
-  specs: ['spec/javascripts/e2e/home/home_spec.js'],
+  specs: ['spec/javascripts/e2e/login/facebook_login.js'],
 
   // Options to be passed to Jasmine.
   jasmineNodeOpts: {

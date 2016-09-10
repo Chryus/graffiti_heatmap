@@ -4,6 +4,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
     '$urlRouterProvider',
     '$authProvider',
     function($stateProvider, $urlRouterProvider, $authProvider) {
+      // config facebook client
       $authProvider.facebook({
         clientId: '947788818699822',
         redirectUri: window.location.origin + '/'
@@ -15,21 +16,17 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
           controller: 'MainCtrl',
           onEnter: function() {
             $(".gm-iv-back-icon").click() // close streetview
-            $("#map-canvas").show();
+            $("#map-canvas").show(); // show map
           }
         })
         .state('graffiti', {
           url: '/graffiti/:id',
           templateUrl: 'graffiti/_graffiti.html',
           controller: 'GraffitiCtrl',
+          onEnter: ['$state', 'graffiti', function($state, graffiti) {
+            if (graffiti.graffiti.length == 0) { $state.go('home'); }
+          }],
           resolve: {
-            graffitiPromise: ['graffiti', function(graffiti) {
-              if (graffiti.graffiti.length == 0) {
-                return graffiti.getAll();
-              } else {
-                return graffiti;
-              };
-            }],
             graffito: ['$stateParams', 'graffiti', function($stateParams, graffiti) {
               return graffiti.get($stateParams.id);
             }]
@@ -42,10 +39,10 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
           onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
             $("#map-canvas").hide();
             if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) { 
-              console.log("NOT AUTHENTICATED")
               $state.go('login'); 
             }
           }],
+          // must fetch user again so it updates favorites
           resolve: {
             user: ['users', function(users) {
               return users.getUser();

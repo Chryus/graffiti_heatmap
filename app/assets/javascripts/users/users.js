@@ -12,7 +12,7 @@ angular.module('graffitiApp')
         token = $auth.getToken()
         if (token != null) {
           return $http.get('/from_token.json', {params: { token: token } }).then(function(user) {
-            angular.copy(user.data, o.user);
+            return angular.copy(user.data, o.user);
           }, function errorCallback(response) {
             $auth.logout();
             alert(response.data.message);

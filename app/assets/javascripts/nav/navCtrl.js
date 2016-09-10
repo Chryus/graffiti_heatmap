@@ -4,7 +4,14 @@ angular.module('graffitiApp')
     'Auth',
     '$auth',
     '$state',
-    function($scope, Auth, $auth, $state) {
+    'users',
+    function($scope, Auth, $auth, $state, users) {
+      // set user if authenticated by token
+      if ($scope.user == null && $auth.isAuthenticated() == true) {
+        users.getUser().then(function(user) {
+          $scope.user = user
+        });
+      }
 
       // facebook auth
       // use satellizer $auth service instead of Auth

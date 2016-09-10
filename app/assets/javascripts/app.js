@@ -42,9 +42,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
           onEnter: function($state, users) {
             $(".gm-iv-back-icon").click() // close streetview
             $("#map-canvas").show();
-            users.getUser().then(function(user) {
-              if (user == null) { return $state.go('home'); }
-            });
+            if (users.user == null) { return $state.go('home'); }
           },
           resolve: {
             user: ['users', function(users) {

@@ -1,7 +1,21 @@
 describe('logging in with Faceboook', function() {
-  it('should show the username in the nav bar after sign in', function() {
+  var originalTimeout;
 
+  beforeEach(function() {
+    originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 70000;
+  });
+
+  afterEach(function() {
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+  });
+  
+  it('should open sign in pop up', function() {
     browser.get('http://localhost:3000');
+
+    browser.wait(function(){
+      return browser.driver.isElementPresent(by.css('.li-token-sign-in'));
+    },10000);
 
     // set nav bar els
     var sign_in_with_facebook = element(by.css('.li-token-sign-in'));
@@ -12,31 +26,33 @@ describe('logging in with Faceboook', function() {
     // click facebook auth link
     sign_in_with_facebook.click();
 
-    // switch to facebook auth popup and fill out form
+    // get all windows
     browser.getAllWindowHandles().then(function(handles){
+      // switch to facebook auth popup and fill out form
       browser.switchTo().window(handles[1]).then(function(){
+        browser.ignoreSynchronization = true;
+        browser.pause()
         var email = element(by.css('input[type=email]'))
         var password = element(by.css('input[type=password]'))
         var submit = element(by.css('input[type=submit]'))
-        browser.pause();
+        expect((email).isDisplayed()).toBeTruthy();
 
         // enter email
         // enter password
-        email.sendKeys('youremail');
-        password.sendKeys('yourpassword');
+        email.sendKeys('chicagoeditor@gmail.com');
+        password.sendKeys('$(#havana22.poo)');
 
         submit.click();
       });
-    });
-    
-    // switch back to parent and test nav bar 
-    browser.getAllWindowHandles().then(function(handles){
+      browser.ignoreSynchronization = false;
+      // switch back to app window
       browser.switchTo().window(handles[0]).then(function(){
+      
         expect((sign_in_with_facebook).isDisplayed()).toBeFalsy();
         expect((basic_login).isDisplayed()).toBeFalsy();
         expect((register).isDisplayed()).toBeFalsy();
         expect((favorites).isDisplayed()).toBeTruthy();
-      });
+       });
     });
   });
 });

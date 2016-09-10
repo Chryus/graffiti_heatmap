@@ -10,7 +10,7 @@ exports.config = {
   seleniumAddress: 'http://localhost:4444/wd/hub',
 
   // Framework to use. Jasmine is recommended.
-  framework: 'jasmine',
+  framework: 'jasmine2',
 
   allScriptsTimeout: 30000,
 

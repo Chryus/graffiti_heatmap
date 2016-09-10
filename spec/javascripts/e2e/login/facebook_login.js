@@ -3,20 +3,37 @@ describe('logging in with Faceboook', function() {
 
     browser.get('http://localhost:3000');
 
-    browser.wait(function(){
-      return browser.driver.isElementPresent(by.css(".graffitis"));
-    },30000);
-
+    // set nav bar els
     var sign_in_with_facebook = element(by.css('.li-token-sign-in'));
     var favorites = element(by.css('.li-favorites'))
-    var basic_login = element(by.css('.li-basic-login'))
+    var basic_login = element(by.css('.li-basic-sign-in'))
     var register = element(by.css('.li-register'))
 
+    // click facebook auth link
     sign_in_with_facebook.click();
 
-    expect(sign_in_with_facebook).isDisplayed().toBeFalsy();
-    expect(basic_login).isDisplayed().toBeFalsy();
-    expect(register).isDisplayed().toBeFalsy();
-    expect(favorites).isDisplayed().toBeTruthy();
+    // switch to facebook auth popup and fill out form
+    browser.getAllWindowHandles().then(function(handles){
+      browser.switchTo().window(handles[1]).then(function(){
+      // var email_input = 
+      // var password_input = 
+      // var submit_button = 
+
+      // enter email
+      // enter password
+
+      // submit.click();
+      });
+    });
+    
+    // switch back to parent and test nav bar 
+    browser.getAllWindowHandles().then(function(handles){
+      browser.switchTo().window(handles[0]).then(function(){
+        expect((sign_in_with_facebook).isDisplayed()).toBeFalsy();
+        expect((basic_login).isDisplayed()).toBeFalsy();
+        expect((register).isDisplayed()).toBeFalsy();
+        expect((favorites).isDisplayed()).toBeTruthy();
+      });
+    });
   });
 });

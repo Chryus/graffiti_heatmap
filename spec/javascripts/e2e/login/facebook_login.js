@@ -15,14 +15,17 @@ describe('logging in with Faceboook', function() {
     // switch to facebook auth popup and fill out form
     browser.getAllWindowHandles().then(function(handles){
       browser.switchTo().window(handles[1]).then(function(){
-      // var email_input = 
-      // var password_input = 
-      // var submit_button = 
+        var email = element(by.css('input[type=email]'))
+        var password = element(by.css('input[type=password]'))
+        var submit = element(by.css('input[type=submit]'))
+        browser.pause();
 
-      // enter email
-      // enter password
+        // enter email
+        // enter password
+        email.sendKeys('youremail');
+        password.sendKeys('yourpassword');
 
-      // submit.click();
+        submit.click();
       });
     });
     

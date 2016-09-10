@@ -10,7 +10,8 @@ describe('logging in with Faceboook', function() {
     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
   });
   
-  it('should open sign in pop up', function() {
+  it('should open pop up and show the facebook login form; it should display the proper
+    nave links after submitting form', function() {
     browser.get('http://localhost:3000');
 
     browser.wait(function(){
@@ -34,25 +35,27 @@ describe('logging in with Faceboook', function() {
         var email = element(by.id('email'))
         var password = element(by.id('pass'))
         var submit = element(by.id('u_0_2'))
-        //expect((email).isDisplayed()).toBeTruthy();
+        expect(email.isPresent()).toBeTruthy();
+        expect(password.isPresent()).toBeTruthy();
+        expect(submit.isPresent()).toBeTruthy();
 
         // enter email
         // enter password
         email.sendKeys('youremail');
         password.sendKeys('yourpassword');
 
-        submit.click();
+        submit.click().then(function () {
+          // this switches focus of protractor back to main angularjs window
+          browser.switchTo().window(handles[0]);
+          // this tells protractor it's now a angularjs page
+          browser.ignoreSynchronization = false;
+          expect((sign_in_with_facebook).isDisplayed()).toBeFalsy();
+          expect((basic_login).isDisplayed()).toBeFalsy();
+          expect((register).isDisplayed()).toBeFalsy();
+          expect((favorites).isDisplayed()).toBeTruthy();
+        });
+
       });
-      browser.ignoreSynchronization = false;
-      // switch back to app window
-      browser.switchTo().window(handles[0]).then(function(){
-        // wait until favorites are visible as indicator that user is signed in
-        browser.driver.wait(protractor.until.elementIsVisible(favorites));
-        expect((sign_in_with_facebook).isDisplayed()).toBeFalsy();
-        expect((basic_login).isDisplayed()).toBeFalsy();
-        expect((register).isDisplayed()).toBeFalsy();
-        expect((favorites).isDisplayed()).toBeTruthy();
-       });
     });
   });
 });

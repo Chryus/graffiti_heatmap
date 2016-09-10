@@ -36,11 +36,12 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
           url: '/favorites',
           templateUrl: 'users/_user.html',
           controller: 'UsersCtrl',
-          onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
-            $("#map-canvas").hide();
+          onEnter: ['$state', 'Auth', '$auth', 'graffiti', function($state, Auth, $auth, graffiti) {
+            $("#map-canvas").show();
+            // go home is no user or graffiti is empty
             if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) { 
               $state.go('login'); 
-            }
+            } else if (graffiti.graffiti.length == 0) { $state.go('home') }
           }],
           // must fetch user again so it updates favorites
           resolve: {

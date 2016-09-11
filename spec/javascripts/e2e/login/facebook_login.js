@@ -3,7 +3,7 @@ describe('logging in with Faceboook', function() {
 
   beforeEach(function() {
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
   });
 
   afterEach(function() {
@@ -11,7 +11,7 @@ describe('logging in with Faceboook', function() {
   });
   
   it('should open pop up and show the facebook login form; it should display the proper
-    nave links after submitting form', function() {
+    nav links after submitting form', function() {
     browser.get('http://localhost:3000');
 
     browser.wait(function(){
@@ -31,10 +31,14 @@ describe('logging in with Faceboook', function() {
     browser.getAllWindowHandles().then(function(handles){
       // switch to facebook auth popup and fill out form
       browser.switchTo().window(handles[1]).then(function(){
+        // tell protractor we're leaving angular
         browser.ignoreSynchronization = true;
+          
         var email = element(by.id('email'))
         var password = element(by.id('pass'))
         var submit = element(by.id('u_0_2'))
+        
+        // check presence of DOM els
         expect(email.isPresent()).toBeTruthy();
         expect(password.isPresent()).toBeTruthy();
         expect(submit.isPresent()).toBeTruthy();
@@ -44,17 +48,19 @@ describe('logging in with Faceboook', function() {
         email.sendKeys('youremail');
         password.sendKeys('yourpassword');
 
+        // use then to make sure click is done processing 
         submit.click().then(function () {
           // this switches focus of protractor back to main angularjs window
           browser.switchTo().window(handles[0]);
-          // this tells protractor it's now a angularjs page
+          // tell protractor we're going back to angular
           browser.ignoreSynchronization = false;
+
+          // check visibility of nav elements post sign in
           expect((sign_in_with_facebook).isDisplayed()).toBeFalsy();
           expect((basic_login).isDisplayed()).toBeFalsy();
           expect((register).isDisplayed()).toBeFalsy();
           expect((favorites).isDisplayed()).toBeTruthy();
         });
-
       });
     });
   });

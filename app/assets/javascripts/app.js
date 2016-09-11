@@ -37,6 +37,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
           templateUrl: 'users/_user.html',
           controller: 'UsersCtrl',
           onEnter: ['$state', 'Auth', '$auth', 'graffiti', function($state, Auth, $auth, graffiti) {
+            $(".gm-iv-back-icon").click() // close streetview
             $("#map-canvas").show();
             // go home is no user or graffiti is empty
             if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) { 

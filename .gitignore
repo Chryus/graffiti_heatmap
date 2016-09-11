@@ -16,6 +16,9 @@
 /log/*.log
 /tmp
 
+# Ignore env vars config
+/angular-env-vars/*.env
+
 *.gem
 *.rbc
 .bundle

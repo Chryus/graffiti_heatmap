@@ -5,9 +5,19 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
     '$authProvider',
     function($stateProvider, $urlRouterProvider, $authProvider) {
       // config facebook client
+      // Facebook
       $authProvider.facebook({
+        name: 'facebook',
+        url: '/auth/facebook',
         clientId: '947788818699822',
-        redirectUri: 'http://graffito.herokuapp.com/'
+        authorizationEndpoint: 'https://www.facebook.com/v2.5/dialog/oauth',
+        redirectUri: window.location.origin + '/',
+        requiredUrlParams: ['display', 'scope'],
+        scope: ['email'],
+        scopeDelimiter: ',',
+        display: 'popup',
+        oauthType: '2.0',
+        popupOptions: { width: 580, height: 400 }
       });
       $stateProvider
         .state('home', {

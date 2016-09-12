@@ -19,12 +19,7 @@ angular.module('graffitiApp')
         $auth.authenticate(provider).then(function(user) {
           $scope.user = user.data
           $auth.setToken($scope.user.oauth_token);
-        }).catch(function (data) {
-          var ua = window.navigator.userAgent;
-          var msie = ua.indexOf("Safari");
-
-          if (msie > 0){ window.close() }
-        });
+        })
       };
 
       $scope.loggedIn = function() {

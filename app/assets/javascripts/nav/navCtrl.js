@@ -16,9 +16,14 @@ angular.module('graffitiApp')
       // facebook auth
       // use satellizer $auth service instead of Auth
       $scope.authenticate = function(provider) {
-        return $auth.authenticate(provider).then(function(user) {
+        $auth.authenticate(provider).then(function(user) {
           $scope.user = user.data
           $auth.setToken($scope.user.oauth_token);
+        }).catch(function (data) {
+          var ua = window.navigator.userAgent;
+          var msie = ua.indexOf("Safari");
+
+          if (msie > 0){ window.close() }
         });
       };
 

@@ -11,6 +11,11 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery-ui
+//= require jquery-fileupload
+//= require jquery-fileupload/basic-plus
+//= require jquery-fileupload
+//= require jquery-fileupload/jquery.fileupload-angular
 //= require heatmap-gmaps
 //= require heatmap
 //= require angular
@@ -18,5 +23,4 @@
 //= require angular-ui-router
 //= require angular-rails-templates
 //= require satellizer
-//= require jQuery-File-Upload
 //= require_tree .

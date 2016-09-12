@@ -61,6 +61,19 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
             }]
           }
         })
+        .state('upload', {
+          url: '/upload',
+          templateUrl: 'uploads/_upload.html',
+          controller: 'UploadsCtrl',
+          onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
+            $(".gm-iv-back-icon").click() // close streetview
+            $("#map-canvas").hide();
+            // go home is no user or graffiti is empty
+            if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) { 
+              $state.go('login'); 
+            }
+          }]
+        })
         .state('login', {
           url: '/login',
           templateUrl: 'auth/_login.html',

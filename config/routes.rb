@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   post "/auth/facebook", to: "users#create_from_facebook"
   get "/from_token", to: "users#from_token"
   get "/get_graffiti", to: "graffiti#index"
+  post "/upload", to: "users#upload"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

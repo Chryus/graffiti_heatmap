@@ -21,4 +21,7 @@ class UsersController < ApplicationController
       render json: {message: "Your token has expired. Please login with Facebook again"}, status: 401
     end
   end
+
+  def upload
+  end
 end

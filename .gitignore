@@ -18,6 +18,7 @@
 
 # Ignore env vars config
 /angular-env-vars/*.env
+/config/application.yml
 
 *.gem
 *.rbc

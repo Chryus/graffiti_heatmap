@@ -7,7 +7,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer']
       // config facebook client
       $authProvider.facebook({
         clientId: '947788818699822',
-        redirectUri: 'http://localhost:3000/'
+        redirectUri: 'http://graffito.herokuapp.com/'
       });
       $stateProvider
         .state('home', {

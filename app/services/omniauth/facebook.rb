@@ -84,7 +84,7 @@ module Omniauth
       {
         query: {
           code: code,
-          redirect_uri: "http://localhost:3000/",
+          redirect_uri: "http://graffito.herokuapp.com/",
           client_id: ENV['FACEBOOK_ID'],
           client_secret: ENV['FACEBOOK_SECRET']
         }
@@ -94,7 +94,6 @@ module Omniauth
     def verify_query(code, access_token)
       {
         query: {
-          redirect_uri: "http://localhost:3000/",
           input_token: access_token,
           access_token: ENV['FACEBOOK_ID'] + "|" + ENV['FACEBOOK_SECRET']
         }

@@ -18,4 +18,5 @@
 //= require angular-ui-router
 //= require angular-rails-templates
 //= require satellizer
+//= require jQuery-File-Upload
 //= require_tree .

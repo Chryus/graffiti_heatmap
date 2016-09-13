@@ -33,6 +33,12 @@ gem 'httparty'
 # env variables
 gem 'figaro'
 
+#upload
+gem 'rmagick'
+gem "fog"
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
+
 #can't do without it
 # gem 'debugger'
 

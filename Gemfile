@@ -38,6 +38,7 @@ gem 'rmagick'
 gem "fog"
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
+gem 'sinatra', github: 'sinatra'
 
 #can't do without it
 # gem 'debugger'

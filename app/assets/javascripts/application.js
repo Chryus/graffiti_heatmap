@@ -12,10 +12,7 @@
 //
 //= require jquery
 //= require jquery-ui
-//= require jquery-fileupload
-//= require jquery-fileupload/basic-plus
-//= require jquery-fileupload
-//= require jquery-fileupload/jquery.fileupload-angular
+//= require blueimp-file-upload
 //= require heatmap-gmaps
 //= require heatmap
 //= require angular

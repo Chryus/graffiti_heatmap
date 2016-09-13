@@ -13,20 +13,20 @@ angular.module('graffitiApp')
       }
 
       // main data grab
-      if (graffiti.graffiti.length == 0) {
-        graffiti.getAll().then( function ( response ) {
-          $scope.graffiti = response.data['graffiti'];
-          $scope.map = map.getMap('google');
-        }, function (response) {
-          alert("error");
-        }).finally(function() {
-          // called no matter success or failure
-          $scope.loading = false;
-        });
-      } else {
-        $scope.graffiti = graffiti.graffiti
-        $scope.loading = false;
-      }
+      // if (graffiti.graffiti.length == 0) {
+      //   graffiti.getAll().then( function ( response ) {
+      //     $scope.graffiti = response.data['graffiti'];
+      //     $scope.map = map.getMap('google');
+      //   }, function (response) {
+      //     alert("error");
+      //   }).finally(function() {
+      //     // called no matter success or failure
+      //     $scope.loading = false;
+      //   });
+      // } else {
+      //   $scope.graffiti = graffiti.graffiti
+      //   $scope.loading = false;
+      // }
 
       $scope.matchLat = function (lat) {
         map.matchLat(lat);

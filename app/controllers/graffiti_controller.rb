@@ -45,8 +45,8 @@ class GraffitiController < ApplicationController
     end
   end
 
-  def graffito_params
-    params.require(:graffito).permit(:borough, :status, :incident_address, :latitude, :longitude)
+  def graffiti_params
+    params.require(:graffiti).permit(:borough, :status, :incident_address, :latitude, :longitude, {images: []})
   end
 
 end

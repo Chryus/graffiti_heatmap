@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, 
          :trackable, :validatable
   has_many :comments
-  has_many :graffiti
+  has_many :graffiti_through_uploads, foreign_key: "user_id", class_name: "Graffiti"
   has_many :upvotes
   has_many :graffiti_through_upvotes, through: :upvotes,
                                       :class_name => 'Graffiti', 
@@ -26,7 +26,8 @@ class User < ActiveRecord::Base
 
   def as_json(options={})
     user = super(:only => [:id, :name, :username, :oauth_token])
-    user[:graffiti] = self.graffiti
+    user[:graffiti_through_uploads] = self.graffiti_through_uploads
+    user[:graffiti_through_upvotes] = self.graffiti_through_upvotes
     user
   end
 

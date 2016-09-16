@@ -4,8 +4,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, 
          :trackable, :validatable
   has_many :comments
+  has_many :graffiti
   has_many :upvotes
-  has_many :graffiti, through: :upvotes
+  has_many :graffiti_through_upvotes, through: :upvotes,
+                                      :class_name => 'Graffiti', 
+                                      :foreign_key => 'graffiti_id',
+                                      :source => :graffiti
 
   def self.from_facebook(provider, user_info, access_token, expires_at)
     User.where(uid: user_info['id']).first_or_initialize.tap do |user|

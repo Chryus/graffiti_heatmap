@@ -9,7 +9,10 @@ class Graffiti < ActiveRecord::Base
   belongs_to :user
   has_many :comments
   has_many :upvotes
-  has_many :users, through: :upvotes
+  has_many :users_through_upvotes, through: :upvotes,
+                                  :class_name => 'User', 
+                                  :foreign_key => 'user_id',
+                                  :source => :user
 
   def as_json(options={})
     graffito = super(:only => [:id, :incident_address, :borough, :latitude, :longitude])

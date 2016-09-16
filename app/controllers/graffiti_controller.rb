@@ -17,10 +17,9 @@ class GraffitiController < ApplicationController
   end
 
   def create
-    debugger
     graffito = current_user.graffiti.new(graffiti_params)
     # clean up file hash, set tempfile and uuid keys
-    handle_files(graffiti_params)
+    handle_files(graffito, graffiti_params)
     if graffito.save
       ::Graffiti::ImageUploaderJob.perform_later graffito # active job with delayed job
       respond_with graffito
@@ -33,10 +32,10 @@ class GraffitiController < ApplicationController
 
   # iterate over params to access file path; clean up hash keys we don't need; 
   # move file to unique folder for upload to s3
-  def handle_files(graffiti_params)
+  def handle_files(graffito, graffiti_params)
      graffiti_params[:images].each_with_index do |file, index|
       ext = File.extname(file.path)
-      saved_file = graffiti.images[index]
+      saved_file = graffito.images[index]
       saved_file.delete("original_filename")
       saved_file.delete("content_type")
       saved_file.delete("headers")
@@ -47,7 +46,7 @@ class GraffitiController < ApplicationController
   end
 
   def graffiti_params
-    params.require(:graffiti).permit(:borough, :status, :incident_address, :latitude, :longitude, {images: []})
+    params.require(:graffiti).permit(:borough, :status, :incident_address, :latitude, :longitude, images: [])
   end
 
 end

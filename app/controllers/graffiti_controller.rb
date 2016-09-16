@@ -17,9 +17,12 @@ class GraffitiController < ApplicationController
   end
 
   def create
-    graffito = current_user.graffiti.new(graffiti_params)
+    debugger
+    graffito = Graffiti.new(graffiti_params)
+    graffito.user = current_user#.graffiti.new(graffiti_params)
     # clean up file hash, set tempfile and uuid keys
     handle_files(graffito, graffiti_params)
+    debugger
     if graffito.save
       ::Graffiti::ImageUploaderJob.perform_later graffito # active job with delayed job
       respond_with graffito

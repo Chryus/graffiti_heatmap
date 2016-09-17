@@ -18,8 +18,7 @@ class GraffitiController < ApplicationController
 
   def create
     debugger
-    graffito = Graffiti.new(graffiti_params)
-    graffito.user = current_user#.graffiti.new(graffiti_params)
+    graffito.user = current_user.graffiti.new(graffiti_params)
     # clean up file hash, set tempfile and uuid keys
     handle_files(graffito, graffiti_params)
     debugger

@@ -2,6 +2,7 @@ class Graffiti::ImageUploaderJob < ActiveJob::Base
   queue_as :order_image
 
   def perform(graffito)
+    debugger
     @graffito = graffito
     FileUtils.mkdir_p(cache_dir, mode: 0777)
     graffito.files.each_with_index do |image, index|

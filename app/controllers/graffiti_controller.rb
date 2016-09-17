@@ -17,12 +17,18 @@ class GraffitiController < ApplicationController
   end
 
   def create
-    graffito = Graffiti.new(graffiti_params)
-    graffito.user = current_user
+    # open file in binary to avoid conversion error
+    graffiti_params[:images].each do |image|
+      uploaded_io = image
+      File.open(Rails.root.join('tmp', 'uploads', 'graffiti', uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+    end
+
+    graffito = current_user.graffiti_through_uploads.new(graffiti_params)
+    
     # clean up file hash, set tempfile and uuid keys
-    debugger
     handle_files(graffito, graffiti_params)
-    debugger
     if graffito.save
       ::Graffiti::ImageUploaderJob.perform_later graffito # active job with delayed job
       respond_with graffito

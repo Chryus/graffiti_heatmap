@@ -40,6 +40,10 @@ a:link {
   cursor: grabbing;
 }
 
+.page-header {
+  margin-right: 60px;
+}
+
 header > span { color: $graffitigreen }
 
 header > h3 { display: inline-block;}

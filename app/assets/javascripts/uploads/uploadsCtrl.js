@@ -12,8 +12,6 @@ angular.module('graffitiApp')
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
       }
       $scope.$on('fileuploadstop', function(e, data){
-        debugger
-        // Your code here
         $state.go('favorites');
         console.log('All uploads have finished');
       });

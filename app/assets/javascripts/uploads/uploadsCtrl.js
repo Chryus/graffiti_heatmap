@@ -3,12 +3,18 @@ angular.module('graffitiApp')
     '$scope',
     '$location',
     'users',
-    function($scope, $location, users){
+    '$state',
+    function($scope, $location, users, $state){
       $scope.currentPath = $location.path();
       $scope.user = users.user;
       $scope.options = {
         dataType: 'json',
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-        formAcceptCharset: 'utf-8'
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
       }
+      $scope.$on('fileuploadstop', function(e, data){
+        debugger
+        // Your code here
+        $state.go('favorites');
+        console.log('All uploads have finished');
+      });
   }])

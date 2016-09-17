@@ -1,7 +1,6 @@
 require "fog"
-require "delegate"
 
-module Fog
+module Uploads
   class FogService
     CREDENTIALS = {
       provider: "AWS",
@@ -16,9 +15,7 @@ module Fog
     }
 
     def self.create
-      FogDelegator.new(::Fog::Storage.new(CREDENTIALS))
+      Fog::Storage.new(::Fog::Storage.new(CREDENTIALS))
     end
-
-    class FogDelegator < SimpleDelegator; end
   end
 end

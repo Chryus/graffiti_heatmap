@@ -1,5 +1,5 @@
 class Graffiti::ImageUploaderJob < ActiveJob::Base
-  queue_as :order_image
+  queue_as :graffiti_image
 
   def perform(graffito)
     debugger

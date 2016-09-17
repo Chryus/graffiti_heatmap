@@ -1,4 +1,4 @@
-class graffiti::ImageUploaderJob < ActiveJob::Base
+class Graffiti::ImageUploaderJob < ActiveJob::Base
   queue_as :order_image
 
   def perform(graffito)

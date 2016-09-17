@@ -4,14 +4,15 @@
 
 <!-- The file upload form used as target for the file upload widget -->
 <form id="fileupload" action="/upload" method="POST" enctype="multipart/form-data" data-ng-app="demo" data-ng-controller="UploadsCtrl" data-file-upload="options" data-ng-class="{'fileupload-processing': processing() || loadingFiles}">
-  <input value="open" type="hidden" name="graffiti[status]" id="graffiti_status" />
+  <input name="utf8" type="hidden" value="&#x2713;" />
+  <input value="Open" type="hidden" name="graffiti[status]" id="graffiti_status" />
   <div class="input-group">
     <input value="" class="form-control" label="false" type="text" placeholder="Address" name="graffiti[incident_address]" id="graffiti_address" />
   </div>
   <br>
   <div class="input-group">
     <div class="select-control">
-      <select name="graffiti[bourough]" id="graffiti_bourough">
+      <select name="graffiti[borough]" id="graffiti_borough">
         <option value="Brooklyn">Brooklyn</option>
         <option value="Bronx">Bronx</option>
         <option value="Manhattan">Manhattan</option>

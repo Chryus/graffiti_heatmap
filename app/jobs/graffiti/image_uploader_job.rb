@@ -40,7 +40,7 @@ class Graffiti::ImageUploaderJob < ActiveJob::Base
   end
 
   def s3_bucket
-    "mentor-marketplace-graffitos"
+    "graffiti-image-uploads"
   end
 
   def s3_connection

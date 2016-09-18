@@ -64,7 +64,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
         .state('gallery', {
           url: '/gallery',
           templateUrl: 'galleries/_gallery.html',
-          controller: 'galleryCtrl',
+          controller: 'GalleryCtrl',
           onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
             $(".gm-iv-back-icon").click() // close streetview
             $("#map-canvas").hide();

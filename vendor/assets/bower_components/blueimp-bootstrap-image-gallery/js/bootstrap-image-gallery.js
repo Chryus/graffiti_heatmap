@@ -42,7 +42,7 @@
         return factory.call(this, obj, callback, factoryInterface)
       }
       var that = this
-      var modalTemplate = this.container.children('.modal')
+      var modalTemplate = $(this.container).children('.modal')
       var modal = modalTemplate.clone().show().on('click', function (event) {
         // Close modal if click is outside of modal-content:
         if (event.target === modal[0] ||
@@ -77,7 +77,7 @@
     },
 
     close: function () {
-      this.container.find('.modal').removeClass('in')
+      $(this.container).find('.modal').removeClass('in')
       close.call(this)
     }
 

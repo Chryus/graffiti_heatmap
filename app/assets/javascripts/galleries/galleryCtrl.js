@@ -11,7 +11,7 @@ angular.module('graffitiApp')
         blueimp.Gallery(
           document.getElementById('links').getElementsByTagName('a'),
           {
-            container: '#blueimp-gallery-carousel',
+            container: '#blueimp-gallery',
             carousel: true
           }
         );

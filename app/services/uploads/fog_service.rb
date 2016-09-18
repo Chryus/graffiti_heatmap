@@ -1,4 +1,5 @@
 require "fog"
+require "delegate"
 
 module Uploads
   class FogService
@@ -15,7 +16,9 @@ module Uploads
     }
 
     def self.create
-      Fog::Storage.new(::Fog::Storage.new(CREDENTIALS))
+      FogDelegator.new(::Fog::Storage.new(CREDENTIALS))
     end
+
+    class FogDelegator < SimpleDelegator; end
   end
 end

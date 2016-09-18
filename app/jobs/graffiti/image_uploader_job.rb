@@ -46,6 +46,7 @@ class Graffiti::ImageUploaderJob < ActiveJob::Base
 
   def write_to_s3
     Dir.glob("#{cache_dir}/*.*") do |file|
+      debugger
       destination = s3_connection.directories.get(s3_bucket)
       destination.files.create(key: file.split('/').last, body: File.read(file))
     end

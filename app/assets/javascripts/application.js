@@ -32,4 +32,6 @@
 //= require blueimp-file-upload/js/jquery.fileupload-ui
 //= require blueimp-file-upload/js/jquery.fileupload-angular
 //= require blueimp-file-upload/js/jquery.fileupload-jquery-ui
+//= require blueimp-gallery/js/blueimp-gallery.min
+//= require blueimp-bootstrap-image-gallery/js/bootstrap-image-gallery.min
 //= require_tree .

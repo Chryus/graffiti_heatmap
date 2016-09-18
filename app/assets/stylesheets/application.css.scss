@@ -1,19 +1,22 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the top of the
- * compiled file, but it's generally better to create a new file per style scope.
- *
- *= require bootstrap/dist/css/bootstrap
- *= require blueimp-file-upload/css/jquery.fileupload.css
- *= require blueimp-file-upload/css/jquery.fileupload-ui.css
- *= require_tree .
- *= require_self
- */
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+* or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require bootstrap/dist/css/bootstrap
+*= require blueimp-file-upload/css/jquery.fileupload.css
+*= require blueimp-file-upload/css/jquery.fileupload-ui.css
+*= require blueimp-gallery/css/blueimp-gallery.min.css
+*= require blueimp-bootstrap-image-gallery/css/bootstrap-image-gallery.min.css
+*= require_tree .
+*= require_self
+*/
+ 
 $graffitigreen: #42de6b;
 $graffitiyellow: #fAff7f;
 $graffitihotpink: #ff0f87;

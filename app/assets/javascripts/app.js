@@ -61,6 +61,25 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
             }]
           }
         })
+        .state('gallery', {
+          url: '/gallery',
+          templateUrl: 'galleries/_gallery.html',
+          controller: 'galleryCtrl',
+          onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
+            $(".gm-iv-back-icon").click() // close streetview
+            $("#map-canvas").hide();
+            // go home if user isn't authenticated
+            if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) { 
+              $state.go('login'); 
+            }
+          }],
+          // must fetch user again so it updates gallery
+          resolve: {
+            user: ['users', function(users) {
+              return users.getUser();
+            }]
+          }
+        })
         .state('upload', {
           url: '/upload',
           templateUrl: 'uploads/_upload.html',
@@ -68,7 +87,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
             $(".gm-iv-back-icon").click() // close streetview
             $("#map-canvas").hide();
-            // go home is no user or graffiti is empty
+            // go home if user isn't authenticated
             if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) { 
               $state.go('login'); 
             }

@@ -10,6 +10,7 @@ describe('logging in with Faceboook', function() {
     // set nav bar els
     var sign_in_with_facebook = element(by.css('.li-token-sign-in'));
     var favorites = element(by.css('.li-favorites'))
+    var gallery = element(by.css('.li-gallery'))
     var basic_login = element(by.css('.li-basic-sign-in'))
     var register = element(by.css('.li-register'))
     var logout = element(by.css('.li-logout'))
@@ -51,6 +52,7 @@ describe('logging in with Faceboook', function() {
         expect((register).isDisplayed()).toBeFalsy();
         expect((logout).isDisplayed()).toBeTruthy();
         expect((favorites).isDisplayed()).toBeTruthy();
+        expect((gallery).isDisplayed()).toBeTruthy();
       });
     });
   });

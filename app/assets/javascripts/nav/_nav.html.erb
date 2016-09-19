@@ -1,11 +1,12 @@
 <div class="collapse navbar-collapse pull-right" ng-controller="NavCtrl">
   <ul class="nav navbar-nav">
     <li class="li-home"><a href="#/home">Home</a></li>
+    <li class="li-basic-sign-in"><a href="#/archive">Archive Gallery</a></li>
     <li ng-click="authenticate('facebook')" ng-hide="loggedIn()" class="li-token-sign-in"><a href="#">Sign in with Facebook</a></li>
     <li ng-hide="loggedIn()" class="li-basic-sign-in"><a href="#login">Sign in</a></li>
     <li ng-hide="loggedIn()" class="li-register"><a href="#/register">Register</a></li>
-    <li ng-show="loggedIn()" class="li-gallery"><a href="#/gallery">Gallery</a></li>
-    <li ng-show="loggedIn()" class="li-favorites"><a href="#/favorites">{{user.username ? user.username : user.name}}</a></li>
+    <li ng-show="loggedIn()" class="li-gallery"><a href="#/gallery">My Gallery</a></li>
+    <li ng-show="loggedIn()" class="li-favorites"><a href="#/favorites">My Favorites</a></li>
     <li ng-show="loggedIn()" class="li-logout"><a ng-click="logout()">Log Out</a></li>
   </ul>
 </div>

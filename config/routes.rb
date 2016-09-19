@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   root to: 'application#angular'
 
   resources :graffiti, only: [:create, :index, :show] do
+    collection do
+      get '/archive' => 'graffiti#archive'
+    end
     resources :comments, only: [:show, :create] do
       member do
         put '/upvote' => 'comments#upvote'

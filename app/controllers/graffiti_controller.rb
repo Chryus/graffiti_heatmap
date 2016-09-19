@@ -16,6 +16,10 @@ class GraffitiController < ApplicationController
     respond_with graffito
   end
 
+  def archive
+    respond_with Graffiti.pluck(:images).flatten.compact
+  end
+
   def create
     # open file in binary to avoid conversion error
     graffiti_params[:images].each do |image|

@@ -5,13 +5,19 @@ angular.module('graffitiApp')
   function($http, Auth){
     var o = {
        graffiti: [],
-       heatmap: []
+       heatmap: [],
+       archive: []
      };
     //add getList and getGeocded
     o.getAll = function() {
       return $http.get('/get_graffiti.json').success(function(data){
         angular.copy(data.graffiti, o.graffiti);
         angular.copy(data.heatmap, o.heatmap);
+      });
+    };
+    o.getArchive = function() {
+      return $http.get('/graffiti/archive.json').success(function(data){
+        angular.copy(data.graffiti_archive, o.graffiti_archive);
       });
     };
     o.get = function(id) {

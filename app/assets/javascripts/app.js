@@ -61,6 +61,15 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
             }]
           }
         })
+        .state('archive', {
+          url: '/archive',
+          templateUrl: 'galleries/_archive.html',
+          controller: 'GalleryCtrl',
+          onEnter: function() {
+            $(".gm-iv-back-icon").click() // close streetview
+            $("#map-canvas").hide();
+          }
+        })
         .state('gallery', {
           url: '/gallery',
           templateUrl: 'galleries/_gallery.html',

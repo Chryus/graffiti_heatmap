@@ -1,5 +1,5 @@
 <!-- The Bootstrap Image Gallery lightbox, should be a child element of the document body -->
-<div id="blueimp-gallery" class="blueimp-gallery" data-use-bootstrap-modal="false">
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
   <!-- The container for the modal slides -->
   <div class="slides"></div>
   <!-- Controls for the borderless lightbox -->
@@ -33,8 +33,8 @@
   </div>
 </div>
 
-<div id="links" ng-repeat="image in __images">
-  <a ng-href="{{base_url}}/original_{{image.uuid}}.jpg" ng-click="handleClick($event)" title="5pointz" data-gallery>
+<div id="links">
+  <a ng-repeat="image in __images" ng-href="{{base_url}}/original_{{image.uuid}}.jpg" ng-click="handleClick($event)" title="5pointz" data-gallery>
     <img ng-src="{{base_url}}/thumb_{{image.uuid}}.jpg" alt="5pointz">
   </a>
 </div>

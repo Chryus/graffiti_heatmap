@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
   def as_json(options={})
     user = super(:only => [:id, :name, :username, :oauth_token])
-    user[:graffiti_through_uploads] = self.graffiti_through_uploads
+    user[:graffiti_images] = self.graffiti_through_uploads.pluck(:images).flatten
     user[:graffiti_through_upvotes] = self.graffiti_through_upvotes
     user
   end

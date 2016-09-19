@@ -6,8 +6,8 @@ class Graffiti::ImageUploaderJob < ActiveJob::Base
     @graffito = graffito
     FileUtils.mkdir_p(cache_dir, mode: 0777)
     graffito.images.each_with_index do |image, index|
-      process(image, 640, 480, "original")
-      process(image, 75, 75, "thumb")
+      process(image, 640, 480, "large")
+      process(image, 60, 60, "thumb")
       FileUtils.rm image["tempfile"] # remove tempfile from disk
       image.delete("tempfile") # delete tempfile pointer from db
       write_to_s3

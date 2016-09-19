@@ -34,7 +34,7 @@
 </div>
 
 <div id="links" ng-repeat="image in __images">
-  <a ng-href="#" ng-click="handleClick($event)" title="5pointz" data-gallery>
-    <img ng-src="{{base_url}}/thumb_{{image.uuid}}" alt="5pointz">
+  <a ng-href="{{base_url}}/original_{{image.uuid}}.jpg" ng-click="handleClick($event)" title="5pointz" data-gallery>
+    <img ng-src="{{base_url}}/thumb_{{image.uuid}}.jpg" alt="5pointz">
   </a>
 </div>

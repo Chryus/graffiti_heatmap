@@ -33,11 +33,8 @@
   </div>
 </div>
 
-<div id="links">
-  <a href="assets/5pointz.jpg" ng-click="handleClick($event)" title="5pointz" data-gallery>
-      <img src="assets/5pointz.jpg" alt="5pointz">
-  </a>
-  <a href="assets/spray_paint.png" ng-click="handleClick($event)" title="spray-paint" data-gallery>
-      <img src="assets/spray_paint.png" alt="spray-paint">
+<div id="links" ng-repeat="image in __images">
+  <a ng-href="#" ng-click="handleClick($event)" title="5pointz" data-gallery>
+    <img ng-src="{{base_url}}/thumb_{{image.uuid}}" alt="5pointz">
   </a>
 </div>

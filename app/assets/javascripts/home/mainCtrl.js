@@ -7,7 +7,7 @@ angular.module('graffitiApp')
     function($scope, $http, graffiti, map){
       $scope.loading = true; // spinner
       $scope.home = true;
-      $scope.__title = "Loading...";
+      $scope.__title = "Loading heatmap...";
       $scope.alert = function () {
         window.alert("Check out the graffito before voting on it.")
       }
@@ -23,20 +23,17 @@ angular.module('graffitiApp')
       // open carousel when doc is ready
       $scope.$on("imageLoaded", function(){
         setTimeout(function(){
-          $('img')[0].click()
-          $('.play-pause')[0].click()
-        }, 500);
-      })
-
-      $scope.handleClick = function (event) {
-        event.preventDefault();
-        blueimp.Gallery(
-          $('#links a'),
+          blueimp.Gallery(
+          $('#links a'), $('#blueimp-gallery').data(),
           {
-            slideshowInterval: 500
+            container: '#blueimp-gallery',
+            carousel: true,
+            startSlideshow: true,
+            slideshowInterval: 1000
           }
         );
-      };
+        }, 400);
+      })
 
       //main data grab
       // if (graffiti.graffiti.length == 0) {

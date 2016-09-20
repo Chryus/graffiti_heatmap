@@ -1,9 +1,3 @@
-<div class="container spinner-container" ng-show="loading">
-  <p class="loading-text">Loading</p>
-  <div class="pacman"></div>
-  <div class="dot"></div>
-</div>
-
 <div ng-hide="loading">
   <div id="panel">
     <input class="button" id="markers" type=button value="Toggle markers">
@@ -43,4 +37,5 @@
     </ul>
   </div>
 </div>
+<ng-include ng-show='loading' src="'galleries/_gallery.html'"></ng-include>
 

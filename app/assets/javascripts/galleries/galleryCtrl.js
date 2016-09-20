@@ -23,7 +23,12 @@ angular.module('graffitiApp')
       $scope.handleClick = function (event) {
         event.preventDefault();
         blueimp.Gallery(
-          $('#links a'), $('#blueimp-gallery').data()
+          document.getElementById('links').getElementsByTagName('a'),
+          {
+            container: '#blueimp-gallery',
+            carousel: true,
+            slideshowInterval: 1000
+          }
         );
       };
   }])

@@ -34,6 +34,7 @@ angular.module('graffitiApp')
         }).finally(function() {
           // called no matter success or failure
           $('.close').click();
+          $('body').css('overflow', 'visible');
           $scope.loading = false;
         });
       } else {

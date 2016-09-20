@@ -24,7 +24,6 @@ angular.module('graffitiApp')
       $scope.base_url = "http://graffiti-image-uploads.s3.amazonaws.com"
       $scope.handleClick = function (event) {
         event.preventDefault();
-        debugger
         blueimp.Gallery(
           document.getElementById('links').getElementsByTagName('a'),
           {

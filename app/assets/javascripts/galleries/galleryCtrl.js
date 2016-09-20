@@ -8,6 +8,8 @@ angular.module('graffitiApp')
     function($scope, $location, users, graffiti, $location){
       $scope.currentPath = $location.path();
       $scope.user = users.user;
+      $scope.home = false;
+      $scope.__title = "";
       
       if ($scope.currentPath == '/gallery') {
         $scope.__images = $scope.user.graffiti_images

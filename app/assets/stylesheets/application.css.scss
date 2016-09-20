@@ -34,7 +34,7 @@ body {
   font-family: Futura;
 }
 
-a { color: orange; }
+.nav a { color: orange; }
 
 a:link {
   text-decoration: none;
@@ -57,7 +57,7 @@ header > .glyphicon { padding-left: 1px;}
   margin-top: 38px;
 }
 
-.collapse.navbar-collapse { margin-right: 50px; } 
+.collapse.navbar-collapse { margin-right: 50px; margin-top: -20px; } 
 
 #map-canvas {
   float: right;

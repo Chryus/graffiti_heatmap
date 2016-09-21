@@ -9,7 +9,7 @@ angular.module('graffitiApp')
       $scope.currentPath = $location.path();
       $scope.user = users.user;
       $scope.home = false;
-      $scope.__title = "Loading...";
+      $scope.__title = "";
       
       if ($scope.currentPath == '/gallery') {
         $scope.__images = $scope.user.graffiti_images
@@ -22,15 +22,16 @@ angular.module('graffitiApp')
       }
 
       $scope.base_url = "http://graffiti-image-uploads.s3.amazonaws.com"
-      $scope.handleClick = function (event) {
-        event.preventDefault();
-        blueimp.Gallery(
-          document.getElementById('links').getElementsByTagName('a'),
-          {
-            container: '#blueimp-gallery',
-            carousel: true,
-            startSlideshow: true
-          }
-        );
-      };
+      // $scope.handleClick = function (event) {
+      //   event.preventDefault();
+      //   blueimp.Gallery(
+      //     document.getElementById('links').getElementsByTagName('a'),
+      //     {
+      //       container: '#blueimp-gallery',
+      //       carousel: true,
+      //       startSlideshow: true,
+      //       slideshowInterval: 2000
+      //     }
+      //   );
+      // };
   }])

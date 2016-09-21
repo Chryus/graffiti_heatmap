@@ -4,9 +4,9 @@
     <input class="button" id="markers" type=button value="Toggle markers">
     <input class="button" id="heat" type=button value="Toggle heatmap">
   </div>
-  <header class="favorites">
-    <h2>Graffiti Locations</h2>
-  </header>
+  <div ng-show='home' class="favorites">
+    <h1>Graffiti Locations</h1>
+  </div>
   <div class="search-container">
     <input id="search" type="text" placeholder="Search..." ng-model="query" /> 
     <select id="pullme" ng-model="orderProp">

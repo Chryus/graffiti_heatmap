@@ -1,4 +1,3 @@
-require 'byebug'
 class Graffiti::ImageUploaderJob < ActiveJob::Base
   queue_as :graffiti_image
 

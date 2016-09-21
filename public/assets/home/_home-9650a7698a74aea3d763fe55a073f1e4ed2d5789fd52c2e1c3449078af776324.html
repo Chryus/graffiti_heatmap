@@ -1,0 +1,41 @@
+<ng-include ng-show='loading' src="'galleries/_gallery.html'"></ng-include>
+<div ng-hide="loading">
+  <div id="panel">
+    <input class="button" id="markers" type=button value="Toggle markers">
+    <input class="button" id="heat" type=button value="Toggle heatmap">
+  </div>
+  <div ng-show='home' class="favorites">
+    <h1>Graffiti Locations</h1>
+  </div>
+  <div class="search-container">
+    <input id="search" type="text" placeholder="Search..." ng-model="query" /> 
+    <select id="pullme" ng-model="orderProp">
+      <option value="-upvotes">Upvotes</option>
+      <option value="borough">Borough</option>
+      <option value="address">Address</option>
+    </select>
+  </div>
+  <div class="container my-container">
+    <ul class="graffitis">
+      <li ng-repeat="graffito in graffiti | filter:query | orderBy: orderProp">
+        <div class="info">
+          <header>
+            <h3>graffito</h3>
+              <span class="glyphicon glyphicon-thumbs-up" ng-click="alert()"></span>
+              <span>{{graffito.upvotes}}</span>
+          </header> 
+          <br><br><br><br>
+          <a href="#/graffiti/{{graffito.id}}">
+            <ul class="address" ng-click="matchLat(graffito.latitude)">
+              <li>Address: {{graffito.incident_address}}</li>
+              <li>Borough: {{graffito.borough}}</li>
+              <li>Latitude: {{graffito.latitude}}</li>
+              <li>Longitude: {{graffito.longitude}}</li>
+            </ul>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+

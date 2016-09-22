@@ -39,6 +39,7 @@ gem "fog"
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'sinatra', github: 'sinatra'
+gem "daemons"
 
 #can't do without it
 # gem 'debugger'

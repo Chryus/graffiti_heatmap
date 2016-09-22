@@ -28,7 +28,7 @@ class GraffitiController < ApplicationController
         file.write(uploaded_io.read)
       end
     end
-
+    
     if current_user.present?
       graffito = current_user.graffiti_through_uploads.new(graffiti_params)
     else

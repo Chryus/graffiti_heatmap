@@ -18,7 +18,11 @@ class Graffiti::ImageUploaderJob < ActiveJob::Base
     Dir.glob(image["tempfile"]) do |file|
       img = Magick::Image::read(file).first.resize_to_fit!(width, height)
       target = Magick::Image.new(width, height) do
-        self.background_color = 'orange'
+        if name == 'thumb'
+          self.background_color = 'orange'
+        else
+          self.background_color = 'black'
+        end
       end
       target.composite(img, Magick::CenterGravity, Magick::AtopCompositeOp).write("#{cache_dir}/#{name}_#{image['uuid']}.jpg") do
         self.format = "JPEG"

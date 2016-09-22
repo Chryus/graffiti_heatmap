@@ -29,7 +29,11 @@ class GraffitiController < ApplicationController
       end
     end
 
-    graffito = current_user.graffiti_through_uploads.new(graffiti_params)
+    if current_user.present?
+      graffito = current_user.graffiti_through_uploads.new(graffiti_params)
+    else
+      graffito = Graffiti.new(graffiti_params)
+    end
     
     # clean up file hash, set tempfile and uuid keys
     handle_files(graffito, graffiti_params)

@@ -21,6 +21,7 @@ class GraffitiController < ApplicationController
   end
 
   def create
+    FileUtils.mkdir_p(Rails.root.join('tmp', 'uploads', 'graffiti'))
     # open file in binary to avoid conversion error
     graffiti_params[:images].each do |image|
       uploaded_io = image
@@ -28,7 +29,7 @@ class GraffitiController < ApplicationController
         file.write(uploaded_io.read)
       end
     end
-    
+
     if current_user.present?
       graffito = current_user.graffiti_through_uploads.new(graffiti_params)
     else

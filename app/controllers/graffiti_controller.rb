@@ -39,7 +39,7 @@ class GraffitiController < ApplicationController
     # clean up file hash, set tempfile and uuid keys
     handle_files(graffito, graffiti_params)
     if graffito.save
-      ::Graffiti::ImageUploaderJob.perform_later graffito # active job with delayed job
+      ::Graffiti::ImageUploaderJob.perform graffito # active job with delayed job
       respond_with graffito
     else
       render :new

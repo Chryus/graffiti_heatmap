@@ -6,7 +6,7 @@ class Graffiti::ImageUploaderJob < ActiveJob::Base
     FileUtils.mkdir_p(cache_dir, mode: 0777)
     graffito.images.each_with_index do |image, index|
       process(image, 640, 480, "original")
-      process(image, 75, 75, "thumb")
+      process(image, 90, 90, "thumb")
       FileUtils.rm image["tempfile"] # remove tempfile from disk
       image.delete("tempfile") # delete tempfile pointer from db
       write_to_s3
@@ -16,9 +16,9 @@ class Graffiti::ImageUploaderJob < ActiveJob::Base
 
   def process(image, width, height, name)
     Dir.glob(image["tempfile"]) do |file|
-      img = Magick::Image::read(file).first.resize_to_fit(width, height)
+      img = Magick::Image::read(file).first.resize_to_fit!(width, height)
       target = Magick::Image.new(width, height) do
-        self.background_color = 'black'
+        self.background_color = 'orange'
       end
       target.composite(img, Magick::CenterGravity, Magick::AtopCompositeOp).write("#{cache_dir}/#{name}_#{image['uuid']}.jpg") do
         self.format = "JPEG"

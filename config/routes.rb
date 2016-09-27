@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   post "/auth/facebook", to: "users#create_from_facebook"
   get "/from_token", to: "users#from_token"
+  delete "/clear_token", to: "users#clear_token"
   get "/get_graffiti", to: "graffiti#index"
   post "/upload", to: "graffiti#create"
 

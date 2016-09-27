@@ -22,6 +22,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def clear_token
+    session[:user_id] = nil
+  end
+
   def upload
   end
 end

@@ -4,8 +4,9 @@ angular.module('graffitiApp')
     'Auth',
     '$auth',
     '$state',
+    '$http',
     'users',
-    function($scope, Auth, $auth, $state, users) {
+    function($scope, Auth, $auth, $state, $http, users) {
       // set user if authenticated by token
       if ($scope.user == null && $auth.isAuthenticated() == true) {
         users.getUser().then(function(user) {
@@ -37,6 +38,9 @@ angular.module('graffitiApp')
           $state.go('home');
         } else {
           $auth.logout();
+          $http.delete('/clear_token.json').then(function(res) {
+            return res.data;
+          });
           $scope.user = {};
           $state.go('home');
         }

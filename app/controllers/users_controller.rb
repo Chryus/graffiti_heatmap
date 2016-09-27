@@ -12,6 +12,10 @@ class UsersController < ApplicationController
     render json: user 
   end
 
+  def facebook_callback
+    render text: "Loading..."
+  end
+
   def from_token
     user = User.find_by(oauth_token: params[:token])
     if DateTime.now < user.oauth_expires_at

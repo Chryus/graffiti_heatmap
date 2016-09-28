@@ -36,6 +36,6 @@
 
 <div id="links" ng-hide="home">
   <a ng-repeat="image in __images" ng-href="{{base_url}}/original_{{image.uuid}}.jpg" title="{{__title}}" data-gallery>
-    <img ng-src="{{base_url}}/thumb_{{image.uuid}}.jpg" alt="5pointz">
+    <img class='image-gallery' ng-src="{{base_url}}/thumb_{{image.uuid}}.jpg" alt="5pointz">
   </a>
 </div>

@@ -15,7 +15,7 @@ angular.module('graffitiApp')
             return angular.copy(user.data, o.user);
           }, function errorCallback(response) {
             $auth.logout();
-            alert(response.data.message);
+            console.log(response.data.message);
           });
         } else {
         return Auth.currentUser().then(function (user){

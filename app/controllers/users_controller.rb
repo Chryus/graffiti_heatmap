@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   end
 
   def facebook_callback
-    render text: "Loading..."
+    render partial: 'loading'
   end
 
   def from_token

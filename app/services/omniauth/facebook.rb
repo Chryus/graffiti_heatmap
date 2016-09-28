@@ -84,7 +84,7 @@ module Omniauth
       {
         query: {
           code: code,
-          redirect_uri: "http://localhost:3000/auth/facebook/callback",
+          redirect_uri: ENV['ROOT'] + "auth/facebook/callback",
           client_id: ENV['FACEBOOK_ID'],
           client_secret: ENV['FACEBOOK_SECRET']
         }

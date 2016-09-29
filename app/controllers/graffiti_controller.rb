@@ -1,5 +1,7 @@
 class GraffitiController < ApplicationController
 
+  before_action :set_s3_direct_post, only: [:create]
+
   def index
     graffiti = Graffiti.all
     heatmap_format = Graffiti.heatmap_format
@@ -61,6 +63,14 @@ class GraffitiController < ApplicationController
       saved_file["tempfile"] = "tmp/uploads/graffiti/#{saved_file["uuid"]}#{ext}"
       FileUtils.mv file.path, saved_file["tempfile"]
     end
+  end
+
+  def set_s3_direct_post
+    @s3_direct_post = s3_bucket.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
+  end
+
+  def s3_bucket
+    s3_bucket ||= ::Uploads::FogService.create.directories.get('graffiti-image-uploads')
   end
 
   def graffiti_params

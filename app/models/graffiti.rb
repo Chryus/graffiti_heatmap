@@ -22,7 +22,7 @@ class Graffiti < ActiveRecord::Base
   end
 
   def self.heatmap_format
-    Graffiti.select("latitude, longitude").map { |incident| { :lat => incident.latitude, :lng => incident.longitude } }
+    Graffiti.where.not(incident_address: '').select("latitude, longitude").map { |incident| { :lat => incident.latitude, :lng => incident.longitude } }
   end
 
   def self.get_graffiti

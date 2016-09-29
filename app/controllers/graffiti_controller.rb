@@ -1,6 +1,6 @@
 class GraffitiController < ApplicationController
 
-  before_action :set_s3_direct_post, only: [:create]
+  #before_action :set_s3_direct_post, only: [:create]
 
   def index
     graffiti = Graffiti.all

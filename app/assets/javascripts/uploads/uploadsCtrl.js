@@ -11,7 +11,7 @@ angular.module('graffitiApp')
       $scope.currentPath = $location.path();
       $scope.user = users.user;
 
-      graffiti.getS3DirectPost().then( function ( response ) {
+      graffiti.getS3DirectPost().then( function (response) {
         $scope.s3_direct_post = response.data.s3_direct_post;
         $scope.s3_direct_post_host = response.data.s3_direct_post_host;
         $scope.options = {
@@ -25,7 +25,16 @@ angular.module('graffitiApp')
       }, function (response) {
         console.log("error getting s3 direct post");
       })
-      
+
+      $scope.$on('fileuploaddone', function(e, data){ 
+        // extract key and generate URL from response
+        var key   = $(data.jqXHR.responseXML).find("Key").text();
+        var url   = '//' + $scope.s3_direct_post_host + '/' + key;
+        // create hidden field
+        var input = $("<input />", { type:'hidden', name: data.fileInput.attr('name'), value: url })
+        form.append(input);
+      });
+
       $scope.$on('fileuploadstop', function(e, data){
         if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) { 
           $state.go('gallery'); 

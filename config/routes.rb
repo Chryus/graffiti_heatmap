@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :graffiti, only: [:create, :index, :show] do
     collection do
+      get '/s3_direct_post' => 'graffiti#s3_direct_post'
       get '/archive' => 'graffiti#archive'
     end
     resources :comments, only: [:show, :create] do

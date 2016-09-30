@@ -8,11 +8,15 @@ angular.module('graffitiApp')
        heatmap: [],
        archive: []
      };
-    //add getList and getGeocded
     o.getAll = function() {
       return $http.get('/get_graffiti.json').success(function(data){
         angular.copy(data.graffiti, o.graffiti);
         angular.copy(data.heatmap, o.heatmap);
+      });
+    };
+    o.get = function(id) {
+      return $http.get('/graffiti/' + id + '.json').then(function(res) {
+        return res.data;
       });
     };
     o.getArchive = function() {
@@ -20,9 +24,9 @@ angular.module('graffitiApp')
         angular.copy(data.graffiti_archive, o.graffiti_archive);
       });
     };
-    o.get = function(id) {
-      return $http.get('/graffiti/' + id + '.json').then(function(res) {
-        return res.data;
+    o.getS3DirectPost = function() {
+      return $http.get('/graffiti/s3_direct_post.json').success(function(data){
+        return data;
       });
     };
     o.upvote = function(graffito) {

@@ -22,6 +22,12 @@ class GraffitiController < ApplicationController
     respond_with Graffiti.pluck(:images).flatten.compact
   end
 
+  def s3_direct_post
+    s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
+    host = URI.parse(s3_direct_post.url).host
+    render json: {s3_direct_post: s3_direct_post, s3_direct_post_host: host}
+  end
+
   def create
     FileUtils.mkdir_p(Rails.root.join('tmp', 'uploads', 'graffiti'))
     # open file in binary to avoid conversion error
@@ -65,12 +71,7 @@ class GraffitiController < ApplicationController
     end
   end
 
-  def set_s3_direct_post
-    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
-  end
-
   def graffiti_params
     params.require(:graffiti).permit(:borough, :status, :incident_address, :latitude, :longitude, images: [])
   end
-
 end

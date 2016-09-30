@@ -17,7 +17,7 @@ angular.module('graffitiApp')
         graffiti.getArchive().then( function ( response ) {
           $scope.__images = response.data;
         }, function (response) {
-          alert("error");
+          console.log("error");
         })
       }
 

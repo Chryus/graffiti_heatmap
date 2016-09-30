@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     render :json => {error: 'invalid token'}, status: :unprocessable_entity
   end
 
-  respond_to :json
+  respond_to :json, :html
 
   before_action :configure_permitted_parameters, if: :devise_controller?
   after_action :set_csrf_cookie_for_ng

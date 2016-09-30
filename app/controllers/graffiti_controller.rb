@@ -1,7 +1,5 @@
 class GraffitiController < ApplicationController
 
-  before_action :set_s3_direct_post, only: [:create]
-
   def index
     graffiti = Graffiti.all
     heatmap_format = Graffiti.heatmap_format
@@ -29,45 +27,32 @@ class GraffitiController < ApplicationController
   end
 
   def create
-    FileUtils.mkdir_p(Rails.root.join('tmp', 'uploads', 'graffiti'))
-    # open file in binary to avoid conversion error
-    graffiti_params[:images].each do |image|
-      uploaded_io = image
-      File.open(Rails.root.join('tmp', 'uploads', 'graffiti', uploaded_io.original_filename), 'wb') do |file|
-        file.write(uploaded_io.read)
-      end
-    end
-
+    debugger
     if current_user.present?
       graffito = current_user.graffiti_through_uploads.new(graffiti_params)
     else
       graffito = Graffiti.new(graffiti_params)
     end
-    
-    # clean up file hash, set tempfile and uuid keys
-    handle_files(graffito, graffiti_params)
+
+    # clean up images
+    handle_files(graffito)
     if graffito.save
-      ::Graffiti::ImageUploaderJob.perform_now graffito # active job with delayed job
-      respond_with graffito
-    else
-      render :new
+      #::Graffiti::ImageUploaderJob.perform_later graffito # active job with delayed job
+      return nil
     end
   end
   
   private
 
-  # iterate over params to access file path; clean up hash keys we don't need; 
-  # move file to unique folder for upload to s3
-  def handle_files(graffito, graffiti_params)
-     graffiti_params[:images].each_with_index do |file, index|
-      ext = File.extname(file.path)
-      saved_file = graffito.images[index]
-      saved_file.delete("original_filename")
-      saved_file.delete("content_type")
-      saved_file.delete("headers")
-      saved_file["uuid"] = SecureRandom.uuid # each file has its own UUID to write to s3, along with a version name (original, small, thumb)
-      saved_file["tempfile"] = "tmp/uploads/graffiti/#{saved_file["uuid"]}#{ext}"
-      FileUtils.mv file.path, saved_file["tempfile"]
+  #clean up images
+  def handle_files(graffito)
+    graffito.images.uniq!
+    graffito.images.each_with_index do |uri, index|
+      # we are adding hashes to images, if we get to a hash we're done
+      next if uri.class == Hash
+      filename = uri.split('/').last
+      graffito.images << {uri: uri, filename: filename}
+      graffito.images.delete(uri)
     end
   end
 

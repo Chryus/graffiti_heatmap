@@ -35,7 +35,7 @@ gem 'figaro'
 
 #upload
 gem 'rmagick'
-gem "fog"
+gem 'aws-sdk', '~> 2'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'sinatra', github: 'sinatra'

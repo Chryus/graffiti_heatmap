@@ -38,18 +38,9 @@ class Graffiti::ImageUploaderJob < ActiveJob::Base
     "tmp/uploads/graffiti/#{@graffito.id}/images/"
   end
 
-  def s3_bucket
-    "graffiti-image-uploads"
-  end
-
-  def s3_connection
-    @s3_connection ||= ::Uploads::FogService.create
-  end
-
   def write_to_s3
     Dir.glob("#{cache_dir}/*.*") do |file|
-      destination = s3_connection.directories.get(s3_bucket)
-      destination.files.create(key: file.split('/').last, body: File.read(file))
+      S3_BUCKET.object(file.split('/').last).upload_file(file)
     end
   end
 end

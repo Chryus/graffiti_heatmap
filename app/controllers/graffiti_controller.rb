@@ -1,6 +1,6 @@
 class GraffitiController < ApplicationController
 
-  #before_action :set_s3_direct_post, only: [:create]
+  before_action :set_s3_direct_post, only: [:create]
 
   def index
     graffiti = Graffiti.all
@@ -66,11 +66,7 @@ class GraffitiController < ApplicationController
   end
 
   def set_s3_direct_post
-    @s3_direct_post = s3_bucket.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
-  end
-
-  def s3_bucket
-    s3_bucket ||= ::Uploads::FogService.create.directories.get('graffiti-image-uploads')
+    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
   end
 
   def graffiti_params

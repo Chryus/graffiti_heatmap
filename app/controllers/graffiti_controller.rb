@@ -27,33 +27,30 @@ class GraffitiController < ApplicationController
   end
 
   def create
-    debugger
     if current_user.present?
       graffito = current_user.graffiti_through_uploads.new(graffiti_params)
     else
       graffito = Graffiti.new(graffiti_params)
     end
-
-    # clean up images
-    handle_files(graffito)
+    format_images_json(graffito)
     if graffito.save
-      #::Graffiti::ImageUploaderJob.perform_later graffito # active job with delayed job
-      return nil
+      ::Graffiti::ImageUploaderJob.perform_later graffito # active job with delayed job
+      head :no_content
     end
   end
   
   private
 
   #clean up images
-  def handle_files(graffito)
+  def format_images_json(graffito)
     graffito.images.uniq!
-    graffito.images.each_with_index do |uri, index|
-      # we are adding hashes to images, if we get to a hash we're done
-      next if uri.class == Hash
+    json_images = []
+    graffito.images.each do |uri|
+      # we are adding hashes to images, if we get to a hash skip
       filename = uri.split('/').last
-      graffito.images << {uri: uri, filename: filename}
-      graffito.images.delete(uri)
+      json_images << {uri: uri, filename: filename}
     end
+    graffito.images = json_images
   end
 
   def graffiti_params

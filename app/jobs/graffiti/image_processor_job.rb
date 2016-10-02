@@ -29,7 +29,7 @@ class Graffiti::ImageProcessorJob < ActiveJob::Base
 
         # Process images
         original = process(local_file, filename, 640, 480, "original")
-        thumb = process(local_file, filename, 90, 90, "thumb")
+        thumb = process(local_file, filename, 75, 75, "thumb")
 
         # Assign perm S3 file paths
         original_key = object_key.gsub(/[^\/]+$/, "original_#{filename}").gsub('uploads', 'processed')
@@ -61,19 +61,15 @@ class Graffiti::ImageProcessorJob < ActiveJob::Base
     new_local_file = "#{cache_dir}/#{image_type}_#{filename}"
 
     # Read original local file and resize it
-    if image_type == 'thumb'
-      img = Magick::Image::read(local_file).first.resize_to_fit(width, height)
-    else
-      img = Magick::Image::read(local_file).first.resize_to_fill(width, height)
-    end
+    img = if image_type == 'thumb'
+            Magick::Image::read(local_file).first.resize_to_fill(width, height)
+          else
+            Magick::Image::read(local_file).first.resize_to_fit(width, height)
+          end
     
     # Set target
     target = Magick::Image.new(width, height) do
-      if image_type == 'thumb'
-        self.background_color = 'orange'
-      else
-        self.background_color = 'black'
-      end
+      self.background_color = 'black' if image_type == 'original'
     end
 
     # Write original local file to target

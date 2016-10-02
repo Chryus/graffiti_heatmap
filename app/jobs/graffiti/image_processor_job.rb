@@ -1,59 +1,70 @@
+require 'byebug'
+require 'rmagick'
+
 class Graffiti::ImageProcessorJob < ActiveJob::Base
   queue_as :graffiti_images
 
   def perform(graffito)
-    graffito.images.each do |image|
-      filename = image['filename']
-      uri = image['uri']
+    Delayed::Worker.logger.debug("Log Entry")
+    images_json = []
+    graffito.images.each_with_index do |uri, index| # uri = https://graffiti-image-uploads.s3.amazonaws.com/uploads/3e2e1981-bb7b-4cdb-a999-1946fcf38317/g3.jpg
+      # Grab filename
+      filename = uri.split('/').last # g3.jpg
+      # Grab key for s3 storage
+      object_key = uri.split('.com/').last # uploads/3e2e1981-bb7b-4cdb-a999-1946fcf38317/g3.jpg
       
-      # Get The Temporary Upload
-      temp_obj = S3_BUCKET.object(uri)
+      begin
+        # Assign A Local Temp File
+        local_file = "#{cache_dir}/#{filename}"
 
-      # Assign A Local Temp File
-      local_file = "#{cache_dir}/#{filename}"
-      
-      # Read In File From S3 To Local Path
-      File.open(local_file, 'wb') do |file|
-        temp_obj.read do |chunk|
-          temp_obj.write(chunk)
+        # Create directory 
+        FileUtils.mkdir(cache_dir) unless File.exist?(cache_dir)
+        # Read In File From S3 To Local Path
+
+        File.open(File.join(cache_dir, filename), 'wb') do |file|
+          s3_client.get_object({bucket: ENV['S3_BUCKET'], key: object_key}) do |chunk|
+            file.write(chunk)
+          end
         end
-      end
 
-      # Process
-      original = process(local_file, filename, 640, 480, "original")
-      thumb = process(local_file, filename, 90, 90, "thumb")
-     
-      # Assign perm S3 files
-      perm_uri = uri.gsub(/[^\/]+$/, "original_#{filename}").gsub('uploads', 'processed')
-      perm_uri2 = uri.gsub(/[^\/]+$/, "thumb_#{filename}").gsub('uploads', 'processed')
+        # Process images
+        original = process(local_file, filename, 640, 480, "original")
+        thumb = process(local_file, filename, 90, 90, "thumb")
 
-      # Now Write Back The Transformed Files
-      perm_obj = S3_BUCKET.objects(perm_uri)
-      perm_obj2 = S3_BUCKET.objects(perm_uri2)
+        # Assign perm S3 file paths
+        original_key = object_key.gsub(/[^\/]+$/, "original_#{filename}").gsub('uploads', 'processed')
+        thumb_key = object_key.gsub(/[^\/]+$/, "thumb_#{filename}").gsub('uploads', 'processed')
 
-      perm_obj.write(File.open(original))
-      perm_obj2.write(File.open(thumb))
-     
+        # Write images to s3
+        write_to_s3(original, original_key)
+        write_to_s3(thumb, thumb_key)
+       
       rescue StandardError => exception
-        # That's A Fail :(
+        # That's A Fail
       ensure
-        # Delete The Original Files
-        temp_obj.delete
-        original.delete
-        thumb.delete
+        # Delete original remote
+        s3_client.delete_object({bucket: ENV['S3_BUCKET'], key: object_key})
+
+        # Store new keys in json
+        images_json << {original_key: original_key, thumb_key: thumb_key, filename: filename}
+
+        # Delete local files
+        FileUtils.rm_r(cache_dir)
       end
     end
+    # update db with new s3 keys
+    graffito.update_attributes(images: images_json)
   end
 
   def process(local_file, filename, width, height, image_type)
     # Assign new local temp file
-    new_local_file "#{cache_dir}/#{image_type}_#{filename}"
+    new_local_file = "#{cache_dir}/#{image_type}_#{filename}"
 
     # Read original local file and resize it
     if image_type == 'thumb'
-      img = Magick::Image::read(local_file).resize_to_fit(width, height)
+      img = Magick::Image::read(local_file).first.resize_to_fit(width, height)
     else
-      img = Magick::Image::read(local_file).resize_to_fill(width, height)
+      img = Magick::Image::read(local_file).first.resize_to_fill(width, height)
     end
     
     # Set target
@@ -75,6 +86,16 @@ class Graffiti::ImageProcessorJob < ActiveJob::Base
   end
 
   protected
+
+  def s3_client
+    s3_client ||= Aws::S3::Client.new
+  end
+
+  def write_to_s3(processed, key)
+    File.open(processed, 'rb') do |file|
+      s3_client.put_object(bucket: ENV['S3_BUCKET'], key: key, body:file)
+    end
+  end
 
   def cache_dir
     @cache_dir ||= "#{Rails.root}/tmp/#{SecureRandom.uuid}"

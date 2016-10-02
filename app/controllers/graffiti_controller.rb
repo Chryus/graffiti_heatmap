@@ -32,26 +32,14 @@ class GraffitiController < ApplicationController
     else
       graffito = Graffiti.new(graffiti_params)
     end
-    format_images_json(graffito)
+    graffito.images.uniq!
     if graffito.save
-      ::Graffiti::ImageUploaderJob.perform_later graffito # active job with delayed job
+      ::Graffiti::ImageProcessorJob.perform_later graffito # active job with delayed job
       head :no_content
     end
   end
   
   private
-
-  #clean up images
-  def format_images_json(graffito)
-    graffito.images.uniq!
-    json_images = []
-    graffito.images.each do |uri|
-      # we are adding hashes to images, if we get to a hash skip
-      filename = uri.split('/').last
-      json_images << {uri: uri, filename: filename}
-    end
-    graffito.images = json_images
-  end
 
   def graffiti_params
     params.require(:graffiti).permit(:borough, :status, :incident_address, :latitude, :longitude, images: [])

@@ -1,5 +1,5 @@
 Aws.config.update({
-  region: 'us-east-1',
+  region: 'us-west-2',
   credentials: Aws::Credentials.new(ENV['S3_KEY'], ENV['S3_SECRET']),
 })
 

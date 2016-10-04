@@ -8,18 +8,17 @@ angular.module('graffitiApp')
     '$http',
     'users',
     'graffiti',
-    function($scope, $location, $state, Auth, $auth, $http, users, graffiti) {
+    'uploads',
+    function($scope, $location, $state, Auth, $auth, $http, users, graffiti, uploads) {
       $scope.currentPath = $location.path();
       $scope.user = users.user;
       $scope.graffito = {};
       $scope.urls = [];
 
-      graffiti.getS3DirectPost().then(function(response) {
-        $scope.path = response.data.path;
+      uploads.getS3DirectPost().then(function(response) {
         $scope.s3_direct_post = response.data.s3_direct_post;
         $scope.s3_direct_post_host = response.data.s3_direct_post_host;
         $scope.options = {
-          singleFileUploads: true,
           paramName: 'file', // S3 does not like nested name fields i.e. name="user[avatar_url]"
           dataType: 'XML', // S3 returns XML if success_action_status is set to 201
           type: 'POST',
@@ -42,8 +41,9 @@ angular.module('graffitiApp')
         // update bindings to grab image data
         $scope.graffito['status'] = "Open";
         $scope.graffito['images'] = $scope.urls;
-
-        $http({
+        if (uploads.uploaded == false) { // if we haven't uploaded form...
+          uploads.setUploaded();
+          $http({
             method: 'POST',
             url: '/upload',
             data: {'graffiti': $scope.graffito},
@@ -53,13 +53,16 @@ angular.module('graffitiApp')
           })
           .success(function(data) {
             console.log("Graffito created")
+            // reset uploaded flag
+            uploads.uploaded = false;
+            if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) {
+              $state.go('gallery');
+            } else {
+              $state.go('archive');
+            }
+            console.log('All uploads have finished');
           });
-        if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) {
-          $state.go('gallery');
-        } else {
-          $state.go('archive');
         }
-        console.log('All uploads have finished');
       });
     }
   ])

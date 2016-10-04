@@ -24,11 +24,6 @@ angular.module('graffitiApp')
         angular.copy(data.graffiti_archive, o.graffiti_archive);
       });
     };
-    o.getS3DirectPost = function() {
-      return $http.get('/graffiti/s3_direct_post.json').success(function(data){
-        return data;
-      });
-    };
     o.upvote = function(graffito) {
       if (graffito.upvoted == null) {
         return $http.put('/graffiti/' + graffito.id + '/upvote.json').success(function(data) {

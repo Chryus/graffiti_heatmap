@@ -21,10 +21,9 @@ class GraffitiController < ApplicationController
   end
 
   def s3_direct_post
-    path = "uploads/#{SecureRandom.uuid}"
     s3_direct_post = S3_BUCKET.presigned_post(key: "#{path}/${filename}", success_action_status: '201', acl: 'public-read')
     host = URI.parse(s3_direct_post.url).host
-    render json: {path: path, s3_direct_post: s3_direct_post, s3_direct_post_host: host }
+    render json: {s3_direct_post: s3_direct_post, s3_direct_post_host: host }
   end
 
   def new

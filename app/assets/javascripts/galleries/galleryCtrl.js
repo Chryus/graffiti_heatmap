@@ -12,6 +12,7 @@ angular.module('graffitiApp')
       $scope.__title = "";
       
       if ($scope.currentPath == '/gallery') {
+        debugger
         $scope.__images = $scope.user.graffiti_images
       } else {
         graffiti.getArchive().then( function ( response ) {

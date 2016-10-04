@@ -1,4 +1,3 @@
-require 'byebug'
 require 'rmagick'
 
 class Graffiti::ImageProcessorJob < ActiveJob::Base

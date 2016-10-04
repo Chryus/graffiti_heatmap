@@ -21,9 +21,14 @@ class GraffitiController < ApplicationController
   end
 
   def s3_direct_post
-    s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
+    path = "uploads/#{SecureRandom.uuid}"
+    s3_direct_post = S3_BUCKET.presigned_post(key: "#{path}/${filename}", success_action_status: '201', acl: 'public-read')
     host = URI.parse(s3_direct_post.url).host
-    render json: {s3_direct_post: s3_direct_post, s3_direct_post_host: host}
+    render json: {path: path, s3_direct_post: s3_direct_post, s3_direct_post_host: host }
+  end
+
+  def new
+    respond_with Graffiti.new
   end
 
   def create
@@ -34,8 +39,8 @@ class GraffitiController < ApplicationController
     end
     graffito.images.uniq!
     if graffito.save
-      ::Graffiti::ImageProcessorJob.perform_later graffito # active job with delayed job
-      head :no_content
+      ::Graffiti::ImageProcessorJob.perform_now graffito # active job with delayed job
+      render json: current_user 
     end
   end
   

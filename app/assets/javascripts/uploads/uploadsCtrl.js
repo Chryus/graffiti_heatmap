@@ -38,9 +38,14 @@ angular.module('graffitiApp')
       });
 
       $scope.$on('fileuploadstop', function(e, data) {
-        // update bindings to grab image data
         $scope.graffito['status'] = "Open";
         $scope.graffito['images'] = $scope.urls;
+        // redirect to gallery or archive
+        if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) {
+          $state.go('gallery');
+        } else {
+          $state.go('archive');
+        }
         if (uploads.uploaded == false) { // if we haven't uploaded form...
           uploads.setUploaded();
           $http({
@@ -52,15 +57,15 @@ angular.module('graffitiApp')
             }
           })
           .success(function(data) {
+            // reload gallery or archive
+            if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) {
+              $state.go('gallery', {}, { reload: true });
+            } else {
+              $state.go('archive', {}, { reload: true });
+            }
             console.log("Graffito created")
             // reset uploaded flag
             uploads.uploaded = false;
-            if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) {
-              $state.go('gallery');
-            } else {
-              $state.go('archive');
-            }
-            console.log('All uploads have finished');
           });
         }
       });

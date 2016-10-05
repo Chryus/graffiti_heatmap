@@ -8,13 +8,11 @@
     <input value="" class="form-control" label="false" type="text" placeholder="Address" name="graffiti[incident_address]" data-ng-model='graffito.incident_address' id="graffiti_address" />
   </div>
   <br>
+
   <div class="input-group">
     <div class="select-control">
-      <select name="graffiti[borough]" id="graffiti_borough" data-ng-model='graffito.borough'>
-        <option value="Brooklyn">Brooklyn</option>
-        <option value="Bronx">Bronx</option>
-        <option value="Manhattan">Manhattan</option>
-        <option value="Queens">Queens</option>
+      <select name="graffiti[borough]" id="graffiti_borough" data-ng-model="borough"> 
+        <option ng-value="op" data-ng-repeat="op in ['Brooklyn','Bronx','Manhattan','Queens','Staten Island']" >{{op}}</option> 
       </select>
     </div>
   </div>

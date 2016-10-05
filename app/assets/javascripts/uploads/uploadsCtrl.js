@@ -14,6 +14,7 @@ angular.module('graffitiApp')
       $scope.user = users.user;
       $scope.graffito = {};
       $scope.urls = [];
+      $scope.borough = 'Brooklyn';
 
       uploads.getS3DirectPost().then(function(response) {
         $scope.s3_direct_post = response.data.s3_direct_post;

@@ -5,5 +5,6 @@ FactoryGirl.define do
     borough  "Brooklyn"
     latitude "40.1"
     longitude "42.1"
+    images ['foopathtos3', 'barpathtos3', 'foopathtos3']
   end
 end

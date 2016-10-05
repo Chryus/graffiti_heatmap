@@ -34,7 +34,7 @@ class GraffitiController < ApplicationController
     end
     graffito.images.uniq!
     if graffito.save
-      ::Graffiti::ImageProcessorJob.perform_now graffito # active job with delayed job
+      ::Graffiti::ImageProcessorJob.perform_now graffito.id # active job with delayed job
       render json: graffito 
     end
   end

@@ -3,7 +3,12 @@ require 'rmagick'
 class Graffiti::ImageProcessorJob < ActiveJob::Base
   queue_as :graffiti_images
 
+  rescue_from(ActiveRecord::RecordNotFound) do |exception|
+    retry_job wait: 1.minutes, queue: :default
+  end
+
   def perform(graffito)
+    graffito = Graffiti.find(graffito)
     Delayed::Worker.logger.debug("Log Entry")
     images_json = []
     graffito.images.each_with_index do |uri, index| # uri = https://graffiti-image-uploads.s3.amazonaws.com/uploads/3e2e1981-bb7b-4cdb-a999-1946fcf38317/g3.jpg

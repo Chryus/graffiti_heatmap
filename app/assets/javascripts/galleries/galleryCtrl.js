@@ -22,7 +22,6 @@ angular.module('graffitiApp')
       }
 
       $scope.remove = function (image) {
-        debugger
       }
 
       $scope.base_url = "http://graffiti-image-uploads.s3.amazonaws.com"

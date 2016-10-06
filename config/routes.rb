@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
   root to: 'application#angular'
 
-  resources :graffiti, only: [:create, :index, :show] do
+  resources :graffiti do
     collection do
       get '/s3_direct_post' => 'graffiti#s3_direct_post'
       get '/archive' => 'graffiti#archive'

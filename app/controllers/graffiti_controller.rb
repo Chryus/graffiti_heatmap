@@ -38,6 +38,10 @@ class GraffitiController < ApplicationController
       render json: graffito 
     end
   end
+
+  def destroy
+    graffito = Graffiti.where('images @> ?', "[{'filename': #{params[:filename]}}]")
+  end
   
   private
 

@@ -33,13 +33,10 @@ angular.module('graffitiApp')
       }
     };
     o.removeImage = function(filename) {
-      $http({
+      return $http({
         method: 'PUT',
-        url: '/graffiti/delete_image',
-        data: {'filename': filename},
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        url: '/graffiti/delete_image.json',
+        data: {'filename': filename}
       })
       .then(function(res) {
         return res.data

@@ -54,14 +54,14 @@ class GraffitiController < ApplicationController
         graffito.images.delete_at(index)
       end
     end
-    debugger
     # update image
     if graffito.save
       # if no images remain, remove graffito from db
       if graffito.images.size == 0
         graffito.destroy
+      else
+        render json: {images: "Image successfully deleted."}, status: 204
       end
-      render json: {message: "Image successfully deleted."}, status: 204
     end
   end
   

@@ -21,7 +21,12 @@ angular.module('graffitiApp')
         })
       }
 
-      $scope.remove = function (image) {
+      $scope.remove = function (filename) {
+        graffiti.removeImage(filename).then( function ( response ) {
+           $scope.__images = response.data;
+        }, function (response) {
+          console.log("Error removing image");
+        })
       }
 
       $scope.base_url = "http://graffiti-image-uploads.s3.amazonaws.com"

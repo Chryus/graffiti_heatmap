@@ -32,6 +32,19 @@ angular.module('graffitiApp')
         });
       }
     };
+    o.removeImage = function(filename) {
+      $http({
+        method: 'PUT',
+        url: '/graffiti/delete_image',
+        data: {'filename': filename},
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(function(res) {
+        return res.data
+      });
+    };
     // o.addComment = function(id, comment) {
     //   return $http.graffito('/graffiti/' + id + '/comments.json', comment);
     // };

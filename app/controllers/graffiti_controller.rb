@@ -39,11 +39,37 @@ class GraffitiController < ApplicationController
     end
   end
 
-  def destroy
-    graffito = Graffiti.where('images @> ?', "[{'filename': #{params[:filename]}}]")
+  def delete_image
+    # fetch graffito by its images json key value pair
+    key_value_pair = '[{"filename":' + '"' + params[:filename] +'"' '}]'
+    graffito = Graffiti.where('images @> ?', key_value_pair).first
+
+    # find image 
+    graffito.images.each_with_index do |image, index|
+      if image['filename'] == params[:filename]
+        # remove from s3
+        debugger
+        s3_client.delete_object({bucket: ENV['S3_BUCKET'], key: image['original_key']})
+        s3_client.delete_object({bucket: ENV['S3_BUCKET'], key: image['thumb_key']})
+        graffito.images.delete_at(index)
+      end
+    end
+    debugger
+    # update image
+    if graffito.save
+      # if no images remain, remove graffito from db
+      if graffito.images.size == 0
+        graffito.destroy
+      end
+      render json: {message: "Image successfully deleted."}, status: 204
+    end
   end
   
   private
+
+  def s3_client
+    s3_client ||= Aws::S3::Client.new
+  end
 
   def graffiti_params
     params.require(:graffiti).permit(:borough, :status, :incident_address, :latitude, :longitude, images: [])

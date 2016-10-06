@@ -26,7 +26,15 @@ class User < ActiveRecord::Base
 
   def as_json(options={})
     user = super(:only => [:id, :name, :username, :oauth_token])
-    user[:graffiti_images] = self.graffiti_through_uploads.pluck(:images).flatten
+
+    # serve images json with graffito id
+    selection = self.graffiti_through_uploads.select(:id, :images)
+    user[:graffiti_images] = selection.map { |result| 
+                                result.images.each { |image| 
+                                  image[:id] = result.id 
+                                }
+                              }.flatten
+
     user[:graffiti_through_upvotes] = self.graffiti_through_upvotes
     user
   end

@@ -18,3 +18,20 @@
   margin-right: 80px;
   margin-top: 50px;
 }
+
+.video-thumbnail {
+  position: relative;
+  display: inline-block;
+}
+
+.video-thumbnail .glyphicon {
+  position: absolute;
+  margin-left: 78%;
+  margin-top: 9%;
+  z-index: 999;
+  color: $graffitiyellow;
+}
+
+.video-thumbnail .glyphicon:hover {
+  color: $graffitihotpink;
+}

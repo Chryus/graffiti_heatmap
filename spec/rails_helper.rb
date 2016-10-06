@@ -25,7 +25,7 @@ require 'support/factory_girl'
 #
 # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-Dir[Rails.root.join('spec/jobs/*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec/jobs/graffiti/*.rb')].each { |f| require f }
 
 
 # Checks for pending migration and applies them before tests are run.

@@ -37,7 +37,7 @@
 <div id="links" ng-hide="home">
   <a ng-repeat="image in __images" ng-href="{{base_url}}/{{image.original_key}}" title="{{__title}}" data-gallery>
     <div class="video-thumbnail"> 
-      <span class="glyphicon glyphicon-trash" ng-click="remove(image.filename)"></span><img class='image-gallery' ng-src="{{base_url}}/{{image.thumb_key}}" alt="{{image.filename}}">
+      <span class="glyphicon glyphicon-trash" ng-click="removeImage(image.filename)"></span><img class='image-gallery' ng-src="{{base_url}}/{{image.thumb_key}}" alt="{{image.filename}}">
     </div>
   </a>
 </div>

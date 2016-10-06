@@ -21,13 +21,16 @@ angular.module('graffitiApp')
         })
       }
 
-      $scope.remove = function (filename) {
+      $scope.removeImage = function (filename) {
         event.stopPropagation(); // stop click from bubbling up to bootstrap image carousel
         event.preventDefault(); // stop click from opening image
         alert("Are you sure you want to delete this image?")
         graffiti.removeImage(filename).then( function ( response ) {
-           console.log(response);
-           $scope.__images = $scope.user.graffiti_images;
+          console.log(response);
+          // refresh current user's images
+          users.getUser().then( function ( response ) {
+            $scope.__images = response.graffiti_images
+          })
         }, function (response) {
           console.log("Error removing image");
         })

@@ -12,7 +12,8 @@ angular.module('graffitiApp')
         token = $auth.getToken()
         if (token != null) {
           return $http.get('/from_token.json', {params: { token: token } }).then(function(user) {
-            return angular.copy(user.data, o.user);
+            angular.copy(user.data, o.user);
+            return user.data;
           }, function errorCallback(response) {
             $auth.logout();
             console.log(response.data.message);
@@ -22,6 +23,7 @@ angular.module('graffitiApp')
           // must fetch user again because Auth.currentUser is old user state
           return $http.get('/users/' + user.id + '.json').success(function(data){
             angular.copy(data, o.user);
+            return data;
           });
         });
       }

@@ -26,12 +26,15 @@
 
 .video-thumbnail .glyphicon {
   position: absolute;
-  margin-left: 78%;
+  margin-left: 73%;
   margin-top: 9%;
   z-index: 999;
-  color: $graffitiyellow;
+  color: #fAff7f;
+  font-size: 18px;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .video-thumbnail .glyphicon:hover {
   color: $graffitihotpink;
+  font-size: large;
 }

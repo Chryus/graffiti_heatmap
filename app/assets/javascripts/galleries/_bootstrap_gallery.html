@@ -37,7 +37,8 @@
 <div id="links" ng-hide="home">
   <a ng-repeat="image in __images" ng-href="{{base_url}}/{{image.original_key}}" title="{{__title}}" data-gallery>
     <div class="video-thumbnail"> 
-      <span class="glyphicon glyphicon-trash" ng-click="removeImage(image.filename)"></span><img class='image-gallery' ng-src="{{base_url}}/{{image.thumb_key}}" alt="{{image.filename}}">
+      <!-- only show glyph if image thumb has been processed after upload -->
+      <span ng-show="image.thumb_key" class="glyphicon glyphicon-trash" ng-click="removeImage(image.filename)"></span><img class='image-gallery' ng-src="{{base_url}}/{{image.thumb_key}}" alt="{{image.filename}}">
     </div>
   </a>
 </div>

@@ -22,8 +22,12 @@ angular.module('graffitiApp')
       }
 
       $scope.remove = function (filename) {
+        event.stopPropagation(); // stop click from bubbling up to bootstrap image carousel
+        event.preventDefault(); // stop click from opening image
+        alert("Are you sure you want to delete this image?")
         graffiti.removeImage(filename).then( function ( response ) {
-           $scope.__images = response.data;
+           console.log(response);
+           $scope.__images = $scope.user.graffiti_images;
         }, function (response) {
           console.log("Error removing image");
         })

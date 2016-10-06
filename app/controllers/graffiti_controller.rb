@@ -48,7 +48,6 @@ class GraffitiController < ApplicationController
     graffito.images.each_with_index do |image, index|
       if image['filename'] == params[:filename]
         # remove from s3
-        debugger
         s3_client.delete_object({bucket: ENV['S3_BUCKET'], key: image['original_key']})
         s3_client.delete_object({bucket: ENV['S3_BUCKET'], key: image['thumb_key']})
         graffito.images.delete_at(index)

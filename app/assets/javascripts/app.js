@@ -1,4 +1,4 @@
-angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer', 'blueimp.fileupload'])
+angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer', 'blueimp.fileupload', 'ngAnimate', 'ngSanitize', 'ui.bootstrap'])
   .config([
     '$stateProvider',
     '$urlRouterProvider',

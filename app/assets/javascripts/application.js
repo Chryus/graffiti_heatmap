@@ -18,6 +18,9 @@
 //= require AngularDevise
 //= require angular-ui-router
 //= require angular-rails-templates
+//= require angular-animate/angular-animate
+//= require angular-sanitize/angular-sanitize
+//= require angular-bootstrap/ui-bootstrap-tpls.min
 //= require satellizer
 //= require blueimp-file-upload/js/vendor/jquery.ui.widget
 //= require blueimp-load-image/js/load-image.all.min

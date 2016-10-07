@@ -38,7 +38,7 @@
   <a ng-repeat="image in __images" ng-href="{{base_url}}/{{image.original_key}}" title="{{__title}}" data-gallery>
     <div class="video-thumbnail"> 
       <!-- only show glyph if image thumb has been processed after upload -->
-      <span ng-show="image.thumb_key" class="glyphicon glyphicon-trash" ng-click="removeImage(image.filename)"></span><img class='image-gallery' ng-src="{{base_url}}/{{image.thumb_key}}" alt="{{image.filename}}">
+      <span ng-show="currentPath === '/gallery' && image.thumb_key" class="glyphicon glyphicon-trash" ng-click="removeImage(image.filename, image.thumb_key)"></span><img class='image-gallery' ng-src="{{base_url}}/{{image.thumb_key}}" alt="{{image.filename}}">
     </div>
   </a>
 </div>

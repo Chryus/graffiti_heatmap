@@ -53,13 +53,14 @@ class GraffitiController < ApplicationController
         graffito.images.delete_at(index)
       end
     end
-    # update image
+    # update record
     if graffito.save
-      # if no images remain, remove graffito from db
+      # if no images remain, delete graffito record
       if graffito.images.size == 0
         graffito.destroy
-      else
-        render json: {images: "Image successfully deleted."}, status: 204
+      end
+      respond_with current_user do |format|
+        format.json { render json: {images: current_user.as_json[:graffiti_images]}, status: :ok }  
       end
     end
   end

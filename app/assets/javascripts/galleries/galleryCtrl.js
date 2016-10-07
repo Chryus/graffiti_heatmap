@@ -48,7 +48,7 @@ angular.module('graffitiApp')
         });
         uibModalInstance.result.then(function(selectedItem) {
           if (selectedItem === 'ok') {
-            graffiti.removeImage(filename).then(function(response) {
+            graffiti.removeImage(filename).then(function(res) {
               console.log("Deleting item " + filename);
               // refresh current user's images
               $scope.__images = res.images

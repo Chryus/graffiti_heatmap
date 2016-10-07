@@ -32,7 +32,7 @@ angular.module('graffitiApp')
           animation: true,
           ariaLabelledBy: 'modal-title',
           ariaDescribedBy: 'modal-body',
-          templateUrl: 'galleries/_modal_content.html',
+          templateUrl: 'galleries/_modal.html',
           controller: function($uibModalInstance, $scope) {
             $scope.base_url = "http://graffiti-image-uploads.s3.amazonaws.com"
             $scope.__filename = filename.slice(-14);

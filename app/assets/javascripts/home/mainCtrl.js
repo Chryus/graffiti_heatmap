@@ -2,17 +2,29 @@ angular.module('graffitiApp')
   .controller('MainCtrl', [
     '$scope',
     '$http',
+    '$uibModal',
     'graffiti',
     'map',
-    function($scope, $http, graffiti, map){
+    function($scope, $http, $uibModal, graffiti, map){
       $scope.loading = true; // spinner
       $scope.home = true;
       $scope.__title = "Loading heatmap...";
-      $scope.alert = function () {
-        window.alert("Check out the graffito before voting on it.")
-      }
       $scope.base_url = "http://graffiti-image-uploads.s3.amazonaws.com"
-      
+
+      $scope.alert = function () {
+        var uibModalInstance = $uibModal.open({
+          animation: true,
+          ariaLabelledBy: 'modal-title',
+          templateUrl: 'home/_modal.html',
+          controller: function($uibModalInstance, $scope) {
+            $scope.ok = function() {
+              $uibModalInstance.close("ok");
+            };
+          },
+          size: 'sm'
+        });
+      }
+       
       graffiti.getArchive().then( function ( response ) {
         $scope.__images = response.data;
       })  

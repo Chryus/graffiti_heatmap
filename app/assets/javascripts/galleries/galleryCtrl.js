@@ -52,7 +52,7 @@ angular.module('graffitiApp')
               console.log("Deleting item " + filename);
               // refresh current user's images
               $scope.__images = res.images
-            }, function(response) {
+            }, function(res) {
               console.log("Error removing image");
             })
           }

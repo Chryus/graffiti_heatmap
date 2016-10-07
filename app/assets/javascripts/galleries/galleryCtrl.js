@@ -26,7 +26,6 @@ angular.module('graffitiApp')
 
       // remove image and open modal
       $scope.removeImage = function (filename, thumbnail_link) {
-        debugger
         event.stopPropagation(); // stop click from bubbling up to bootstrap image carousel
         event.preventDefault(); // stop click from opening image
         var uibModalInstance = $uibModal.open({

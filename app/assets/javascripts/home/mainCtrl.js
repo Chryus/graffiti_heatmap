@@ -43,8 +43,7 @@ angular.module('graffitiApp')
           $scope.map = map.getMap('google');
         }, function (response) {
           alert("error");
-        }).finally(function() {
-          // called no matter success or failure
+        }).finally(function() { // called no matter success or failure
           $('.close').click();
           $('body').css('overflow', 'visible');
           $scope.loading = false;

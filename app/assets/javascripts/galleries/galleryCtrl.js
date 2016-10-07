@@ -36,7 +36,7 @@ angular.module('graffitiApp')
           templateUrl: 'galleries/_modal_content.html',
           controller:function($uibModalInstance, $scope){
             $scope.base_url = "http://graffiti-image-uploads.s3.amazonaws.com"
-            $scope.__filename = filename.slice(-15);
+            $scope.__filename = filename.slice(-14);
             $scope.thumbnail_link = $scope.base_url + '/' + thumbnail_link
             $scope.ok = function () {
               $uibModalInstance.close("ok");

@@ -6,7 +6,17 @@ angular.module('graffitiApp')
     '$state',
     '$http',
     'users',
-    function($scope, Auth, $auth, $state, $http, users) {
+    'map',
+    function($scope, Auth, $auth, $state, $http, users, map) {
+      $scope.loading = true;
+
+      // watch for map to be loaded then reset ng-hide attr
+      $scope.$watch(function() { return map.loading }, function (newVal, oldVal, scope) {
+        if (newVal == false) {
+          $scope.loading = newVal;
+        }
+      });
+
       // set user if authenticated by token
       if ($scope.user == null && $auth.isAuthenticated() == true) {
         users.getUser().then(function(user) {

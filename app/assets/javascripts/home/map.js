@@ -1,8 +1,9 @@
-angular.module('graffitiApp')
+angular.module('graffitiApp') 
   .factory('map', [
   'graffiti',
   function(graffiti){
     var o = {
+      loading: true,
       maps: {},
       markers: []
     };
@@ -93,6 +94,7 @@ angular.module('graffitiApp')
       });
       o.maps[mapId] = map;
       o.plotMarkers(null);
+      o.loading = false;
     };
     o.plotMarkers = function(__map) {
       for (var i = 0; i < o.markers.length; i++) {

@@ -6,7 +6,7 @@ angular.module('graffitiApp')
     var o = {
        graffiti: [],
        heatmap: [],
-       archive: []
+       graffiti_archive: []
      };
     o.getAll = function() {
       return $http.get('/get_graffiti.json').success(function(data){

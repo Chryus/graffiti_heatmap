@@ -235,6 +235,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
+    time_difference (0.4.2)
+      activesupport
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.2)
@@ -281,6 +283,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   sinatra!
   spring
+  time_difference (~> 0.4.2)
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
 

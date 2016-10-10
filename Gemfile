@@ -17,7 +17,9 @@ gem 'angular-rails-templates'
 
 # geocoder for mapping
 gem 'geocoder'
-# run js in ruby to query streetview
+
+# time
+gem 'time_difference', '~> 0.4.2'
 
 # auth
 gem 'devise'

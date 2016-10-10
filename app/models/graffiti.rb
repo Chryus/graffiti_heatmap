@@ -6,7 +6,7 @@ Geocoder::Railtie.insert
 class Graffiti < ActiveRecord::Base
   geocoded_by :incident_address, :if => :incident_address_changed?
   after_validation :geocode  # auto-fetch coordinates with geocoder gem
-  before_save :compare_gmaps_with_incident_date
+  #before_save :compare_gmaps_with_incident_date
   belongs_to :user
   has_many :comments
   has_many :upvotes
@@ -14,6 +14,8 @@ class Graffiti < ActiveRecord::Base
                                   :class_name => 'User', 
                                   :foreign_key => 'user_id',
                                   :source => :user
+
+  scope :geocoded, -> { where.not(latitude: nil, longitude: nil) }
 
   def as_json(options={})
     graffito = super(:only => [:id, :incident_address, :borough, :latitude, :longitude, :images])
@@ -27,7 +29,7 @@ class Graffiti < ActiveRecord::Base
   end
 
   def self.get_graffiti
-    self.destroy_all
+    self.geocoded.destroy_all
     data = open("https://data.cityofnewyork.us/resource/8ktu-ngtj.json")
     graffiti_parsed = JSON.parse(data.read)
     graffiti_parsed.each do |incident|

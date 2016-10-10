@@ -6,7 +6,8 @@ angular.module('graffitiApp')
     var o = {
        graffiti: [],
        heatmap: [],
-       graffiti_archive: []
+       graffiti_archive: [],
+       capture_dates: []
      };
     o.getAll = function() {
       return $http.get('/get_graffiti.json').success(function(data){
@@ -45,22 +46,27 @@ angular.module('graffitiApp')
     o.setGoogleImageDates = function() {
       for (index in o.graffiti) {
         graffito = o.graffiti[index];
-        var sv = new google.maps.StreetViewService();
-        var current = new google.maps.LatLng(graffito.latitude, graffito.longitude);
-        var date;
-
-        sv.getPanoramaByLocation(current, 50, function(data) {
-          date = data.imageDate;
-          return $http({
-            method: 'PUT',
-            url: '/graffiti/' + graffito.id + '/google_image_capture_date.json',
-            data: {'capture_date': date}
-            })
-          .then(function(res) {
-            return res.data
+        if (graffito.latitude != null) {
+          var sv = new google.maps.StreetViewService();
+          var current = new google.maps.LatLng(graffito.latitude, graffito.longitude);
+          var date;
+          sv.getPanoramaByLocation(current, 10, function(data) {
+            debugger
+            o.capture_dates.push({id: graffito.id, capture_date: data.imageDate})
           });
-        });
+        };
       }
+      console.log("Dates Set")
+    }
+    o.sendCaptureDatesToDB = function() {
+     return $http({
+        method: 'PUT',
+        url: '/graffiti/gmaps_streetview_capture_dates.json',
+        data: {'capture_dates': o.capture_dates}
+        })
+      .then(function(res) {
+        return res.data
+      });
     }
     // o.addComment = function(id, comment) {
     //   return $http.graffito('/graffiti/' + id + '/comments.json', comment);

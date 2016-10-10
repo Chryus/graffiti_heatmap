@@ -119,6 +119,14 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
             }
           }]
         })
+        .state('mgmt', {
+          url: '/mgmt',
+          templateUrl: 'mgmt/_mgmt.html',
+          controller: 'MgmtCtrl',
+          onEnter: function() {
+            $("#map-canvas").hide();
+          }
+        })
       $urlRouterProvider.otherwise('home');
     }
   ])

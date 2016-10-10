@@ -16,8 +16,19 @@ class GraffitiController < ApplicationController
     respond_with graffito
   end
 
-  def google_image_capture_date
-    graffito = Graffiti.find(params[:id])
+  def gmaps_streetview_capture_dates
+    capture_dates = params[:capture_dates]
+    debugger
+    capture_dates.each do |object|
+      graffito = Graffiti.find(object[:id])
+      incident_date = graffito.incident_date
+      capture_date = object[:capture_date].gsub('-', '/')
+      capture_date = DateTime.strptime(capture_date, '%Y/%m')
+
+      if graffito.incident_date > capture_date
+        graffito.destroy
+      end
+    end
   end
 
   def archive

@@ -71,5 +71,9 @@ angular.module('graffitiApp')
           size: 'sm'
         });
       }
+
+      $scope.setGoogleImageDates = function() {
+        graffiti.setGoogleImageDates();
+      };
     $scope.orderProp = '-upvotes';
   }])

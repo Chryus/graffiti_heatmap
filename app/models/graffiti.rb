@@ -4,18 +4,17 @@ require "geocoder/railtie"
 Geocoder::Railtie.insert
 
 class Graffiti < ActiveRecord::Base
-  geocoded_by :incident_address, :if => :incident_address_changed?
-  after_validation :geocode  # auto-fetch coordinates with geocoder gem
-  #before_save :compare_gmaps_with_incident_date
+  geocoded_by :incident_address
+  after_validation :geocode, if: ->(obj){ obj.incident_address.present? and :incident_address_changed? }  # auto-fetch coordinates with geocoder gem
   belongs_to :user
   has_many :comments
-  has_many :upvotes
+  has_many :upvotes, dependent: :destroy
   has_many :users_through_upvotes, through: :upvotes,
                                   :class_name => 'User', 
                                   :foreign_key => 'user_id',
                                   :source => :user
 
-  scope :geocoded, -> { where.not(latitude: nil, longitude: nil) }
+  scope :is_geocoded?, -> { where.not(latitude: nil, longitude: nil) }
 
   def as_json(options={})
     graffito = super(:only => [:id, :incident_address, :borough, :latitude, :longitude, :images])
@@ -29,7 +28,7 @@ class Graffiti < ActiveRecord::Base
   end
 
   def self.get_graffiti
-    self.geocoded.destroy_all
+    self.is_geocoded?.destroy_all
     data = open("https://data.cityofnewyork.us/resource/8ktu-ngtj.json")
     graffiti_parsed = JSON.parse(data.read)
     graffiti_parsed.each do |incident|
@@ -37,7 +36,6 @@ class Graffiti < ActiveRecord::Base
       next if incident["x_coordinate"] == nil
       incident.delete("x_coordinate")
       incident.delete("y_coordinate")
-      
       incident.delete("bbl")
       incident.delete("city_council_district")
       incident.delete("closed_date")
@@ -52,9 +50,9 @@ class Graffiti < ActiveRecord::Base
     graffiti_parsed
   end
 
-  def format_raw_date raw_date
+  def self.format_raw_date raw_date
     date = raw_date.split("T").first
-    date = date.gsug("-", "/")
+    date = date.gsub("-", "/")
     DateTime.strptime(date, '%Y/%m/%d')
   end
 
@@ -63,14 +61,14 @@ class Graffiti < ActiveRecord::Base
   end
 
   # if incident report was made after the gmaps streetview capture date don't save bc graffiti can't be there
-  def compare_gmaps_with_incident_date
-    source = File.read(Rails.root.join('app/assets/javascripts/server_side/gmaps_streetview_service.js.erb'))
-    context = ExecJS.compile(source)
-    lat = self.latitude
-    lng = self.longitude
-    capture_date = context.call("streetviewImageCaptureDate", lat, lng)
-    capture_date = DateTime.strptime(date, '%Y/%m/%d')
+  # def compare_gmaps_with_incident_date
+  #   source = File.read(Rails.root.join('app/assets/javascripts/server_side/gmaps_streetview_service.js.erb'))
+  #   context = ExecJS.compile(source)
+  #   lat = self.latitude
+  #   lng = self.longitude
+  #   capture_date = context.call("streetviewImageCaptureDate", lat, lng)
+  #   capture_date = DateTime.strptime(date, '%Y/%m/%d')
     
-    self.incident_date > capture_date ? false : true
-  end
+  #   self.incident_date > capture_date ? false : true
+  # end
 end

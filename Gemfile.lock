@@ -262,7 +262,6 @@ DEPENDENCIES
   delayed_job_active_record
   delayed_job_web
   devise
-  execjs
   factory_girl_rails (~> 4.0)
   figaro
   geocoder

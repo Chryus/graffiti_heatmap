@@ -16,6 +16,10 @@ class GraffitiController < ApplicationController
     respond_with graffito
   end
 
+  def google_image_capture_date
+    graffito = Graffiti.find(params[:id])
+  end
+
   def archive
     respond_with Graffiti.pluck(:images).flatten.compact
   end

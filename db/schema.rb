@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006015126) do
+ActiveRecord::Schema.define(version: 20161010155735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20161006015126) do
     t.float    "longitude"
     t.jsonb    "images"
     t.integer  "user_id"
+    t.datetime "incident_date"
     t.index ["user_id"], name: "index_graffitis_on_user_id", using: :btree
   end
 

@@ -17,6 +17,8 @@ gem 'angular-rails-templates'
 
 # geocoder for mapping
 gem 'geocoder'
+# run js in ruby to query streetview
+gem 'execjs'
 
 # auth
 gem 'devise'

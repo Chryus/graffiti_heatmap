@@ -5,7 +5,8 @@ Geocoder::Railtie.insert
 
 class Graffiti < ActiveRecord::Base
   geocoded_by :incident_address, :if => :incident_address_changed?
-  after_validation :geocode  # auto-fetch coordinates
+  after_validation :geocode  # auto-fetch coordinates with geocoder gem
+  before_save :compare_gmaps_with_incident_date
   belongs_to :user
   has_many :comments
   has_many :upvotes
@@ -34,7 +35,7 @@ class Graffiti < ActiveRecord::Base
       next if incident["x_coordinate"] == nil
       incident.delete("x_coordinate")
       incident.delete("y_coordinate")
-      incident.delete("created_date")
+      
       incident.delete("bbl")
       incident.delete("city_council_district")
       incident.delete("closed_date")
@@ -42,12 +43,32 @@ class Graffiti < ActiveRecord::Base
       incident.delete("community_board")
       incident.delete("police_precinct")
       incident.update(:incident_address => add_city_state(incident["incident_address"], incident["borough"]))
+      incident['incident_date'] = format_raw_date(incident["created_date"])
+      incident.delete("created_date")
       Graffiti.create(incident)
     end
     graffiti_parsed
   end
 
+  def format_raw_date raw_date
+    date = raw_date.split("T").first
+    date = date.gsug("-", "/")
+    DateTime.strptime(date, '%Y/%m/%d')
+  end
+
   def self.add_city_state address, borough
     address << ", " << borough << ", NY"
+  end
+
+  # if incident report was made after the gmaps streetview capture date don't save bc graffiti can't be there
+  def compare_gmaps_with_incident_date
+    source = File.read(Rails.root.join('app/assets/javascripts/server_side/gmaps_streetview_service.js.erb'))
+    context = ExecJS.compile(source)
+    lat = self.latitude
+    lng = self.longitude
+    capture_date = context.call("streetviewImageCaptureDate", lat, lng)
+    capture_date = DateTime.strptime(date, '%Y/%m/%d')
+    
+    self.incident_date > capture_date ? false : true
   end
 end

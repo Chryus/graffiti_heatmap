@@ -1,0 +1,10 @@
+// 
+streetviewImageCaptureDate = function(lat, lng) {
+  var sv = new google.maps.StreetViewService();
+  var current = new google.maps.LatLng(lat, lng);
+  var date;
+  sv.getPanoramaByLocation(current, 50, function(data) {
+    var date = data.imageDate;
+  });
+  return date;
+}

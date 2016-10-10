@@ -1,14 +1,26 @@
 Rails.application.routes.draw do
-  resources :users, only: :show
+  resources :users do
+    collection do
+      post "/auth/facebook", to: "users#create_from_facebook"
+      get "/auth/facebook/callback", to: "users#facebook_callback"
+      get "/from_token", to: "users#from_token"
+      delete "/clear_token", to: "users#clear_token"
+    end
+  end
   devise_for :users, :controllers => {sessions: 'sessions'}
   
   root to: 'application#angular'
 
   resources :graffiti, only: [:create, :index, :show] do
     collection do
+      get "/get_graffiti", to: "graffiti#index"
+      post "/upload", to: "graffiti#create"
       get '/s3_direct_post' => 'graffiti#s3_direct_post'
       get '/archive' => 'graffiti#archive'
       put '/delete_image' => 'graffiti#delete_image'
+    end
+    member do
+      put '/google_image_capture_date' => 'graffiti#google_image_capture_date'
     end
     resources :comments, only: [:show, :create] do
       member do
@@ -20,13 +32,6 @@ Rails.application.routes.draw do
       put '/upvote' => 'graffiti#upvote'
     end
   end
-
-  post "/auth/facebook", to: "users#create_from_facebook"
-  get "/auth/facebook/callback", to: "users#facebook_callback"
-  get "/from_token", to: "users#from_token"
-  delete "/clear_token", to: "users#clear_token"
-  get "/get_graffiti", to: "graffiti#index"
-  post "/upload", to: "graffiti#create"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

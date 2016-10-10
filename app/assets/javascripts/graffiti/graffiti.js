@@ -42,6 +42,26 @@ angular.module('graffitiApp')
         return res.data
       });
     };
+    o.setGoogleImageDates = function() {
+      for (index in o.graffiti) {
+        graffito = o.graffiti[index];
+        var sv = new google.maps.StreetViewService();
+        var current = new google.maps.LatLng(graffito.latitude, graffito.longitude);
+        var date;
+
+        sv.getPanoramaByLocation(current, 50, function(data) {
+          date = data.imageDate;
+          return $http({
+            method: 'PUT',
+            url: '/graffiti/' + graffito.id + '/google_image_capture_date.json',
+            data: {'capture_date': date}
+            })
+          .then(function(res) {
+            return res.data
+          });
+        });
+      }
+    }
     // o.addComment = function(id, comment) {
     //   return $http.graffito('/graffiti/' + id + '/comments.json', comment);
     // };

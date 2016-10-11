@@ -44,17 +44,28 @@ angular.module('graffitiApp')
       });
     };
     o.setGoogleImageDates = function() {
-      for (index in o.graffiti) {
-        graffito = o.graffiti[index];
-        if (graffito.latitude != null) {
-          var sv = new google.maps.StreetViewService();
-          var current = new google.maps.LatLng(graffito.latitude, graffito.longitude);
-          var date;
-          sv.getPanoramaByLocation(current, 10, function(data) {
-            debugger
-            o.capture_dates.push({id: graffito.id, capture_date: data.imageDate})
-          });
-        };
+      var sv = new google.maps.StreetViewService();
+      for (var i = 0; i < o.graffiti.length; i++) {
+        (function(index, graffito) { // inline closure to persist graffiti instance
+          if (graffito.latitude != null) {
+            var current = new google.maps.LatLng(graffito.latitude, graffito.longitude);
+            // first check for panorama within 50 meters
+            sv.getPanoramaByLocation(current, 50, function(data, status) {
+              if (status == 'OK') {
+                o.capture_dates.push({id: graffito.id, capture_date: data.imageDate})
+              } else {
+                // safety net: check for panorama within 200 meters
+                sv.getPanoramaByLocation(current, 200, function(data, status) { 
+                  if (status == 'OK') { 
+                    o.capture_dates.push({id: graffito.id, capture_date: data.imageDate})
+                  } else { 
+                    console.log("Could not retrieve image date"); 
+                  }
+                });
+              }
+            });
+          };
+        })(i, o.graffiti[i]);
       }
       console.log("Dates Set")
     }

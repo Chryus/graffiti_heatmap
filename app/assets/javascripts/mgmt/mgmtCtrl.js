@@ -1,7 +1,16 @@
 angular.module('graffitiApp')
-.controller('TestCtrl', [
+.controller('MgmtCtrl', [
   '$scope',
   'graffiti',
   function($scope, graffiti){
-    console.log("ADMIN")
+
+    $scope.setGoogleImageDates = function() {
+      debugger
+      graffiti.setGoogleImageDates()
+    };
+
+    $scope.sendCaptureDatesToDB = function() {
+      graffiti.sendCaptureDatesToDB()
+    };
+
   }])

@@ -1,7 +1,9 @@
+require 'time_difference'
+
 class GraffitiController < ApplicationController
 
   def index
-    graffiti = Graffiti.all
+    graffiti = Graffiti.where.not(latitude: nil)
     heatmap_format = Graffiti.heatmap_format
     render json: {graffiti: graffiti, heatmap: heatmap_format}
   end
@@ -21,15 +23,19 @@ class GraffitiController < ApplicationController
     capture_dates = params[:capture_dates]
 
     capture_dates.each do |object|
-      graffito = Graffiti.find(object[:id])
+      graffito = Graffiti.find_by(id: object[:id])
+      next if graffito.nil?
       incident_date = graffito.incident_date
       capture_date = object[:capture_date].gsub('-', '/')
+      next if (capture_date =~ /\d{4}\/\d{2}/) != 0 # skip dates not in 2016/10 formatx
       capture_date = DateTime.strptime(capture_date, '%Y/%m')
 
       # if graffiti was reported more than 60 days after streetview capture date, or,
       # more than 180 days before capture date, destroy record (it's probably not 
       # in streetview)
+
       diff = TimeDifference.between(graffito.incident_date, capture_date).in_days
+
       if graffito.incident_date > capture_date && diff > 60 ||
         graffito.incident_date < capture_date && diff > 180
         graffito.destroy

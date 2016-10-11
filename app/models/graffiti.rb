@@ -5,7 +5,7 @@ Geocoder::Railtie.insert
 
 class Graffiti < ActiveRecord::Base
   geocoded_by :incident_address
-  #after_validation :geocode, if: ->(obj){ obj.incident_address.present? and :incident_address_changed? }  # auto-fetch coordinates with geocoder gem
+  after_validation :geocode, if: ->(obj){ obj.incident_address.present? and :incident_address_changed? }  # auto-fetch coordinates with geocoder gem
   belongs_to :user
   has_many :comments
   has_many :upvotes, dependent: :destroy

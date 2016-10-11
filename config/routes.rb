@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get '/s3_direct_post' => 'graffiti#s3_direct_post'
       get '/archive' => 'graffiti#archive'
       put '/delete_image' => 'graffiti#delete_image'
-      put '/google_image_capture_date' => 'graffiti#gmaps_streetview_capture_dates'
+      put '/gmaps_streetview_capture_dates' => 'graffiti#gmaps_streetview_capture_dates'
     end
     resources :comments, only: [:show, :create] do
       member do

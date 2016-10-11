@@ -1,7 +1,8 @@
 angular.module('graffitiApp') 
   .factory('map', [
   'graffiti',
-  function(graffiti){
+  '$state',
+  function(graffiti, $state){
     var o = {
       loading: true,
       maps: {},
@@ -74,15 +75,18 @@ angular.module('graffitiApp')
           zIndex: 100,
           icon: "http://maps.google.com/mapfiles/dir_39.png"
         });
-        (function (marker, i) {
-          // add click event
+        // add listener for panorama for each marker
+        (function (marker, i) { // inline closure persists value of marker for each iteration
           google.maps.event.addListener(marker, 'click', function () {
             panorama = map.getStreetView();
             panorama.setPosition(marker.getPosition());
-            panorama.setPov({
-              heading: 265,
-              pitch: 0
+            
+            // use existing POV if it exists
+            panorama.setPov({ 
+              heading: marker['heading'] || 265, 
+              pitch: marker['pitch'] || 0 
             });
+            
             panorama.setVisible(true);
             o.hide_visibility('button')
             google.maps.event.addListener(panorama, "closeclick", function (event) {
@@ -114,17 +118,32 @@ angular.module('graffitiApp')
     o.matchLat = function (lat) {
       for (var i = 0; i < o.markers.length; i++) {
         if (o.markers[i].position.lat() == lat) {
-          console.log(o.markers[i]);
+          var marker = o.markers[i];
+          var indiex = i;
+          console.log("MARKER");
+          console.log(marker);
           panorama = map.getStreetView();
           panorama.setPosition(o.markers[i].getPosition());
-          panorama.setPov({
-            heading: 265,
-            pitch: 0
+          
+          // use existing POV if it exists
+          panorama.setPov({ 
+            heading: marker['heading'] || 265, 
+            pitch: marker['pitch'] || 0 
+          });
+           // set listener to record POV changes and persist in client
+          panorama.addListener('pov_changed', function() {
+            console.log("Inside Listener")
+            console.log(marker);
+            marker['heading'] = panorama.getPov().heading + '';
+            marker['pitch'] = panorama.getPov().pitch + '';
+            console.log(marker);
           });
           panorama.setVisible(true);
           o.hide_visibility('button');
           google.maps.event.addListener(panorama, "closeclick", function (event) {
-            o.render_visibility('button')
+            o.render_visibility('button');
+            // go home
+            $state.go('home');
           });
         }
       }

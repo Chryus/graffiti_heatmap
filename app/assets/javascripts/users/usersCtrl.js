@@ -9,8 +9,8 @@ angular.module('graffitiApp')
       $scope.user = users.user;
       $scope.graffiti = users.user.graffiti_through_upvotes
       $scope.graffiti_through_uploads = users.user.graffiti_through_uploads
-      $scope.matchLat = function (lat) {
-        map.matchLat(lat);
+      $scope.getStreetviewPanorama = function (lat) {
+        map.getStreetviewPanorama(lat);
       }
       $scope.orderProp = '-upvotes';
   }])

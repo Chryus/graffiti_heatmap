@@ -9,8 +9,8 @@ angular.module('graffitiApp')
       $scope.graffiti = graffiti.graffiti;
       $scope.graffito = graffito;
 
-      $scope.matchLat = function (lat) {
-        map.matchLat(lat);
+      $scope.getStreetviewPanorama = function (lat) {
+        map.getStreetviewPanorama(lat);
       };
 
       $scope.incrementUpvotes = function(graffito){

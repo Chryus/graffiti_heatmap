@@ -1,8 +1,7 @@
 angular.module('graffitiApp') 
   .factory('map', [
   'graffiti',
-  '$state',
-  function(graffiti, $state){
+  function(graffiti){
     var o = {
       loading: true,
       maps: {},
@@ -114,39 +113,40 @@ angular.module('graffitiApp')
         o.plotMarkers(map);
         markersVisible = true;
       }
-    }
-    o.matchLat = function (lat) {
+    };
+    o.fetchMarker = function(lat) {
+      var marker = null;
       for (var i = 0; i < o.markers.length; i++) {
         if (o.markers[i].position.lat() == lat) {
-          var marker = o.markers[i];
-          var indiex = i;
-          console.log("MARKER");
-          console.log(marker);
-          panorama = map.getStreetView();
-          panorama.setPosition(o.markers[i].getPosition());
-          
-          // use existing POV if it exists
-          panorama.setPov({ 
-            heading: marker['heading'] || 265, 
-            pitch: marker['pitch'] || 0 
-          });
-           // set listener to record POV changes and persist in client
-          panorama.addListener('pov_changed', function() {
-            console.log("Inside Listener")
-            console.log(marker);
-            marker['heading'] = panorama.getPov().heading + '';
-            marker['pitch'] = panorama.getPov().pitch + '';
-            console.log(marker);
-          });
-          panorama.setVisible(true);
-          o.hide_visibility('button');
-          google.maps.event.addListener(panorama, "closeclick", function (event) {
-            o.render_visibility('button');
-            // go home
-            //$state.go('home');
-          });
+          marker = o.markers[i];
         }
       }
+      return marker;
+    };
+    o.getStreetviewPanorama = function (lat) {
+      marker = o.fetchMarker(lat)
+      console.log(marker);
+      panorama = map.getStreetView();
+      panorama.setPosition(marker.getPosition());
+      
+      // use existing POV if it exists
+      panorama.setPov({ 
+        heading: marker['heading'] || 265, 
+        pitch: marker['pitch'] || 0 
+      });
+       // set listener to record POV changes and persist in client
+      panorama.addListener('pov_changed', function() {
+        console.log("Inside Listener")
+        console.log(marker);
+        marker['heading'] = panorama.getPov().heading + '';
+        marker['pitch'] = panorama.getPov().pitch + '';
+        console.log(marker);
+      });
+      panorama.setVisible(true);
+      o.hide_visibility('button');
+      google.maps.event.addListener(panorama, "closeclick", function (event) {
+        o.render_visibility('button');
+      });
     };
     o.render_visibility = function (cl) {
       els = document.getElementsByClassName(cl);

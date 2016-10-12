@@ -33,8 +33,8 @@ angular.module('graffitiApp')
       } 
 
       // opens street view of clicked graffito
-      $scope.matchLat = function (lat) {
-        map.matchLat(lat);
+      $scope.getStreetviewPanorama = function (lat) {
+        map.getStreetviewPanorama(lat);
       }
 
       // wait for images to load and init carousel

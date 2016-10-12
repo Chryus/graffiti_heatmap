@@ -58,6 +58,11 @@ class GraffitiController < ApplicationController
     render json: {s3_direct_post: s3_direct_post, s3_direct_post_host: host}
   end
 
+  def update
+    graffito = Graffiti.find(params[:id])
+    graffito.update_attributes(graffiti_params)
+  end
+
   def create
     if current_user.present?
       graffito = current_user.graffiti_through_uploads.new(graffiti_params)
@@ -104,6 +109,6 @@ class GraffitiController < ApplicationController
   end
 
   def graffiti_params
-    params.require(:graffiti).permit(:borough, :status, :incident_address, :latitude, :longitude, images: [])
+    params.require(:graffiti).permit(:borough, :status, :incident_address, :latitude, :longitude, :hotspot, :pov, images: [])
   end
 end

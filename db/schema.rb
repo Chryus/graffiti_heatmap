@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012154442) do
+ActiveRecord::Schema.define(version: 20161012171530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 20161012154442) do
     t.datetime "incident_date"
     t.boolean  "hotspot",                             default: false
     t.datetime "streetview_capture_date"
+    t.jsonb    "pov"
     t.index ["hotspot"], name: "index_graffitis_on_hotspot", using: :btree
     t.index ["user_id"], name: "index_graffitis_on_user_id", using: :btree
   end

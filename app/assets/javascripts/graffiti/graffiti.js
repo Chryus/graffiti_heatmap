@@ -79,6 +79,16 @@ angular.module('graffitiApp')
         return res.data
       });
     }
+    o.saveStreetviewPOV = function(id, marker) {
+      return $http({
+        method: 'PUT',
+        url: '/graffiti/' + id + 'pov.json',
+        data: {'graffiti': marker['pov']}
+      })
+      .then(function(res) {
+        return res.data
+      });
+    }
     // o.addComment = function(id, comment) {
     //   return $http.graffito('/graffiti/' + id + '/comments.json', comment);
     // };

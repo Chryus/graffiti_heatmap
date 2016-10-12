@@ -82,8 +82,8 @@ angular.module('graffitiApp')
             
             // use existing POV if it exists
             panorama.setPov({ 
-              heading: marker['heading'] || 265, 
-              pitch: marker['pitch'] || 0 
+              heading: marker['pov']['heading'] || 265, 
+              pitch: marker['pov']['pitch'] || 0 
             });
             
             panorama.setVisible(true);
@@ -131,15 +131,15 @@ angular.module('graffitiApp')
       
       // use existing POV if it exists
       panorama.setPov({ 
-        heading: marker['heading'] || 265, 
-        pitch: marker['pitch'] || 0 
+        heading: marker['pov']['heading'] || 265, 
+        pitch: marker['pov']['pitch'] || 0 
       });
        // set listener to record POV changes and persist in client
       panorama.addListener('pov_changed', function() {
         console.log("Inside Listener")
         console.log(marker);
-        marker['heading'] = panorama.getPov().heading + '';
-        marker['pitch'] = panorama.getPov().pitch + '';
+        marker['pov']['heading'] = panorama.getPov().heading + '';
+        marker['pov']['pitch'] = panorama.getPov().pitch + '';
         console.log(marker);
       });
       panorama.setVisible(true);

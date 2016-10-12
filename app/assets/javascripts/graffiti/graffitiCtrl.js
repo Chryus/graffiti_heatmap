@@ -13,6 +13,11 @@ angular.module('graffitiApp')
         map.getStreetviewPanorama(lat);
       };
 
+      $scope.saveStreetviewPOV = function(lat) {
+        marker = map.fetchMarker(lat);
+        graffiti.saveStreetviewPOV(marker);
+      }
+
       $scope.incrementUpvotes = function(graffito){
         graffiti.upvote(graffito);
       };

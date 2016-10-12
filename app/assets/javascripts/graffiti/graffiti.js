@@ -82,8 +82,8 @@ angular.module('graffitiApp')
     o.saveStreetviewPOV = function(id, marker) {
       return $http({
         method: 'PUT',
-        url: '/graffiti/' + id + 'pov.json',
-        data: {'graffiti': marker['pov']}
+        url: '/graffiti/' + id + '.json',
+        data: {'graffiti': { 'pov': marker['pov'] } }
       })
       .then(function(res) {
         return res.data

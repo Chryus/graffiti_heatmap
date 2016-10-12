@@ -59,6 +59,7 @@ class GraffitiController < ApplicationController
   end
 
   def update
+    debugger
     graffito = Graffiti.find(params[:id])
     graffito.update_attributes(graffiti_params)
   end
@@ -109,6 +110,6 @@ class GraffitiController < ApplicationController
   end
 
   def graffiti_params
-    params.require(:graffiti).permit(:borough, :status, :incident_address, :latitude, :longitude, :hotspot, :pov, images: [])
+    params.require(:graffiti).permit(:borough, :status, :incident_address, :latitude, :longitude, :hotspot, pov: [:heading, :pitch], images: [])
   end
 end

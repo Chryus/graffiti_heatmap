@@ -13,9 +13,9 @@ angular.module('graffitiApp')
         map.getStreetviewPanorama(lat);
       };
 
-      $scope.saveStreetviewPOV = function(lat) {
+      $scope.saveStreetviewPOV = function(id, lat) {
         marker = map.fetchMarker(lat);
-        graffiti.saveStreetviewPOV(marker);
+        graffiti.saveStreetviewPOV(id, marker);
       }
 
       $scope.incrementUpvotes = function(graffito){

@@ -17,14 +17,16 @@ class Graffiti < ActiveRecord::Base
   scope :is_geocoded?, -> { where.not(latitude: nil, longitude: nil) }
 
   def as_json(options={})
-    graffito = super(:only => [:id, :incident_address, :borough, :latitude, :longitude, :images])
+    graffito = super(:only => [:id, :incident_address, :borough, :latitude, :longitude, :pov, :images])
     graffito[:upvotes] = upvotes.count
     graffito[:upvoted_by] = upvotes.pluck(:user_id)
     graffito
   end
 
   def self.heatmap_format
-    Graffiti.where.not(latitude: nil).select("latitude, longitude").map { |incident| { :lat => incident.latitude, :lng => incident.longitude } }
+    Graffiti.where.not(latitude: nil).select("latitude, longitude, pov").map { |incident| 
+      { lat: incident.latitude, lng: incident.longitude, pov: incident.pov } 
+    }
   end
 
   def self.build_database

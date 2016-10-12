@@ -67,24 +67,32 @@ angular.module('graffitiApp')
       });
     };
     o.fetchMarkers = function (mapId) {
-      $.each(mapData.data, function (i, g) {
+      $.each(mapData.data, function (i, graffito) {
         marker = new google.maps.Marker({
-          position: new google.maps.LatLng(g.lat, g.lng),
+          position: new google.maps.LatLng(graffito.lat, graffito.lng),
           map: map,
           zIndex: 100,
-          icon: "http://maps.google.com/mapfiles/dir_39.png"
+          icon: "http://maps.google.com/mapfiles/dir_39.png",
+          pov: graffito.pov
         });
         // add listener for panorama for each marker
         (function (marker, i) { // inline closure persists value of marker for each iteration
           google.maps.event.addListener(marker, 'click', function () {
             panorama = map.getStreetView();
             panorama.setPosition(marker.getPosition());
-            
+            debugger
             // use existing POV if it exists
-            panorama.setPov({ 
-              heading: marker['pov']['heading'] || 265, 
-              pitch: marker['pov']['pitch'] || 0 
-            });
+            if (marker['pov']) {
+              panorama.setPov({
+                heading: marker['pov']['heading'],
+                pitch: marker['pov']['pitch'],
+              });
+            } else {
+              panorama.setPov({
+                heading: 265, 
+                pitch: 0 
+              });
+            }
             
             panorama.setVisible(true);
             o.hide_visibility('button')
@@ -130,14 +138,23 @@ angular.module('graffitiApp')
       panorama.setPosition(marker.getPosition());
       
       // use existing POV if it exists
-      panorama.setPov({ 
-        heading: marker['pov']['heading'] || 265, 
-        pitch: marker['pov']['pitch'] || 0 
-      });
+      debugger
+      if (marker['pov']) {
+        panorama.setPov({
+          heading: marker['pov']['heading'],
+          pitch: marker['pov']['pitch'],
+        });
+      } else {
+        panorama.setPov({
+          heading: 265, 
+          pitch: 0 
+        });
+      }
        // set listener to record POV changes and persist in client
       panorama.addListener('pov_changed', function() {
         console.log("Inside Listener")
         console.log(marker);
+        marker['pov'] = {};
         marker['pov']['heading'] = panorama.getPov().heading + '';
         marker['pov']['pitch'] = panorama.getPov().pitch + '';
         console.log(marker);

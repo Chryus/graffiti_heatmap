@@ -14,7 +14,7 @@ class Graffiti < ActiveRecord::Base
                                   :foreign_key => 'user_id',
                                   :source => :user
 
-  scope :is_geocoded?, -> { where.not(latitude: nil, longitude: nil) }
+  scope :geocoded_hotspots, -> { where.not(latitude: nil, longitude: nil).where(hotspot: true) }
 
   def as_json(options={})
     graffito = super(:only => [:id, :incident_address, :borough, :latitude, :longitude, :pov, :images])
@@ -24,7 +24,7 @@ class Graffiti < ActiveRecord::Base
   end
 
   def self.heatmap_format
-    Graffiti.where.not(latitude: nil).select("latitude, longitude, pov").map { |incident| 
+    Graffiti.geocoded_hotspots.select("latitude, longitude, pov").map { |incident| 
       { lat: incident.latitude, lng: incident.longitude, pov: incident.pov } 
     }
   end
@@ -63,7 +63,7 @@ class Graffiti < ActiveRecord::Base
     graffiti
   end
 
-  def self.graffiti_hotspot(incident, graffiti)
+  def self.graffiti_hotspot?(incident, graffiti)
     graffiti.select {|g| g['incident_address'] == incident["incident_address"]}.count > 1
   end
 

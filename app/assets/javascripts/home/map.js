@@ -80,7 +80,6 @@ angular.module('graffitiApp')
           google.maps.event.addListener(marker, 'click', function () {
             panorama = map.getStreetView();
             panorama.setPosition(marker.getPosition());
-            debugger
             // use existing POV if it exists
             if (marker['pov']) {
               panorama.setPov({
@@ -138,7 +137,6 @@ angular.module('graffitiApp')
       panorama.setPosition(marker.getPosition());
       
       // use existing POV if it exists
-      debugger
       if (marker['pov']) {
         panorama.setPov({
           heading: marker['pov']['heading'],

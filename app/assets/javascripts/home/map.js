@@ -83,8 +83,8 @@ angular.module('graffitiApp')
             // use existing POV if it exists
             if (marker['pov']) {
               panorama.setPov({
-                heading: marker['pov']['heading'],
-                pitch: marker['pov']['pitch'],
+                heading: parseFloat(marker['pov']['heading']),
+                pitch: parseFloat(marker['pov']['pitch']),
               });
             } else {
               panorama.setPov({
@@ -135,12 +135,12 @@ angular.module('graffitiApp')
       console.log(marker);
       panorama = map.getStreetView();
       panorama.setPosition(marker.getPosition());
-      
+
       // use existing POV if it exists
-      if (marker['pov']) {
+      if (marker.pov) {
         panorama.setPov({
-          heading: marker['pov']['heading'],
-          pitch: marker['pov']['pitch'],
+          heading: parseFloat(marker['pov']['heading']),
+          pitch: parseFloat(marker['pov']['pitch'])
         });
       } else {
         panorama.setPov({

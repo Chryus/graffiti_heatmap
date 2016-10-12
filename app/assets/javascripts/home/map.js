@@ -143,7 +143,7 @@ angular.module('graffitiApp')
           google.maps.event.addListener(panorama, "closeclick", function (event) {
             o.render_visibility('button');
             // go home
-            $state.go('home');
+            //$state.go('home');
           });
         }
       }

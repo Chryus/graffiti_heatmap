@@ -18,27 +18,32 @@ class GraffitiController < ApplicationController
     respond_with graffito
   end
 
-  # logic to remove graffiti that proably aren't in google streetview based on its capture date
-  def gmaps_streetview_capture_dates
+  # logic to remove graffiti that proably aren't in google streetview
+  def compare_capture_dates_with_graffiti_dates
     capture_dates = params[:capture_dates]
 
+    # iterate over capture dates and compare with incident dates
     capture_dates.each do |object|
       graffito = Graffiti.find_by(id: object[:id])
       next if graffito.nil?
       incident_date = graffito.incident_date
+      # format capture date from google streetview to datetime 
       capture_date = object[:capture_date].gsub('-', '/')
-      next if (capture_date =~ /\d{4}\/\d{2}/) != 0 # skip dates not in 2016/10 formatx
+      # skip dates not in 2016/10 format
+      next if (capture_date =~ /\d{4}\/\d{2}/) != 0
       capture_date = DateTime.strptime(capture_date, '%Y/%m')
 
-      # if graffiti was reported more than 60 days after streetview capture date, or,
-      # more than 180 days before capture date, destroy record (it's probably not 
-      # in streetview)
-
+      # grab diff between graffiti incident report date and streetview capture date
       diff = TimeDifference.between(graffito.incident_date, capture_date).in_days
 
-      if graffito.incident_date > capture_date && diff > 60 ||
-        graffito.incident_date < capture_date && diff > 180
+      # if graffiti is not a hotspot & it was reported more than 60 days after streetview 
+      # capture date, or, more than 180 days before capture date, destroy record (it's probably not 
+      # in streetview)
+      if !graffito.hotspot? && (graffito.incident_date > capture_date && diff > 60 ||
+        graffito.incident_date < capture_date && diff > 180)
         graffito.destroy
+      else
+        graffito.update_attributes(streetview_capture_date: capture_date)
       end
     end
   end

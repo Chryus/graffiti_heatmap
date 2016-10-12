@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get '/s3_direct_post' => 'graffiti#s3_direct_post'
       get '/archive' => 'graffiti#archive'
       put '/delete_image' => 'graffiti#delete_image'
-      put '/gmaps_streetview_capture_dates' => 'graffiti#gmaps_streetview_capture_dates'
+      put '/compare_capture_dates_with_graffiti_dates' => 'graffiti#compare_capture_dates_with_graffiti_dates'
     end
     resources :comments, only: [:show, :create] do
       member do
@@ -26,7 +26,6 @@ Rails.application.routes.draw do
   get "/auth/facebook/callback", to: "users#facebook_callback"
   get "/from_token", to: "users#from_token"
   delete "/clear_token", to: "users#clear_token"
-  get "/get_graffiti", to: "graffiti#index"
   post "/upload", to: "graffiti#create"
 
   # The priority is based upon order of creation: first created -> highest priority.

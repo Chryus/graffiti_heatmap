@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161010155735) do
+ActiveRecord::Schema.define(version: 20161012154442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,9 +41,9 @@ ActiveRecord::Schema.define(version: 20161010155735) do
   end
 
   create_table "graffitis", force: :cascade do |t|
-    t.string   "borough",          limit: 255
-    t.string   "status",           limit: 255
-    t.string   "incident_address", limit: 255
+    t.string   "borough",                 limit: 255
+    t.string   "status",                  limit: 255
+    t.string   "incident_address",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "latitude"
@@ -51,6 +51,9 @@ ActiveRecord::Schema.define(version: 20161010155735) do
     t.jsonb    "images"
     t.integer  "user_id"
     t.datetime "incident_date"
+    t.boolean  "hotspot",                             default: false
+    t.datetime "streetview_capture_date"
+    t.index ["hotspot"], name: "index_graffitis_on_hotspot", using: :btree
     t.index ["user_id"], name: "index_graffitis_on_user_id", using: :btree
   end
 

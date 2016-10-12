@@ -10,7 +10,7 @@ angular.module('graffitiApp')
        capture_dates: []
      };
     o.getAll = function() {
-      return $http.get('/get_graffiti.json').success(function(data){
+      return $http.get('/graffiti.json').success(function(data){
         angular.copy(data.graffiti, o.graffiti);
         angular.copy(data.heatmap, o.heatmap);
       });
@@ -43,7 +43,7 @@ angular.module('graffitiApp')
         return res.data
       });
     };
-    o.setGoogleImageDates = function() {
+    o.setStreetviewCaptureDates = function() {
       var sv = new google.maps.StreetViewService();
       for (var i = 0; i < o.graffiti.length; i++) {
         (function(index, graffito) { // inline closure to persist graffiti instance
@@ -69,10 +69,10 @@ angular.module('graffitiApp')
       }
       console.log("Dates Set")
     }
-    o.sendCaptureDatesToDB = function() {
+    o.compareCaptureDatesWithGraffitiDates = function() {
      return $http({
         method: 'PUT',
-        url: '/graffiti/gmaps_streetview_capture_dates.json',
+        url: '/graffiti/compare_capture_dates_with_graffiti_dates.json',
         data: {'capture_dates': o.capture_dates}
         })
       .then(function(res) {

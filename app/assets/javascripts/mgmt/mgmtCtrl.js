@@ -4,13 +4,12 @@ angular.module('graffitiApp')
   'graffiti',
   function($scope, graffiti){
 
-    $scope.setGoogleImageDates = function() {
-      debugger
-      graffiti.setGoogleImageDates()
+    $scope.setStreetviewCaptureDates = function() {
+      graffiti.setStreetviewCaptureDates()
     };
 
-    $scope.sendCaptureDatesToDB = function() {
-      graffiti.sendCaptureDatesToDB()
+    $scope.compareCaptureDatesWithGraffitiDates = function() {
+      graffiti.compareCaptureDatesWithGraffitiDates()
     };
 
   }])

@@ -1,10 +1,11 @@
 angular.module('graffitiApp')
   .controller('GraffitiCtrl', [
     '$scope',
+    '$state',
     'graffiti',
     'graffito',
     'map',
-    function($scope, graffiti, graffito, map){
+    function($scope, $state, graffiti, graffito, map){
       $scope.map = map.getMap('google');
       $scope.graffiti = graffiti.graffiti;
       $scope.graffito = graffito;
@@ -21,6 +22,10 @@ angular.module('graffitiApp')
       $scope.incrementUpvotes = function(graffito){
         graffiti.upvote(graffito);
       };
+
+      $scope.goHome = function() {
+        $state.go('home');
+      }
 
       $scope.addComment = function(){
         if($scope.body === '') { return; }

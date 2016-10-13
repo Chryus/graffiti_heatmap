@@ -24,9 +24,10 @@ class Graffiti < ActiveRecord::Base
   end
 
   def self.heatmap_format
-    Graffiti.geocoded_hotspots.select("latitude, longitude, pov").map { |incident| 
+    graffiti = Graffiti.geocoded_hotspots.select("latitude, longitude, pov").map { |incident| 
       { lat: incident.latitude, lng: incident.longitude, pov: incident.pov } 
     }
+    graffiti[0...20]
   end
 
   def self.build_database

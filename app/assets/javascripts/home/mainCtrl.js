@@ -48,7 +48,7 @@ angular.module('graffitiApp')
       $scope.closeCarousel = function(delay) {
        setTimeout(function() {
           $('.close').click();
-          $('body').css('overflow', 'visible');
+          angular.element('body').css('overflow', 'visible');
           $scope.delaying = false;
           // grab UI Element and update its scope to show graffiti list
           // not sure if this is best approach but it's the only one that worked. 

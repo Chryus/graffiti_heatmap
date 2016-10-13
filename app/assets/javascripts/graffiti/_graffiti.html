@@ -15,4 +15,4 @@
   <button id="goHome" class="btn btn-primary" type="button" ng-click="goHome()">Back</button>
 </div>
 
-<button class="btn btn-primary" type="button" id="saveStreetview" ng-click="saveStreetviewPOV(graffito.id, graffito.latitude)">Save Streetview Position</button>
+<button class="btn btn-primary" type="button" ng-show="streetviewOpen" id="saveStreetview" ng-click="saveStreetviewPOV(graffito.id, graffito.latitude)">Save Streetview Position</button>

@@ -25,8 +25,10 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           templateUrl: 'home/_home.html',
           controller: 'MainCtrl',
           onEnter: function() {
-            $(".gm-iv-back-icon").click() // close streetview
-            $("#map-canvas").show(); // show map
+            angular.element(".gm-iv-back-icon").click(); // close streetview
+            angular.element('#map-canvas').show(); // show map
+            angular.element('body').css('overflow', 'visible'); // make sure you can scroll
+
           }
         })
         .state('graffiti', {
@@ -66,8 +68,8 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           templateUrl: 'galleries/_archive.html',
           controller: 'GalleryCtrl',
           onEnter: function() {
-            $(".gm-iv-back-icon").click() // close streetview
-            $("#map-canvas").hide();
+            angular.element(".gm-iv-back-icon").click(); // close streetview
+            angular.element('#map-canvas').hide(); // hide map
           }
         })
         .state('gallery', {
@@ -75,8 +77,8 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           templateUrl: 'galleries/_gallery.html',
           controller: 'GalleryCtrl',
           onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
-            $(".gm-iv-back-icon").click() // close streetview
-            $("#map-canvas").hide();
+            angular.element(".gm-iv-back-icon").click(); // close streetview
+            angular.element('#map-canvas').hide(); // hide map
             // go home if user isn't authenticated
             if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) { 
               $state.go('login'); 
@@ -94,8 +96,8 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           templateUrl: 'uploads/_upload.html',
           controller: 'UploadsCtrl',
           onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
-            $(".gm-iv-back-icon").click() // close streetview
-            $("#map-canvas").hide();
+            angular.element(".gm-iv-back-icon").click(); // close streetview
+            angular.element('#map-canvas').hide(); // hide map
           }]
         })
         .state('login', {
@@ -105,7 +107,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
             if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) { 
               return $state.go('home'); }
-            $("#map-canvas").hide();
+            angular.element('#map-canvas').hide(); // hide map
           }]
         })
         .state('register', {
@@ -124,7 +126,7 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           templateUrl: 'mgmt/_mgmt.html',
           controller: 'MgmtCtrl',
           onEnter: function() {
-            $("#map-canvas").hide();
+            angular.element('#map-canvas').hide(); // hide map
           }
         })
       $urlRouterProvider.otherwise('home');

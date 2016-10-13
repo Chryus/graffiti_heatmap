@@ -9,6 +9,7 @@ angular.module('graffitiApp')
       $scope.map = map.getMap('google');
       $scope.graffiti = graffiti.graffiti;
       $scope.graffito = graffito;
+      $scope.streetviewOpen = true;
 
       $scope.getStreetviewPanorama = function (lat) {
         map.getStreetviewPanorama(lat);

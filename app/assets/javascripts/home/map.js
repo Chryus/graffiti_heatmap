@@ -76,10 +76,11 @@ angular.module('graffitiApp')
           pov: graffito.pov
         });
         // add listener for panorama for each marker
-        (function (marker, i) { // inline closure persists value of marker for each iteration
+        (function (marker, graffito, i) { // inline closure persists value of marker for each iteration
           google.maps.event.addListener(marker, 'click', function () {
             panorama = map.getStreetView();
             panorama.setPosition(marker.getPosition());
+            panorama.enableCloseButton = false;
             // use existing POV if it exists
             if (marker['pov']) {
               panorama.setPov({
@@ -92,15 +93,13 @@ angular.module('graffitiApp')
                 pitch: 0 
               });
             }
-            
             panorama.setVisible(true);
             o.hide_visibility('button')
-            google.maps.event.addListener(panorama, "closeclick", function (event) {
-              o.render_visibility('button')
-            });
+            // redirect to graffito page
+            window.location = "#graffiti/" + graffito.id;
           });
           o.markers.push(marker);
-        })(marker, i);
+        })(marker, graffito, i);
       });
       o.maps[mapId] = map;
       o.plotMarkers(null);
@@ -134,6 +133,7 @@ angular.module('graffitiApp')
       marker = o.fetchMarker(lat)
       console.log(marker);
       panorama = map.getStreetView();
+      panorama.enableCloseButton = false;
       panorama.setPosition(marker.getPosition());
 
       // use existing POV if it exists
@@ -159,9 +159,6 @@ angular.module('graffitiApp')
       });
       panorama.setVisible(true);
       o.hide_visibility('button');
-      google.maps.event.addListener(panorama, "closeclick", function (event) {
-        o.render_visibility('button');
-      });
     };
     o.render_visibility = function (cl) {
       els = document.getElementsByClassName(cl);

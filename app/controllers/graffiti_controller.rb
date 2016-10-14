@@ -3,7 +3,7 @@ require 'time_difference'
 class GraffitiController < ApplicationController
 
   def index
-    graffiti = Graffiti.geocoded_hotspots[0...20]
+    graffiti = Graffiti.geocoded_hotspots
     heatmap_format = Graffiti.heatmap_format
     render json: {graffiti: graffiti, heatmap: heatmap_format}
   end

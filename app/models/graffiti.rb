@@ -14,7 +14,7 @@ class Graffiti < ActiveRecord::Base
                                   :foreign_key => 'user_id',
                                   :source => :user
 
-  scope :geocoded_hotspots, -> { where.not(latitude: nil, longitude: nil).where(hotspot: true) }
+  scope :geocoded_hotspots, -> { where.not(latitude: nil, longitude: nil).where(hotspot: true, images: nil) }
 
   def as_json(options={})
     graffito = super(:only => [:id, :incident_address, :borough, :latitude, :longitude, :pov, :images])
@@ -31,7 +31,7 @@ class Graffiti < ActiveRecord::Base
   end
 
   def self.build_database
-    self.is_geocoded?.destroy_all
+    self.geocoded_hotspots.destroy_all
     data = open("https://data.cityofnewyork.us/resource/8ktu-ngtj.json")
     graffiti = JSON.parse(data.read)
     graffiti.each do |incident|

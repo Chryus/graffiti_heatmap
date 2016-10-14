@@ -70,5 +70,14 @@ angular.module('graffitiApp')
           });
         }
       });
+      
+      // temporary hack to fix no spaces bug in text fields
+      angular.element("input").on( "keyup", function() {
+        console.log("THIS", $(this).val() );
+         if(event.keyCode == 32){
+          $(this).val($(this).val()+' ');
+        }
+      });
+
     }
   ])

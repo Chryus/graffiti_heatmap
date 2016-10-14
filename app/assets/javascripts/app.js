@@ -3,7 +3,9 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
     '$stateProvider',
     '$urlRouterProvider',
     '$authProvider',
-    function($stateProvider, $urlRouterProvider, $authProvider) {
+    '$locationProvider',
+    '$rootScopeProvider',
+    function($stateProvider, $urlRouterProvider, $authProvider, $rootScope, $locationProvider, $rootScopeProvider) {
       // config facebook client
       // Facebook
       $authProvider.facebook({
@@ -130,5 +132,20 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           }
         })
       $urlRouterProvider.otherwise('home');
-    }
-  ])
+      // store referrer for each request
+    }]).run(function ($rootScope, $location) {
+
+    var history = [];
+
+    $rootScope.$on('$stateChangeSuccess', function() {
+      history.push($location.$$path);
+      console.log("PATH", $location.$$path);
+    });
+    // back button redirect
+    $rootScope.back = function () {
+      var referrer = history.length > 1 ? history.splice(-2)[0] : "/";
+      console.log("PREVIOUS URL", referrer);
+      $location.path(referrer);
+    };
+
+});

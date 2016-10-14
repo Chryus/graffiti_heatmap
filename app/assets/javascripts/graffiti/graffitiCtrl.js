@@ -24,10 +24,6 @@ angular.module('graffitiApp')
         graffiti.upvote(graffito);
       };
 
-      $scope.goHome = function() {
-        $state.go('home');
-      }
-
       $scope.addComment = function(){
         if($scope.body === '') { return; }
         graffiti.addComment(graffito.id, {

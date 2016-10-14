@@ -1,6 +1,6 @@
 <ng-include ng-show='delaying' src="'galleries/_gallery.html'"></ng-include>
 <div id='graffiti-ui' ng-hide="delaying">
-  <div id="panel">
+  <div ng-show='home' id="panel">
     <input class="button" id="markers" type=button value="Toggle markers">
     <input class="button" id="heat" type=button value="Toggle heatmap">
   </div>

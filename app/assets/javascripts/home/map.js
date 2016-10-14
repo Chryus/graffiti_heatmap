@@ -94,7 +94,6 @@ angular.module('graffitiApp')
               });
             }
             panorama.setVisible(true);
-            o.hide_visibility('button')
             // redirect to graffito page
             window.location = "#graffiti/" + graffito.id;
           });
@@ -158,22 +157,7 @@ angular.module('graffitiApp')
         console.log(marker);
       });
       panorama.setVisible(true);
-      o.hide_visibility('button');
     };
-    o.render_visibility = function (cl) {
-      els = document.getElementsByClassName(cl);
-      for (var i = 0; i < els.length; ++i) {
-        var s = els[i].style;
-        s.display = 'inline';
-      }
-    }
-    o.hide_visibility = function (cl) {
-      els = document.getElementsByClassName(cl);
-      for (var i = 0; i < els.length; ++i) {
-        var s = els[i].style;
-        s.display = 'none';
-      }
-    }
     o.getMap = function(mapId) {
       if (!o.maps[mapId]) {
         o.addMap(mapId);

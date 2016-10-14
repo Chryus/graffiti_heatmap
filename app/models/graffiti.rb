@@ -27,7 +27,7 @@ class Graffiti < ActiveRecord::Base
     graffiti = Graffiti.geocoded_hotspots.select("id, latitude, longitude, pov").map { |incident| 
       { id: incident.id, lat: incident.latitude, lng: incident.longitude, pov: incident.pov } 
     }
-    graffiti[0...20]
+    graffiti
   end
 
   def self.build_database

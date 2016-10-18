@@ -6,19 +6,19 @@ Rails.application.routes.draw do
 
   resources :graffiti do
     collection do
-      get '/s3_direct_post' => 'graffiti#s3_direct_post'
-      get '/archive' => 'graffiti#archive'
-      put '/delete_image' => 'graffiti#delete_image'
-      put '/compare_capture_dates_with_graffiti_dates' => 'graffiti#compare_capture_dates_with_graffiti_dates'
+      get :s3_direct_post
+      get :archive
+      put :delete_image
+      put :compare_capture_dates_with_graffiti_dates
     end
     resources :comments, only: [:show, :create] do
       member do
-        put '/upvote' => 'comments#upvote'
+        put :upvote
       end
     end
 
     member do
-      put '/upvote' => 'graffiti#upvote'
+      put :upvote
     end
   end
 

@@ -27,7 +27,7 @@ angular.module('graffitiApp')
         },
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: false,
-        scrollwheel: false,
+        scrollwheel: true,
         draggable: true,
         navigationControl: true,
         mapTypeControl: false,

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.6.2'
 
 # Base
 
@@ -27,8 +27,8 @@ gem 'devise'
 # performance
 gem 'rack-mini-profiler'
 
-#json for reading data
-gem 'json'
+# json for reading data
+gem 'json', github: 'flori/json', branch: 'v1.8'
 
 # query web services
 gem 'httparty'
@@ -73,7 +73,7 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.0"
   # Testing framework for Rails 3.x, 4.x and 5.0.
   gem 'rspec-rails', '~> 3.5'
-  # Javasript testing framework for Ruby-based web projects  
+  # Javasript testing framework for Ruby-based web projects
   gem "jasmine", github: "pivotal/jasmine-gem"
 end
 
@@ -81,7 +81,7 @@ end
 gem 'web-console', '~> 2.0', group: :development
 
 group :production do
-  #heroku asset gems to troubleshoot rails 4 
+  #heroku asset gems to troubleshoot rails 4
   gem 'rails_12factor'
 end
 

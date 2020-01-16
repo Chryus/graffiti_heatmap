@@ -3,7 +3,7 @@ require 'time_difference'
 class GraffitiController < ApplicationController
 
   def index
-    graffiti = Graffiti.geocoded_hotspots
+    graffiti = Graffiti.all
     heatmap_format = Graffiti.heatmap_format
     render json: {graffiti: graffiti, heatmap: heatmap_format}
   end
@@ -19,7 +19,7 @@ class GraffitiController < ApplicationController
   end
 
   # logic to remove graffiti that proably aren't in google streetview
-  def compare_capture_dates_with_graffiti_dates
+  def compare_google_image_dates_with_graffiti_dates
     capture_dates = params[:capture_dates]
 
     # iterate over capture dates and compare with incident dates
@@ -27,7 +27,7 @@ class GraffitiController < ApplicationController
       graffito = Graffiti.find_by(id: object[:id])
       next if graffito.nil?
       incident_date = graffito.incident_date
-      # format capture date from google streetview to datetime 
+      # format capture date from google streetview to datetime
       capture_date = object[:capture_date].gsub('-', '/')
       # skip dates not in 2016/10 format
       next if (capture_date =~ /\d{4}\/\d{2}/) != 0
@@ -36,8 +36,8 @@ class GraffitiController < ApplicationController
       # grab diff between graffiti incident report date and streetview capture date
       diff = TimeDifference.between(graffito.incident_date, capture_date).in_days
 
-      # if graffiti is not a hotspot & it was reported more than 90 days after streetview 
-      # capture date, or, more than 150 days before capture date, destroy record (it's probably not 
+      # if graffiti is not a hotspot & it was reported more than 90 days after streetview
+      # capture date, or, more than 150 days before capture date, destroy record (it's probably not
       # in streetview)
       if !graffito.hotspot? && (graffito.incident_date > capture_date && diff > 90 ||
         graffito.incident_date < capture_date && diff > 90)
@@ -72,7 +72,7 @@ class GraffitiController < ApplicationController
     graffito.images.uniq!
     if graffito.save
       ::Graffiti::ImageProcessorJob.perform_now graffito.id # active job with delayed job
-      render json: graffito 
+      render json: graffito
     end
   end
 
@@ -81,7 +81,7 @@ class GraffitiController < ApplicationController
     key_value_pair = '[{"filename":' + '"' + params[:filename] +'"' '}]'
     graffito = Graffiti.where('images @> ?', key_value_pair).first
 
-    # find image 
+    # find image
     graffito.images.each_with_index do |image, index|
       if image['filename'] == params[:filename]
         # remove from s3
@@ -97,11 +97,11 @@ class GraffitiController < ApplicationController
         graffito.destroy
       end
       respond_with current_user do |format|
-        format.json { render json: {images: current_user.as_json[:graffiti_images]}, status: :ok }  
+        format.json { render json: {images: current_user.as_json[:graffiti_images]}, status: :ok }
       end
     end
   end
-  
+
   private
 
   def s3_client

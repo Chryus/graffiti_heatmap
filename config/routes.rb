@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       get :s3_direct_post
       get :archive
       put :delete_image
-      put :compare_capture_dates_with_graffiti_dates
+      put :compare_google_image_dates_with_graffiti_dates
     end
     resources :comments, only: [:show, :create] do
       member do

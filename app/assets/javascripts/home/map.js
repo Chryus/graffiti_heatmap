@@ -1,4 +1,4 @@
-angular.module('graffitiApp') 
+angular.module('graffitiApp')
   .factory('map', [
   'graffiti',
   function(graffiti){
@@ -53,7 +53,8 @@ angular.module('graffitiApp')
       });
 
       google.maps.event.addListener(map, "idle", function () {
-        heatmap.setDataSet(mapData);
+        debugger
+        heatmap.setData(mapData);
       });
       o.setMapDragEvent(mapId);
       o.fetchMarkers(mapId);
@@ -61,9 +62,9 @@ angular.module('graffitiApp')
     };
     o.setMapDragEvent = function (mapId) {
       google.maps.event.addListener(map, "dragend", function () {
-        heatmap.destroy(); 
+        heatmap.destroy();
         mapOptions["center"] = map.getCenter();
-        heatmap.setDataSet(mapData);
+        heatmap.setData(mapData);
       });
     };
     o.fetchMarkers = function (mapId) {
@@ -89,8 +90,8 @@ angular.module('graffitiApp')
               });
             } else {
               panorama.setPov({
-                heading: 265, 
-                pitch: 0 
+                heading: 265,
+                pitch: 0
               });
             }
             panorama.setVisible(true);
@@ -143,8 +144,8 @@ angular.module('graffitiApp')
         });
       } else {
         panorama.setPov({
-          heading: 265, 
-          pitch: 0 
+          heading: 265,
+          pitch: 0
         });
       }
        // set listener to record POV changes and persist in client
@@ -192,4 +193,3 @@ angular.module('graffitiApp')
     });
   return o;
   }]);
-

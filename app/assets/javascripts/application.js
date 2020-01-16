@@ -12,8 +12,8 @@
 //
 //= require jquery
 //= require jquery-ui
-//= require heatmap-gmaps
 //= require heatmap
+//= require heatmap-gmaps
 //= require angular
 //= require AngularDevise
 //= require angular-ui-router

@@ -1,146 +1,278 @@
-/* 
- * heatmap.js GMaps overlay
- *
- * Copyright (c) 2011, Patrick Wied (http://www.patrick-wied.at)
- * Dual-licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
- * and the Beerware (http://en.wikipedia.org/wiki/Beerware) license.
- */ 
- 
-function HeatmapOverlay(map, cfg){
+/*
+* heatmap.js Google Maps Overlay
+*
+* Copyright (c) 2008-2016, Patrick Wied (https://www.patrick-wied.at)
+* Dual-licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
+* and the Beerware (http://en.wikipedia.org/wiki/Beerware) license.
+*/
+;(function (name, context, factory) {
+  // Supports UMD. AMD, CommonJS/Node.js and browser context
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = factory(
+      require('heatmap.js'),
+      require('google-maps')
+    );
+  } else if (typeof define === "function" && define.amd) {
+    define(['heatmap.js', 'google-maps'], factory);
+  } else {
+    // browser globals
+    if (typeof window.h337 === 'undefined') {
+      throw new Error('heatmap.js must be loaded before the gmaps heatmap plugin');
+    }
+    if (typeof window.google === 'undefined') {
+      throw new Error('Google Maps must be loaded before the gmaps heatmap plugin');
+    }
+    context[name] = factory(window.h337, window.google.maps);
+  }
 
-    this.heatmap = null;
-    this.conf = cfg;
-    this.latlngs = [];
-    this.setMap(map);   
-}
+})("HeatmapOverlay", this, function(h337, gmaps) {
+  'use strict';
 
-HeatmapOverlay.prototype = new google.maps.OverlayView();
+  var HeatmapOverlay = function(map, cfg){
+    this.setMap(map);
+    this.initialize(cfg || {});
+  };
 
-HeatmapOverlay.prototype.onAdd = function(){
+  HeatmapOverlay.prototype = new gmaps.OverlayView();
 
-    var panes = this.getPanes();
-    
-    var w = this.getMap().getDiv().clientWidth;
-    var h = this.getMap().getDiv().clientHeight;    
-    var el = document.createElement("div");
-    el.style.position = "absolute";
-    el.style.top = 0;
-    el.style.left = 0;
-    el.style.width = w + "px";
-    el.style.height = h + "px";
-    el.style.border = 0;
+  HeatmapOverlay.CSS_TRANSFORM = (function() {
+    var div = document.createElement('div');
+    var props = [
+      'transform',
+      'WebkitTransform',
+      'MozTransform',
+      'OTransform',
+      'msTransform'
+    ];
 
-    this.conf.element = el;
-    panes.overlayLayer.appendChild(el);
-
-    this.heatmap = h337.create(this.conf);
-}
-
-HeatmapOverlay.prototype.onRemove = function(){
-    // Empty for now.
-}
-
-HeatmapOverlay.prototype.draw = function(){
-    
-    var overlayProjection = this.getProjection();
-    var currentBounds = this.map.getBounds();
-    var ne = overlayProjection.fromLatLngToDivPixel(currentBounds.getNorthEast());
-    var sw = overlayProjection.fromLatLngToDivPixel(currentBounds.getSouthWest());
-    var topY = ne.y;
-    var leftX = sw.x;
-    
-    this.conf.element.style.left = leftX;
-    this.conf.element.style.top = topY;
-            
-    if(this.latlngs.length > 0){
-        this.heatmap.clear();
-        var len = this.latlngs.length,
-        projection = this.getProjection();
-
-        var d = {
-            max: this.heatmap.store.max,
-            data: []
-        };
-
-        while(len--){
-            var latlng = this.latlngs[len].latlng;
-            if(!currentBounds.contains(latlng)) { continue; }
-
-            // DivPixel is pixel in overlay pixel coordinates... we need
-            // to transform to screen coordinates so it'll match the canvas
-            // which is continually repositioned to follow the screen.
-            var divPixel = projection.fromLatLngToDivPixel(latlng);
-            var screenPixel = new google.maps.Point(
-                    divPixel.x - leftX,
-                    divPixel.y - topY);
-            var roundedPoint = this.pixelTransform(screenPixel);
-            d.data.push({ 
-                x: roundedPoint.x,
-                y: roundedPoint.y,
-                count: this.latlngs[len].c
-            });
-        }
-        this.heatmap.store.setDataSet(d);
+    for (var i = 0; i < props.length; i++) {
+      var prop = props[i];
+      if (div.style[prop] !== undefined) {
+        return prop;
+      }
     }
 
-}
+    return props[0];
+  })();
 
-HeatmapOverlay.prototype.pixelTransform = function(p){
-    var w = this.heatmap.get("width"),
-    h = this.heatmap.get("height");
+  HeatmapOverlay.prototype.initialize = function(cfg) {
+    this.cfg = cfg;
 
-    while(p.x < 0)
-        p.x+=w;
+    var map = this.map = this.getMap();
+    var container = this.container = document.createElement('div');
+    var mapDiv = map.getDiv();
+    var width = this.width = mapDiv.clientWidth;
+    var height = this.height = mapDiv.clientHeight;
 
-    while(p.x > w)
-        p.x-=w;
+    container.style.cssText = 'width:' + width +'px;height:' + height+'px;';
 
-    while(p.y < 0)
-        p.y+=h;
+    this.data = [];
+    this.max = 1;
+    this.min = 0;
 
-    while(p.y > h)
-        p.y-=h;
+    cfg.container = container;
+  };
 
-    // fast rounding - thanks to Seb Lee-Delisle for this neat hack
-    p.x = ~~ (p.x+0.5);
-    p.y = ~~ (p.y+0.5);
+  HeatmapOverlay.prototype.onAdd = function(){
+    var that = this;
 
-    return p;
-}
+    this.getPanes().overlayLayer.appendChild(this.container);
 
-HeatmapOverlay.prototype.setDataSet = function(data){
 
-    var mapdata = {
-        max: data.max,
-        data: []
-    };
-    var d = data.data;
-    var dlen = d.length;
+    this.changeHandler = gmaps.event.addListener(
+      this.map,
+      'bounds_changed',
+      function() { return that.draw(); }
+    );
+
+    if (!this.heatmap) {
+      this.heatmap = h337.create(this.cfg);
+    }
+    this.draw();
+  };
+
+  HeatmapOverlay.prototype.onRemove = function() {
+    if (!this.map) { return; }
+
+    this.map = null;
+
+    this.container.parentElement.removeChild(this.container);
+
+    if (this.changeHandler) {
+      gmaps.event.removeListener(this.changeHandler);
+      this.changeHandler = null;
+    }
+
+  };
+
+  HeatmapOverlay.prototype.draw = function() {
+    if (!this.map) { return; }
+
+    var bounds = this.map.getBounds();
+
+    var topLeft = new gmaps.LatLng(
+      bounds.getNorthEast().lat(),
+      bounds.getSouthWest().lng()
+    );
+
     var projection = this.getProjection();
-    while(dlen--){  
-        var latlng = new google.maps.LatLng(d[dlen].lat, d[dlen].lng);
-        this.latlngs.push({latlng: latlng, c: d[dlen].count});
-        var point = this.pixelTransform(projection.fromLatLngToDivPixel(latlng));
-        mapdata.data.push({x: point.x, y: point.y, count: d[dlen].count});
-    }
-    this.heatmap.clear();
-    this.heatmap.store.setDataSet(mapdata);
+    var point = projection.fromLatLngToDivPixel(topLeft);
 
-}
+    this.container.style[HeatmapOverlay.CSS_TRANSFORM] = 'translate(' +
+        Math.round(point.x) + 'px,' +
+        Math.round(point.y) + 'px)';
 
-HeatmapOverlay.prototype.addDataPoint = function(lat, lng, count){
+    this.update();
+  };
 
+  HeatmapOverlay.prototype.resize = function() {
+
+    if (!this.map){ return; }
+
+    var div = this.map.getDiv(),
+      width = div.clientWidth,
+      height = div.clientHeight;
+
+    if (width == this.width && height == this.height){ return; }
+
+    this.width = width;
+    this.height = height;
+
+    // update heatmap dimensions
+    this.heatmap._renderer.setDimensions(width, height);
+    // then redraw all datapoints with update
+    this.update();
+  };
+
+  HeatmapOverlay.prototype.update = function() {
     var projection = this.getProjection(),
-    latlng = new google.maps.LatLng(lat, lng),
-    point = this.pixelTransform(projection.fromLatLngToDivPixel(latlng));
-    this.heatmap.store.addDataPoint(point.x, point.y, count);
-    this.latlngs.push({ latlng: latlng, c: count });
-}
+      zoom, scale, bounds, topLeft;
+    var generatedData = { max: this.max, min: this.min, data: [] };
 
-HeatmapOverlay.prototype.toggle = function(){
-    this.heatmap.toggleDisplay();
-}
+    if (!projection){ return; }
 
-HeatmapOverlay.prototype.destroy = function(){
-    this.heatmap.clear();
-}
+    bounds = this.map.getBounds();
+
+    topLeft = new gmaps.LatLng(
+      bounds.getNorthEast().lat(),
+      bounds.getSouthWest().lng()
+    );
+
+    zoom = this.map.getZoom();
+    scale = Math.pow(2, zoom);
+
+    this.resize();
+
+    if (this.data.length == 0) {
+      if (this.heatmap) {
+        this.heatmap.setData(generatedData);
+      }
+      return;
+    }
+
+
+    var latLngPoints = [];
+    // iterate through data
+    var len = this.data.length;
+    var layerProjection = this.getProjection();
+    var layerOffset = layerProjection.fromLatLngToDivPixel(topLeft);
+    var radiusMultiplier = this.cfg.scaleRadius ? scale : 1;
+    var localMax = 0;
+    var localMin = 0;
+    var valueField = this.cfg.valueField;
+
+
+    while (len--) {
+      var entry = this.data[len];
+      var value = entry[valueField];
+      var latlng = entry.latlng;
+
+
+      // we don't wanna render points that are not even on the map ;-)
+      if (!bounds.contains(latlng)) {
+        continue;
+      }
+      // local max is the maximum within current bounds
+      localMax = Math.max(value, localMax);
+      localMin = Math.min(value, localMin);
+
+      var point = layerProjection.fromLatLngToDivPixel(latlng);
+      var latlngPoint = { x: Math.round(point.x - layerOffset.x), y: Math.round(point.y - layerOffset.y) };
+      latlngPoint[valueField] = value;
+
+      var radius;
+
+      if (entry.radius) {
+        radius = entry.radius * radiusMultiplier;
+      } else {
+        radius = (this.cfg.radius || 2) * radiusMultiplier;
+      }
+      latlngPoint.radius = radius;
+      latLngPoints.push(latlngPoint);
+    }
+    if (this.cfg.useLocalExtrema) {
+      generatedData.max = localMax;
+      generatedData.min = localMin;
+    }
+
+    generatedData.data = latLngPoints;
+
+    this.heatmap.setData(generatedData);
+
+  };
+
+  HeatmapOverlay.prototype.setData = function(data) {
+    this.max = data.max;
+    this.min = data.min;
+
+    var latField = this.cfg.latField || 'lat';
+    var lngField = this.cfg.lngField || 'lng';
+    var valueField = this.cfg.valueField || 'value';
+
+    // transform data to latlngs
+    var data = data.data;
+    var len = data.length;
+    var d = [];
+
+    while (len--) {
+      var entry = data[len];
+      var latlng = new gmaps.LatLng(entry[latField], entry[lngField]);
+      var dataObj = { latlng: latlng };
+      dataObj[valueField] = entry[valueField];
+      if (entry.radius) {
+        dataObj.radius = entry.radius;
+      }
+      d.push(dataObj);
+    }
+    this.data = d;
+    this.update();
+  };
+  // experimential. not ready yet.
+  HeatmapOverlay.prototype.addData = function(pointOrArray) {
+    if (pointOrArray.length > 0) {
+        var len = pointOrArray.length;
+        while(len--) {
+          this.addData(pointOrArray[len]);
+        }
+      } else {
+        var latField = this.cfg.latField || 'lat';
+        var lngField = this.cfg.lngField || 'lng';
+        var valueField = this.cfg.valueField || 'value';
+        var entry = pointOrArray;
+        var latlng = new gmaps.LatLng(entry[latField], entry[lngField]);
+        var dataObj = { latlng: latlng };
+
+        dataObj[valueField] = entry[valueField];
+        if (entry.radius) {
+          dataObj.radius = entry.radius;
+        }
+        this.max = Math.max(this.max, dataObj[valueField]);
+        this.min = Math.min(this.min, dataObj[valueField]);
+        this.data.push(dataObj);
+        this.update();
+      }
+  };
+
+  return HeatmapOverlay;
+
+});

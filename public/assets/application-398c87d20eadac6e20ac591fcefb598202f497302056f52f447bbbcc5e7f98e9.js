@@ -76829,7 +76829,7 @@ angular.module('graffitiApp')
     o.compareCaptureDatesWithGraffitiDates = function() {
      return $http({
         method: 'PUT',
-        url: '/graffiti/compare_capture_dates_with_graffiti_dates.json',
+        url: '/graffiti/compare_google_image_dates_with_graffiti_dates.json',
         data: {'capture_dates': o.capture_dates}
         })
       .then(function(res) {

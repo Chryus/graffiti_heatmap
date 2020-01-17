@@ -46,26 +46,17 @@ angular.module('graffitiApp')
       };
 
       heatmap = new HeatmapOverlay(map, {
-        "radius": 16,
+        "radius": 18,
         "dissipating": false,
         "visible": true,
-        "opacity": 80
+        "opacity": 0.85
       });
 
       google.maps.event.addListener(map, "idle", function () {
-        debugger
         heatmap.setData(mapData);
       });
-      o.setMapDragEvent(mapId);
       o.fetchMarkers(mapId);
       console.log("HEAT DATA SET");
-    };
-    o.setMapDragEvent = function (mapId) {
-      google.maps.event.addListener(map, "dragend", function () {
-        heatmap.destroy();
-        mapOptions["center"] = map.getCenter();
-        heatmap.setData(mapData);
-      });
     };
     o.fetchMarkers = function (mapId) {
       $.each(mapData.data, function (i, graffito) {
@@ -73,7 +64,7 @@ angular.module('graffitiApp')
           position: new google.maps.LatLng(graffito.lat, graffito.lng),
           map: map,
           zIndex: 100,
-          icon: "http://maps.google.com/mapfiles/dir_39.png",
+          icon: "http://maps.gstatic.com/mapfiles/ridefinder-images/mm_20_orange.png",
           pov: graffito.pov
         });
         // add listener for panorama for each marker
@@ -188,7 +179,7 @@ angular.module('graffitiApp')
       });
 
       $(document).on('click', '#heat', function() {
-        heatmap.toggle();
+        heatmap.heatmap._renderer.toggle();
       });
     });
   return o;

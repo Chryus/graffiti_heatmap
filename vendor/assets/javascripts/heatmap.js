@@ -21,12 +21,12 @@
 
 // Heatmap Config stores default values and will be merged with instance config
 var HeatmapConfig = {
-  defaultRadius: 40,
+  defaultRadius: 20,
   defaultRenderer: 'canvas2d',
-  defaultGradient: { 0.25: "rgb(0,0,255)", 0.55: "rgb(0,255,0)", 0.85: "yellow", 1.0: "rgb(255,0,0)"},
+  defaultGradient: { 0.001: "rgb(11,229,23)", 0.15: "rgb(11,0,224)", 0.65: "rgb(101,0,191)", 0.75: "rgb(229,11,217)"},
   defaultMaxOpacity: 1,
   defaultMinOpacity: 0,
-  defaultBlur: .85,
+  defaultBlur: .95,
   defaultXField: 'x',
   defaultYField: 'y',
   defaultValueField: 'value',
@@ -544,6 +544,14 @@ var Canvas2dRenderer = (function Canvas2dRendererClosure() {
     },
     getDataURL: function() {
       return this.canvas.toDataURL();
+    },
+    toggle: function() {
+      var visibility = this.canvas.style.display;
+      if (visibility === undefined || visibility === "") {
+        this.canvas.style.display = 'none';
+      } else {
+        this.canvas.style.display = "";
+      }
     }
   };
 
@@ -690,6 +698,9 @@ var Heatmap = (function HeatmapClosure() {
     },
     getDataURL: function() {
       return this._renderer.getDataURL();
+    },
+    toggle: function() {
+      return this._renderer.toggle();
     },
     getValueAt: function(point) {
 

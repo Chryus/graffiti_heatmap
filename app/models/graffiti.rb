@@ -1,11 +1,6 @@
 require 'open-uri'
-require 'geocoder'
-require "geocoder/railtie"
-Geocoder::Railtie.insert
 
 class Graffiti < ActiveRecord::Base
-  reverse_geocoded_by :latitude, :longitude
-  after_validation :reverse_geocode
   belongs_to :user
   has_many :comments
   has_many :upvotes, dependent: :destroy
@@ -31,32 +26,36 @@ class Graffiti < ActiveRecord::Base
   end
 
   def self.build_database
-    self.hotspots.destroy_all
-    data = open("https://data.cityofnewyork.us/resource/8ktu-ngtj.json")
+    self.destroy_all
+    data = open("https://data.cityofnewyork.us/resource/gpwd-npar.json")
     graffiti = JSON.parse(data.read)
     graffiti.each do |incident|
       # skip ones without address
       next if incident["latitude"] == nil
       next if incident["longitude"] == nil
-      # skip if incident address already exists in Rails
-      next if Graffiti.where('address LIKE ?', "%#{incident["incident_address"]}%").present?
-      # if incident address occurs multiple times, flag as hotspot, otherwise skip if it's not 'Open'
-      if graffiti_hotspot?(incident, graffiti)
-        incident['hotspot'] = true
-      else
-        next if incident["status"] != "Open"
-      end
-      # filter keys for DB
+
       filtered_hash = incident.slice("latitude", "longitude", "borough", "status")
+      # if incident address occurs multiple times, flag as hotspot, otherwise skip if it's not 'Open'
+      # filter keys for DB
+      if graffiti_hotspot?(incident, graffiti)
+        filtered_hash['hotspot'] = true
+      else
+        #next if incident["status"] != "Open"
+      end
+      # format address
+      filtered_hash["address"] = add_city_state(incident["incident_address"], incident["borough"])
+      filtered_hash["address"] = add_city_state(incident["incident_address"], incident["borough"])
       # format as incident_date as datetime to compare with google maps streetview capture date
       filtered_hash["incident_date"] = format_raw_date(incident["created_date"])
       Graffiti.create(filtered_hash)
     end
-    graffiti
   end
 
   def self.graffiti_hotspot?(incident, graffiti)
-    graffiti.select {|g| g['latitude'] == incident["latitude"] && g['longitude'] == incident["longitude"]}.count > 1
+    graffiti.select do |g|
+      g["incident_address"] == incident["incident_address"] || g["latitude"] == incident["latitude"] &&
+        g["longitude"] == incident["longitude"]
+    end.count > 1
   end
 
   def self.format_raw_date raw_date

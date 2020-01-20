@@ -3,9 +3,10 @@ require 'time_difference'
 class GraffitiController < ApplicationController
 
   def index
-    graffiti = Graffiti.all
+    hotspots = Graffiti.where(hotspot: true)
+    single_occurrences = Graffiti.where(hotspot: false)
     heatmap_format = Graffiti.heatmap_format
-    render json: {graffiti: graffiti, heatmap: heatmap_format}
+    render json: {graffiti: hotspots + single_occurrences, heatmap: heatmap_format}
   end
 
   def show
@@ -36,11 +37,11 @@ class GraffitiController < ApplicationController
       # grab diff between graffiti incident report date and streetview capture date
       diff = TimeDifference.between(graffito.incident_date, capture_date).in_days
 
-      # if graffiti is not a hotspot & it was reported more than 90 days after streetview
-      # capture date, or, more than 150 days before capture date, destroy record (it's probably not
+      # if graffiti is not a hotspot & it was reported more than 180 days after streetview
+      # capture date, or, more than 180 days before capture date, destroy record (it's probably not
       # in streetview)
-      if !graffito.hotspot? && (graffito.incident_date > capture_date && diff > 90 ||
-        graffito.incident_date < capture_date && diff > 90)
+      if !graffito.hotspot? && (graffito.incident_date > capture_date && diff > 180 ||
+        graffito.incident_date < capture_date && diff > 180)
         graffito.destroy
       else
         graffito.update_attributes(streetview_capture_date: capture_date)

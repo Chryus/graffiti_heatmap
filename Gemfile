@@ -15,9 +15,6 @@ gem 'pg'
 gem "angularjs-rails"
 gem 'angular-rails-templates'
 
-# geocoder for mapping
-gem 'geocoder'
-
 # time
 gem 'time_difference', '~> 0.4.2'
 

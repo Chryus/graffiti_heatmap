@@ -55,11 +55,11 @@ angular.module('graffitiApp')
                 o.capture_dates.push({id: graffito.id, capture_date: data.imageDate})
               } else {
                 // safety net: check for panorama within 200 meters
-                sv.getPanoramaByLocation(current, 200, function(data, status) { 
-                  if (status == 'OK') { 
+                sv.getPanoramaByLocation(current, 200, function(data, status) {
+                  if (status == 'OK') {
                     o.capture_dates.push({id: graffito.id, capture_date: data.imageDate})
-                  } else { 
-                    console.log("Could not retrieve image date"); 
+                  } else {
+                    console.log("Could not retrieve image date");
                   }
                 });
               }

@@ -26,7 +26,7 @@
           </header>
           <br><br><br><br>
           <a href="#/graffiti/{{graffito.id}}">
-            <ul class="address" ng-click="getStreetviewPanorama(graffito.latitude)">
+            <ul class="address" ng-mouseover="showMarker(graffito.latitude)" ng-mouseleave="hideMarker(graffito.latitude)" ng-click="getStreetviewPanorama(graffito.latitude)">
               <li>Address: {{graffito.address}}</li>
               <li>Borough: {{graffito.borough}}</li>
               <li>Latitude: {{graffito.latitude}}</li>

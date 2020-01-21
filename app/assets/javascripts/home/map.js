@@ -102,6 +102,13 @@ angular.module('graffitiApp')
       }
       markersVisible = __map == null ? false : true;
     };
+    o.plotMarker = function(marker, __map) {
+      marker.setMap(__map);
+      marker.setVisible(true);
+    };
+    o.hideMarker = function(marker) {
+      marker.setVisible(false);
+    };
     o.toggleMarkers = function () {
       if (markersVisible == true) {
         o.plotMarkers(null);
@@ -111,12 +118,17 @@ angular.module('graffitiApp')
         markersVisible = true;
       }
     };
-    o.fetchMarker = function(lat) {
+    o.fetchMarker = function(lat, option) {
       var marker = null;
       for (var i = 0; i < o.markers.length; i++) {
         if (o.markers[i].position.lat() == lat) {
           marker = o.markers[i];
         }
+      }
+      if (option) {
+        o.plotMarker(marker, map);
+      } else {
+        o.hideMarker(marker, map);
       }
       return marker;
     };

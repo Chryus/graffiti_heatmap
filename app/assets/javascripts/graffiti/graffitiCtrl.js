@@ -11,7 +11,7 @@ angular.module('graffitiApp')
       $scope.graffito = graffito;
       $scope.streetviewOpen = true;
 
-      $scope.getStreetviewPanorama = function (lat) {
+      $scope.getStreetviewPanorama = function(lat) {
         map.getStreetviewPanorama(lat);
       };
 

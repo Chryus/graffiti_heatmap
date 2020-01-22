@@ -9,6 +9,9 @@ angular.module('graffitiApp')
     'map',
     function($scope, Auth, $auth, $state, $http, users, map) {
       $scope.loading = true;
+      $scope.isNavCollapsed = true;
+      $scope.isCollapsed = false;
+      $scope.isCollapsedHorizontal = false;
 
       // watch for map to be loaded then reset ng-hide attr
       $scope.$watch(function() { return map.loading }, function (newVal, oldVal, scope) {

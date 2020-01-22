@@ -34,7 +34,14 @@ body {
   font-family: Futura;
 }
 
-.nav a { color: orange; }
+.horizontal-collapse { height: 70px; }
+
+.navbar-collapse.in { overflow-y: hidden; }
+
+.navbar-fixed-top {
+  background: #ECF646;
+  border: none;
+}
 
 a:link {
   text-decoration: none;
@@ -56,8 +63,6 @@ header > .glyphicon { padding-left: 1px;}
   margin-left: -82px;
   margin-top: 42px;
 }
-
-.collapse.navbar-collapse { margin-right: 50px; margin-top: -20px; } 
 
 #map-canvas {
   float: right;
@@ -84,7 +89,7 @@ div.title-container a {color: $graffitigreen;}
 .nav > li > a:focus {
   text-decoration: none;
   color: $graffitilistblue;
-  background-color: $graffitiyellow; 
+  background-color: $graffitiyellow;
 }
 
 

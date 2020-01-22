@@ -9,10 +9,12 @@
   <body ng-app="graffitiApp">
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+
+    <div ng-hide="loading" ng-include="'nav/_nav.html'" ng-controller="NavCtrl"></div>
+
     <div class="row">
       <div class="col-sm-11 col-sm-offset-1">
-        <div ng-hide="loading" ng-include="'nav/_nav.html'" ng-controller="NavCtrl"></div>
-        <!--use nav controller model to show/display title -->        
+        <!--use nav controller model to show/display title -->
         <div ng-hide="loading" ng-include="'nav/_title.html'" ng-controller="NavCtrl"></div>
         <div id="map-canvas"></div>
         <ui-view></ui-view>

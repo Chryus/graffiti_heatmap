@@ -39,8 +39,19 @@ body {
 .navbar-collapse.in { overflow-y: hidden; }
 
 .navbar-fixed-top {
-  background: #ECF646;
+  background: black;
   border: none;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: orange;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  text-decoration: none;
+  color: $graffitilistblue;
+  background-color: $graffitiyellow;
 }
 
 a:link {
@@ -84,14 +95,6 @@ header > .glyphicon { padding-left: 1px;}
 }
 
 div.title-container a {color: $graffitigreen;}
-
-.nav > li > a:hover,
-.nav > li > a:focus {
-  text-decoration: none;
-  color: $graffitilistblue;
-  background-color: $graffitiyellow;
-}
-
 
 #title {
   text-align: center;

@@ -11,6 +11,10 @@ angular.module('graffitiApp')
       $scope.graffito = graffito;
       $scope.streetviewOpen = true;
 
+      $scope.goBack = function() {
+        $state.go('home', {}, {reload: true});
+      }
+
       $scope.getStreetviewPanorama = function(lat) {
         map.getStreetviewPanorama(lat);
       };
@@ -22,6 +26,8 @@ angular.module('graffitiApp')
 
       $scope.incrementUpvotes = function(graffito){
         graffiti.upvote(graffito);
+        foundIndex = $scope.graffiti.findIndex(x => x.id == graffito.id);
+        $scope.graffiti[foundIndex] = graffito;
       };
 
       $scope.addComment = function(){

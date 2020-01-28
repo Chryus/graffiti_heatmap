@@ -12,7 +12,7 @@
     <li>Latitude: {{graffito.latitude}}</li>
     <li>Longitude: {{graffito.longitude}}</li>
   </ul>
-  <button id="backButton" class="btn btn-primary" type="button" ng-click="back()">Back</button>
+  <button id="backButton" class="btn btn-primary" type="button" ng-click="goBack(graffito)">Back</button>
 </div>
 
 <button class="btn btn-primary" type="button" ng-show="streetviewOpen" id="saveStreetview" ng-click="saveStreetviewPOV(graffito.id, graffito.latitude)">Save Streetview Position</button>

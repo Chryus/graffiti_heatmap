@@ -44,7 +44,6 @@ class Graffiti < ActiveRecord::Base
       end
       # format address
       filtered_hash["address"] = add_city_state(incident["incident_address"], incident["borough"])
-      filtered_hash["address"] = add_city_state(incident["incident_address"], incident["borough"])
       # format as incident_date as datetime to compare with google maps streetview capture date
       filtered_hash["incident_date"] = format_raw_date(incident["created_date"])
       Graffiti.create(filtered_hash)

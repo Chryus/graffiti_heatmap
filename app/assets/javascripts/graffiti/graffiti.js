@@ -79,14 +79,14 @@ angular.module('graffitiApp')
         return res.data
       });
     }
-    o.saveStreetviewPOV = function(id, marker) {
+    o.saveStreetviewPOV = function(graffito, marker) {
       return $http({
         method: 'PUT',
-        url: '/graffiti/' + id + '.json',
+        url: '/graffiti/' + graffito.id + '.json',
         data: {'graffiti': { 'pov': marker['pov'] } }
       })
-      .then(function(res) {
-        return res.data
+      .success(function(data) {
+        graffito.pov = marker['pov']
       });
     }
     // o.addComment = function(id, comment) {

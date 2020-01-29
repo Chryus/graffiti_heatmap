@@ -153,11 +153,11 @@ angular.module('graffitiApp')
       }
        // set listener to record POV changes and persist in client
       panorama.addListener('pov_changed', function() {
-        console.log("Inside Listener")
-        console.log(marker);
         marker['pov'] = {};
         marker['pov']['heading'] = panorama.getPov().heading + '';
         marker['pov']['pitch'] = panorama.getPov().pitch + '';
+        foundIndex = o.markers.findIndex(x => x.position.lat() == marker.position.lat());
+        o.markers[foundIndex] = marker;
         console.log(marker);
       });
       panorama.setVisible(true);

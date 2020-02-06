@@ -71,16 +71,33 @@ header > .glyphicon { padding-left: 1px;}
 
 .favorites {
   color: $graffitigreen;
-  margin-left: -82px;
   margin-top: 42px;
 }
 
+.map-container {
+  margin-left: 7%;
+  overflow:hidden;
+  padding-bottom: 45%;
+  position:relative;
+  height:0;
+}
+
+@media only screen and (min-width: 992px) {
+  .map-container {
+    margin-left: 0;
+  }
+}
+
+h1.title-location { display: inline-block; }
+
+.list-container { padding-left: 5%; }
+
 #map-canvas {
-  float: right;
-  margin-top: 4%;
-  margin-right: 4%;
-  width: 740px;
-  height: 600px;
+  left:0;
+  top:0;
+  position:absolute;
+  height: 100%;
+  width: 92%;
   border: 1px solid black;
 }
 
@@ -90,8 +107,10 @@ header > .glyphicon { padding-left: 1px;}
   margin-right: 12px;
 }
 
+#pullme { position: absolute;}
+
 .title-container {
-  margin-left: 10px;
+  margin-bottom: 20px;
 }
 
 div.title-container a {color: $graffitigreen;}
@@ -117,24 +136,20 @@ div.title-container a {color: $graffitigreen;}
 }
 
 #search, select, input {
-  margin-top: 60px;
+  margin: 30px 20px 20px 0;
   width: 170px;
   color: black;
   border: lightblue solid 2px;
   padding: 1px;
-  margin: 20px;
   font-size: 16px;
   font-weight: 600;
 }
 
 #panel {
+  display: inline-block;
   position: absolute;
-  display: inline;
-  top: 320px;
-  left: 100%;
-  margin-left: -260px;
-  z-index: 6;
-  padding: 5px;
+  padding-left: 5px;
+  margin-top: 24px !important;
 }
 
 ul {
@@ -142,7 +157,7 @@ ul {
 }
 
 .address {
-  margin-left: -50px;
+  padding-left: 0;
   -webkit-transition: color 1s, -webkit-transform 1s;
   transition: color 1s, transform 1s;
 }
@@ -152,19 +167,13 @@ ul {
   transition-duration: 0.5s;
 }
 
-.my-container {
-  margin-top: 55px;
-  margin-left: -145px;
-  display: block;
-}
-
-.search-container {
-  margin: -5px 80px 0px -100px;
-}
-
 h3 {
   color: $graffitilistblue;
 }
+
+.search-container { margin-bottom: 55px; }
+
+.graffitis { padding: 0; }
 
 li {
   list-style-type:none;

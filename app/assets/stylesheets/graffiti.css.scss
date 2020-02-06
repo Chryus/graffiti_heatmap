@@ -10,11 +10,33 @@
   margin-top: 1%;
 }
 
-#saveStreetview {
+.map-button {
   position: absolute;
-  margin-left: 77%;
+  margin-left: 25%;
   z-index: 1;
-  margin-top: -10%;
+  margin-top: -41%;
+  @media only screen and (min-width: 550px) {
+    margin-left: 33%;
+  }
+  @media only screen and (min-width: 600px) {
+    margin-left: 39%;
+  }
+  @media only screen and (min-width: 700px) {
+    margin-left: 43%;
+  }
+  @media only screen and (min-width: 796px) {
+    margin-left: 48%;
+  }
+  @media only screen and (min-width: 1000px) {
+    margin-left: 143%;
+    margin-top: 7%;
+  }
+  @media only screen and (min-width: 1060px) {
+    margin-left: 148%;
+  }
+  @media only screen and (min-width: 1289px) {
+    margin-left: 157%;
+  }
 }
 
 .info {

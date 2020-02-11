@@ -34,6 +34,29 @@ body {
   font-family: Futura;
 }
 
+h1 { font-size: 25px; }
+
+.map-container {
+  margin-left: 8.5%;
+  overflow: hidden;
+  padding-bottom: 45%;
+  position: relative;
+  height: 0;
+}
+
+h1.title-location { display: inline-block; }
+
+.list-container { padding-left: 8.5%; }
+
+#map-canvas {
+  left:0;
+  top:0;
+  position:absolute;
+  height: 100%;
+  width: 92%;
+  border: 1px solid black;
+}
+
 .horizontal-collapse { height: 70px; }
 
 .navbar-collapse.in { overflow-y: hidden; }
@@ -41,6 +64,21 @@ body {
 .navbar-fixed-top {
   background: black;
   border: none;
+}
+
+.btn-custom {
+  border-color: #a94442;
+  color: yellow;
+  &:focus,
+  &:hover {
+    border-color: #a94442;
+    color: yellow;
+    box-shadow: none;
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -74,31 +112,41 @@ header > .glyphicon { padding-left: 1px;}
   margin-top: 42px;
 }
 
-.map-container {
-  margin-left: 7%;
-  overflow:hidden;
-  padding-bottom: 45%;
-  position:relative;
-  height:0;
-}
-
-@media only screen and (min-width: 992px) {
-  .map-container {
-    margin-left: 0;
+.home-map-button {
+  position: absolute;
+  z-index: 1;
+  margin-top: -45%;
+  @media only screen and (min-width: 768px) {
+    margin-left: 36%;
   }
-}
-
-h1.title-location { display: inline-block; }
-
-.list-container { padding-left: 5%; }
-
-#map-canvas {
-  left:0;
-  top:0;
-  position:absolute;
-  height: 100%;
-  width: 92%;
-  border: 1px solid black;
+  @media only screen and (min-width: 850px) {
+    margin-left: 38%;
+  }
+  @media only screen and (min-width: 924px) {
+    margin-left: 43%;
+  }
+  @media only screen and (min-width: 992px) {
+    margin-left: 121%;
+    margin-top: 1%;
+  }
+  @media only screen and (min-width: 1020px) {
+    margin-left: 122%;
+  }
+  @media only screen and (min-width: 1030px) {
+    margin-left: 124%;
+  }
+  @media only screen and (min-width: 1060px) {
+    margin-left: 128%;
+  }
+  @media only screen and (min-width: 1190px) {
+    margin-left: 131%;
+  }
+  @media only screen and (min-width: 1205px) {
+    margin-left: 137%;
+  }
+  @media only screen and (min-width: 1289px) {
+    margin-left: 143%;
+  }
 }
 
 #sign_up {
@@ -111,19 +159,20 @@ h1.title-location { display: inline-block; }
 
 .title-container {
   margin-bottom: 20px;
+
+  a {color: $graffitigreen;}
 }
 
-div.title-container a {color: $graffitigreen;}
 
 #title {
   text-align: center;
-  font-size: 8em;
+  font-size: 4em;
 }
 
 #subtitle {
   text-align: center;
   margin-top: -20px;
-  font-size: 2em;
+  font-size: 1.5em;
   margin-bottom: 30px;
 }
 
@@ -178,4 +227,24 @@ h3 {
 li {
   list-style-type:none;
   margin-left: 10px;
+}
+
+// Small devices (landscape phones, 576px and up)
+@media only screen and  (min-width: 576px) {
+  .list-container { padding-left: 7%; }
+  .map-container { margin-left: 7%; }
+  h1 { font-size: 36px;}
+  #title { font-size: 6em; }
+}
+
+// Medium devices (tablets, 768px and up)
+@media only screen and  (min-width: 768px) {
+  #title { font-size: 8em; }
+  #subtitle { font-size: 2em; }
+}
+
+// Large devices (desktops, 992px and up)
+@media only screen and (min-width: 992px) {
+  .list-container { padding-left: 5%; }
+  .map-container { margin-left: 0; }
 }

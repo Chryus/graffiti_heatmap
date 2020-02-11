@@ -7,6 +7,7 @@ angular.module('graffitiApp')
     'map',
     function($scope, $http, $uibModal, graffiti, map){
       $scope.delaying = true;
+      $scope.showMarkers = false;
       $scope.home = true;
       $scope.__title = "Loading heatmap...";
       $scope.base_url = "http://graffiti-image-uploads.s3.amazonaws.com"
@@ -45,6 +46,12 @@ angular.module('graffitiApp')
       // hide single marker on mouseleave
       $scope.hideMarker = function (lat) {
         map.fetchMarker(lat, false);
+      };
+
+      // toggle google map markers on mouseleave
+      $scope.toggleMarkers = function (lat) {
+        map.toggleMarkers();
+        $scope.showMarkers = map.showMarkers;
       };
 
       // wait for images to load and init carousel

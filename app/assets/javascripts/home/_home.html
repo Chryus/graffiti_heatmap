@@ -2,7 +2,7 @@
 <div id='graffiti-ui' ng-hide="delaying">
   <div ng-show='home' class="favorites">
     <h1 class='title-location'>Graffiti Locations</h1>
-    <input class="button" id="markers" type=button value="Toggle markers">
+    <button class="btn btn-primary btn-custom hidden-xs home-map-button" ng-click="toggleMarkers()"><span> {{ showMarkers ? "Hide" : "Show"}}</span> markers</button>
   </div>
   <div class="search-container">
     <input id="search" type="text" placeholder="Search... " ng-model="query">

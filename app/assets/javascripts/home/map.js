@@ -4,6 +4,7 @@ angular.module('graffitiApp')
   function(graffiti){
     var o = {
       loading: true,
+      showMarkers: false,
       maps: {},
       markers: []
     };
@@ -15,7 +16,6 @@ angular.module('graffitiApp')
     var queens = new google.maps.LatLng(40.736871, -73.882369);
     var sv = new google.maps.StreetViewService();
     var panorama;
-    var markersVisible = false;
     //add getList and getGeocded
     o.addMap = function (mapId) {
       mapOptions = {
@@ -100,7 +100,7 @@ angular.module('graffitiApp')
       for (var i = 0; i < o.markers.length; i++) {
         o.markers[i].setMap(__map);
       }
-      markersVisible = __map == null ? false : true;
+      o.showMarkers = __map == null ? false : true;
     };
     o.plotMarker = function(marker, __map) {
       marker.setMap(__map);
@@ -110,12 +110,12 @@ angular.module('graffitiApp')
       marker.setVisible(false);
     };
     o.toggleMarkers = function () {
-      if (markersVisible == true) {
+      if (o.showMarkers == true) {
         o.plotMarkers(null);
-        markersVisible = false;
+        o.showMarkers = false;
       } else {
         o.plotMarkers(map);
-        markersVisible = true;
+        o.showMarkers = true;
       }
     };
     o.fetchMarker = function(lat, option) {
@@ -178,20 +178,12 @@ angular.module('graffitiApp')
       $('#map-canvas').on("dblclick", function () {
         if (i < 1) {
           o.plotMarkers(null);
-          markersVisible = false;
+          o.showMarkers = false;
         } else {
           o.plotMarkers(map);
-          markersVisible = true;
+          o.showMarkers = true;
         }
         i++;
-      });
-
-      $(document).on('click', '#markers', function() {
-        o.toggleMarkers();
-      });
-
-      $(document).on('click', '#heat', function() {
-        heatmap.heatmap._renderer.toggle();
       });
     });
   return o;

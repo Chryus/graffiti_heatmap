@@ -12,30 +12,30 @@
 
 .map-button {
   position: absolute;
-  margin-left: 25%;
+  margin-left: 37%;
   z-index: 1;
   margin-top: -41%;
   @media only screen and (min-width: 550px) {
-    margin-left: 33%;
+    margin-left: 42%;
   }
   @media only screen and (min-width: 600px) {
-    margin-left: 39%;
-  }
-  @media only screen and (min-width: 700px) {
-    margin-left: 43%;
-  }
-  @media only screen and (min-width: 796px) {
     margin-left: 48%;
   }
+  @media only screen and (min-width: 700px) {
+    margin-left: 52%;
+  }
+  @media only screen and (min-width: 796px) {
+    margin-left: 58%;
+  }
   @media only screen and (min-width: 1000px) {
-    margin-left: 143%;
+    margin-left: 156%;
     margin-top: 7%;
   }
   @media only screen and (min-width: 1060px) {
-    margin-left: 148%;
+    margin-left: 164%;
   }
   @media only screen and (min-width: 1289px) {
-    margin-left: 157%;
+    margin-left: 172%;
   }
 }
 

@@ -1,0 +1,15 @@
+<div class="info">
+  <header>
+    <h3>graffito</h3>
+    <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(graffito)"></span>
+    <span>{{graffito.upvotes}}</span>
+    <button class="btn btn-primary btn-custom map-button hidden-xs" type="button" ng-show="streetviewOpen" id="saveStreetview" ng-click="saveStreetviewPOV(graffito)">Save Position</button>
+  <br><br><br><br>
+  <ul class="address" ng-click="getStreetviewPanorama(graffito.latitude)">
+    <li>Address: {{graffito.address}}</li>
+    <li>Borough: {{graffito.borough}}</li>
+    <li>Latitude: {{graffito.latitude}}</li>
+    <li>Longitude: {{graffito.longitude}}</li>
+  </ul>
+  <button id="backButton" class="btn btn-primary btn-custom" type="button" ng-click="goBack(graffito)">Back</button>
+</div>

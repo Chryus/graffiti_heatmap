@@ -21,7 +21,13 @@ class ApplicationController < ActionController::Base
     render 'layouts/application'
   end
 
-  private
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :email, :password, :password_confirmation])
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:login, :password, :password_confirmation])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :email, :password, :password_confirmation, :current_password])
+  end
 
   def current_user
     @current_user = super || (User.find(session[:user_id]) if session[:user_id])
@@ -29,9 +35,5 @@ class ApplicationController < ActionController::Base
 
   def verified_request?
     super || valid_authenticity_token?(session, request.headers['X-XSRF-TOKEN'])
-  end
-
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
   end
 end

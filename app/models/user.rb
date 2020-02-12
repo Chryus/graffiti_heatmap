@@ -1,15 +1,23 @@
-class User < ActiveRecord::Base  
+class User < ActiveRecord::Base
+  attr_accessor :login
+
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, 
-         :trackable, :validatable
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
   has_many :comments
   has_many :graffiti_through_uploads, foreign_key: "user_id", class_name: "Graffiti"
   has_many :upvotes
   has_many :graffiti_through_upvotes, through: :upvotes,
-                                      :class_name => 'Graffiti', 
+                                      :class_name => 'Graffiti',
                                       :foreign_key => 'graffiti_id',
                                       :source => :graffiti
+
+  def self.find_for_database_authentication warden_conditions
+    conditions = warden_conditions.dup
+    login = conditions.delete(:login)
+    where(conditions).where(["lower(username) = :value OR lower(email) = :value", {value: login.strip.downcase}]).first
+  end
 
   def self.from_facebook(provider, user_info, access_token, expires_at)
     User.where(uid: user_info['id']).first_or_initialize.tap do |user|

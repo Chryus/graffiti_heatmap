@@ -28,7 +28,6 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           controller: 'MainCtrl',
           onEnter: function() {
             angular.element(".gm-iv-back-icon").click(); // close streetview
-            angular.element('#map-canvas').show(); // show map
             angular.element('body').css('overflow', 'visible'); // make sure you can scroll
 
           }
@@ -52,10 +51,9 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           controller: 'UsersCtrl',
           onEnter: ['$state', 'Auth', '$auth', 'graffiti', function($state, Auth, $auth, graffiti) {
             $(".gm-iv-back-icon").click() // close streetview
-            $("#map-canvas").show();
             // go home is no user or graffiti is empty
-            if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) { 
-              $state.go('login'); 
+            if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) {
+              $state.go('login');
             } else if (graffiti.graffiti.length == 0) { $state.go('home') }
           }],
           // must fetch user again so it updates favorites
@@ -71,7 +69,6 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           controller: 'GalleryCtrl',
           onEnter: function() {
             angular.element(".gm-iv-back-icon").click(); // close streetview
-            angular.element('#map-canvas').hide(); // hide map
           }
         })
         .state('gallery', {
@@ -80,10 +77,9 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           controller: 'GalleryCtrl',
           onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
             angular.element(".gm-iv-back-icon").click(); // close streetview
-            angular.element('#map-canvas').hide(); // hide map
             // go home if user isn't authenticated
-            if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) { 
-              $state.go('login'); 
+            if ((Auth.isAuthenticated() != true && $auth.isAuthenticated() != true)) {
+              $state.go('login');
             }
           }],
           // must fetch user again so it updates gallery
@@ -99,7 +95,6 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           controller: 'UploadsCtrl',
           onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
             angular.element(".gm-iv-back-icon").click(); // close streetview
-            angular.element('#map-canvas').hide(); // hide map
           }]
         })
         .state('login', {
@@ -107,9 +102,8 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           templateUrl: 'auth/_login.html',
           controller: 'AuthCtrl',
           onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
-            if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) { 
+            if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) {
               return $state.go('home'); }
-            angular.element('#map-canvas').hide(); // hide map
           }]
         })
         .state('register', {
@@ -117,9 +111,8 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           templateUrl: 'auth/_register.html',
           controller: 'AuthCtrl',
           onEnter: ['$state', 'Auth', '$auth', function($state, Auth, $auth) {
-            $("#map-canvas").hide();
-            if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) { 
-              $state.go('home'); 
+            if ((Auth.isAuthenticated() == true || $auth.isAuthenticated() == true)) {
+              $state.go('home');
             }
           }]
         })
@@ -127,9 +120,6 @@ angular.module('graffitiApp', ['ui.router', 'templates', 'Devise', 'satellizer',
           url: '/mgmt',
           templateUrl: 'mgmt/_mgmt.html',
           controller: 'MgmtCtrl',
-          onEnter: function() {
-            angular.element('#map-canvas').hide(); // hide map
-          }
         })
       $urlRouterProvider.otherwise('home');
       // store referrer for each request

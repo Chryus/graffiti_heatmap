@@ -1,4 +1,4 @@
-# lib/omniauth/facebook.rb
+# services/omniauth/facebook.rb
 
 require 'httparty'
 

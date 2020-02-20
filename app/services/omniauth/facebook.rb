@@ -7,7 +7,7 @@ module Omniauth
     include HTTParty
 
     # The base uri for facebook graph API
-    base_uri 'https://graph.facebook.com/v2.5'
+    base_uri 'https://graph.facebook.com/v3.2'
 
     # Used to authenticate app with facebook user
     # Usage

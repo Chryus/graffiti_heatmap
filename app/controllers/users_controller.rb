@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     user_info, access_token, expires_at = Omniauth::Facebook.authenticate(params['code'])
     user = User.from_facebook('facebook', user_info, access_token, expires_at)
     session[:user_id] = user.id
-    render json: user 
+    render json: user
   end
 
   def facebook_callback
